@@ -40,6 +40,8 @@ public class Order {
     @Enumerated(EnumType.STRING)
     private OrderStatus orderStatus;
 
+    @Embedded //내장타입으로 매핑
+    private Address orderAddress;
 
 
 }

@@ -23,6 +23,7 @@ public class Cart {
     @JoinColumn(name = "order_product_id")
     private OrderItem orderItem;
 
+
     @Column(name="cart_total_price")
     private int price;
 
