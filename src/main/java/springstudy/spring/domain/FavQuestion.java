@@ -18,7 +18,7 @@ public class FavQuestion {
 
     private String favQuestionContent;
 
-    //연관관계 주인x, 1:1 양방
+    //연관관계 주인x, 1:1 양방향
     //1번(수정) - cascade는 상태변이가 전파되므로 주체인 favQuestion에서 해야 함.
     @OneToOne(mappedBy = "favQuestion", cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private FavAnswer favAnswer;
