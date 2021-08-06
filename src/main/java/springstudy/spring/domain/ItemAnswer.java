@@ -23,7 +23,7 @@ public class ItemAnswer {
 
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_num")
     private User user;
 
     // OneToOne 연관관계의 주인인 ItemAnswer에서 JoinColumn 어노테이션 추가.
