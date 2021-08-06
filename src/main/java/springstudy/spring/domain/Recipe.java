@@ -17,14 +17,15 @@ public class Recipe {
     private Long id;
     private String recipe_content;
     private Integer recipe_date;
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    //
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")       // 레시피-카테고리 다대일관계
     private CategoryRecipe recipe_category;
 
     @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL)
     private List<Comment> commentList = new ArrayList<>();
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY) // 레시피 - 유저 다대일
+    @ManyToOne(fetch = FetchType.LAZY) // 레시피 - 유저 다대일
     @JoinColumn(name = "user_num")
     private User user;              // user 받아와야함
 
