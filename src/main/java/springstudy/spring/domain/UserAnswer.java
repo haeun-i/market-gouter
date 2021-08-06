@@ -18,7 +18,7 @@ public class UserAnswer {
     @Id
     @GeneratedValue
     @Column(name = "user_answer_id")
-    private Long id; //PK
+    private Long id;  //PK
 
     private String userAnswerContent;
 

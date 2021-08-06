@@ -15,7 +15,7 @@ public class UserQuestion{
     @Column(name = "user_question_id") //pk
     private Long id;
 
-    //다대일 (연관관계 주인ㅇ)
+    //다대일 (연관관계 주인ㅇ )
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_num") //FK
     private User user;

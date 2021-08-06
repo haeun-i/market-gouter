@@ -60,7 +60,7 @@ public class User {
     @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
     private List<Order> orders = new ArrayList<>();
 
-    //(유성님)
+    //(유성님 )
     @OneToMany(mappedBy="user",cascade = CascadeType.ALL)
     private List<Comment> comments = new ArrayList<>();
 
