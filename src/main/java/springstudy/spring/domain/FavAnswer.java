@@ -19,6 +19,7 @@ public class FavAnswer {
 
     private String favAnswerContent;
 
+    //1:1 양방향
     @OneToOne( fetch = LAZY)
     @JoinColumn(name="fav_question_id")
     private FavQuestion favQuestion;

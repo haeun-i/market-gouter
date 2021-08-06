@@ -15,7 +15,7 @@ public class UserQuestion{
     @Column(name = "user_question_id") //pk
     private Long id;
 
-    //다대일 단방향
+    //다대일 (연관관계 주인)
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_num") //FK
     private User user;
@@ -25,8 +25,8 @@ public class UserQuestion{
 
     private LocalDateTime userQuestionDate;
 
-    //연관관계 주인x
+    //양방향 , 연관관계 주인x
     //UserQuestion과 UserAnswer 사이
-    @OneToOne(mappedBy = "userQuestion", fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "userQuestion",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private UserAnswer userAnswer;
 }

@@ -26,7 +26,7 @@ public class UserAnswer {
     private LocalDateTime userAnswerDate;
 
 
-    //1:1 단방향관계
+    //1:1 양방향관계
     @OneToOne( fetch = LAZY)
     @JoinColumn(name = "user_question_id")
     private UserQuestion userQuestion;
