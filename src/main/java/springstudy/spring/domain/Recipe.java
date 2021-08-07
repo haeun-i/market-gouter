@@ -10,6 +10,7 @@ import java.util.function.LongBinaryOperator;
 
 @Entity
 @Getter @Setter
+@Table(name = "Recipe")
 public class Recipe {
     @Id @GeneratedValue
     @Column(name = "recipe_id")       // recipe table의 타입이 없어 구분을 위함
@@ -17,10 +18,9 @@ public class Recipe {
     private Long id;
     private String recipe_content;
     private Integer recipe_date;
-    //
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")       // 레시피-카테고리 다대일관계
-    private CategoryRecipe recipe_category;
+    private CategoryRecipe category_recipe;
 
     @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL)
     private List<Comment> commentList = new ArrayList<>();
@@ -29,6 +29,32 @@ public class Recipe {
     @JoinColumn(name = "user_num")
     private User user;              // user 받아와야함
 
-    private String recipe_image;  //타입 재설정 필요
+    //private String recipe_image;  //타입 재설정 필요
     private Integer view_num;
+
+    //연관관계 매서드
+    public void setCategoryRecipe(CategoryRecipe categoryRecipe){
+        this.category_recipe = categoryRecipe;
+        categoryRecipe.setRecipe(this);
+    }
+    public void setUser(User user){
+        this.user = user;
+        user.setRecipe(this);
+    }
+    public void addComment(Comment comment){
+        commentList.add(comment);
+        comment.setRecipe(this);
+    }
+
+    //생성 매서드
+    public static Recipe CreateRecipe(String content, int date, CategoryRecipe category, User user, int view_num){
+        Recipe recipe = new Recipe();
+        recipe.setRecipe_content(content);
+        recipe.setRecipe_date(date);
+        recipe.setCategoryRecipe(category);
+        recipe.setUser(user);
+        recipe.setView_num(view_num);
+        return recipe;
+    }
+
 }
