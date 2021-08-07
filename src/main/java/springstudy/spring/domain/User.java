@@ -52,9 +52,9 @@ public class User {
     @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
     private List<ItemAnswer> itemAnswers = new ArrayList<>();
 
-    //(민겸)양방향
-    @OneToOne(mappedBy = "user",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Cart cart;
+    //(민겸)양방향 -> 수정 OneToMany와 ManyToOne 관계
+    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Cart> carts = new ArrayList<>();
 
     //(하은)
     @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
