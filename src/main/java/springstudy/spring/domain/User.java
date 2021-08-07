@@ -61,7 +61,7 @@ public class User {
     private List<Order> orders = new ArrayList<>();
 
     //(유성님 )
-    @OneToMany(mappedBy="user",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy="user", cascade = CascadeType.ALL)
     private List<Comment> comments = new ArrayList<>();
 
     //(민겸님)
