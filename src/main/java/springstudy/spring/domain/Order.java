@@ -44,4 +44,19 @@ public class Order {
     private Address orderAddress;
 
 
+    public void setMember(User user) {
+        this.user = user;
+        user.getOrders().add(this);
+    }
+
+    public void setDelivery(Delivery delivery) {
+        this.delivery = delivery;
+        delivery.setOrder(this);
+    }
+
+    public void setPayment(Payment payment) {
+        this.payment = payment;
+        payment.setOrder(this);
+    }
+
 }
