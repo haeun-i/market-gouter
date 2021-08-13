@@ -16,10 +16,6 @@ public class RecipeRepository {
    // @PersistenceContext   // 스프링이 em 만들어서 주입해줌
     private final EntityManager em;
 
-//    public void save(Recipe recipe){   // 레시피 작성
-//        em.persist(recipe);
-//    }
-
     public void save(Recipe recipe){    // 레시피 작성
         if (recipe.getId() == null){
             em.persist(recipe);
@@ -28,7 +24,7 @@ public class RecipeRepository {
         }
     }
 
-    public Recipe findRecipe(Long id){     // 레시피 검색
+    public Recipe findById(Long id){     // 레시피 검색
         return em.find(Recipe.class, id);
     }
 
@@ -39,8 +35,8 @@ public class RecipeRepository {
     }
 
     public List<Recipe> findByCategory(CategoryRecipe category){   // 카테고리에 의한 검색
-        return em.createQuery("select m from Recipe m where m.recipe_category = :recipe_catagory", Recipe.class)
-                .setParameter("recipe_catagory", category)
+        return em.createQuery("select m from Recipe m where m.category_recipe = :category_recipe", Recipe.class)
+                .setParameter("category_recipe", category)
                 .getResultList();
     }
 

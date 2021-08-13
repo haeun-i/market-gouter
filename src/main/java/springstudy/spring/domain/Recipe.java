@@ -18,6 +18,9 @@ public class Recipe {
     private Long id;
     private String recipe_content;
     private Integer recipe_date;
+    @Enumerated(EnumType.STRING)    // .origin이 기본, string으로 넣어야 나중에 오류 방지
+    private RecipeStatus status; // recipe, cancel
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")       // 레시피-카테고리 다대일관계
     private CategoryRecipe category_recipe;
@@ -37,16 +40,16 @@ public class Recipe {
         this.category_recipe = categoryRecipe;
         categoryRecipe.setRecipe(this);
     }
-    public void setUser(User user){
+    public void setMember(User user){
         this.user = user;
-        user.setRecipe(this);
+        user.getRecipes.add(this);
     }
     public void addComment(Comment comment){
         commentList.add(comment);
         comment.setRecipe(this);
     }
 
-    //생성 매서드
+    //생성 매서드     레시피 글 작성
     public static Recipe CreateRecipe(String content, int date, CategoryRecipe category, User user, int view_num){
         Recipe recipe = new Recipe();
         recipe.setRecipe_content(content);
@@ -55,6 +58,10 @@ public class Recipe {
         recipe.setUser(user);
         recipe.setView_num(view_num);
         return recipe;
+    }
+
+    public void cancel(){
+        this.setStatus(RecipeStatus.CANCEL);
     }
 
 }

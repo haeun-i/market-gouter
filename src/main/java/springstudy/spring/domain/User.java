@@ -32,8 +32,6 @@ public class User {
     private Address userAddress;
 
 
-
-
     //4번 수정 -> OneToOne 같은 경우에 그대로 필드를 가져다 씀, 그 외에 list타입으로
     //우선 전체적으로 양방향으로 가정하고 쓰기
     //(다빈)양방향
@@ -52,23 +50,21 @@ public class User {
     @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
     private List<ItemAnswer> itemAnswers = new ArrayList<>();
 
-    //(민겸)양방향
-    @OneToOne(mappedBy = "user",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Cart cart;
+    //(민겸)양방향 -> 수정 OneToMany와 ManyToOne 관계
+    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Cart> carts = new ArrayList<>();
 
     //(하은)
     @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
     private List<Order> orders = new ArrayList<>();
 
-    //(유성)
-    @OneToMany(mappedBy="user",cascade = CascadeType.ALL)
+    //(유성님 )
+    @OneToMany(mappedBy="user", cascade = CascadeType.ALL)
     private List<Comment> comments = new ArrayList<>();
 
-    //(민겸)
+    //(민겸님)
     @OneToMany(mappedBy = "review", cascade = CascadeType.ALL)
-    private List<Review> rivews = new ArrayList<>();
-
-
+    private List<Review> reviews = new ArrayList<>();
 
 
 }
