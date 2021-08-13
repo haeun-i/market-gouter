@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import springstudy.spring.domain.Cart;
 import springstudy.spring.domain.Item;
+import springstudy.spring.domain.OrderItem;
 import springstudy.spring.repository.CartRepository;
 
 import java.util.List;
@@ -18,23 +19,48 @@ public class CartService {
     private final ItemRepository itemRepository;
     private final CartRepository cartRepository;
 
-    //==장바구니 추가==//
     @Transactional
     public void addCart(Long userId, Long itemId, String option, int count) {
         User user = userRepository.findOne(userId);
         Item item = itemRepository.findOne(itemId);
 
-        Cart cart = Cart.createCart(user, item, count, option);
+        Cart cart = Cart.createCart(user, item, option, count);
 
         cartRepository.save(cart);
     }
 
-    @Transactional
-    public void deleteCart(Long cartId) {
-        cartRepository.delete(cartId);
+    public void modifyCartCount(Long userId, Long itemId, int count){
+        // 변경감지 적용되는지 테스트 필요 -> 트랜잭션 추가
+        List<Cart> carts = findCarts(userId);
+        for(Cart cart : carts){
+            if (cart.getItem().getId() == itemId){
+                cart.setCount(count);
+            }
+        }
     }
 
-    public List<Cart> Cartlist(Long memberId){
+    public void modifyCartOption(Long userId, Long itemId, String option){
+        // 변경감지 적용되는지 테스트 필요 -> 트랜잭션 추가
+        List<Cart> carts = findCarts(userId);
+        for(Cart cart : carts){
+            if (cart.getItem().getId() == itemId){
+                cart.setOption(option);
+            }
+        }
+    }
+
+
+    @Transactional
+    public void deleteCart(Long userId, Long itemId) {
+        List<Cart> carts = findCarts(userId);
+        for(Cart cart : carts){
+            if (cart.getItem().getId() == itemId){
+                cartRepository.delete(cart.getId());
+            }
+        }
+    }
+
+    public List<Cart> findCarts(Long memberId){
         return cartRepository.findAll(memberId);
     }
 

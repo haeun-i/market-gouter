@@ -20,7 +20,7 @@ public class CartRepository {
         return em.find(Cart.class, id);
     }
 
-    public List<Cart> findAll(Long usernum){ // 유저의 카트 전체조회
+    public List<Cart> findAll(Long usernum){
         return em.createQuery("select c from Cart c where c.user_num = :user_num",
                 Cart.class)
                 .setParameter("user_num", usernum)

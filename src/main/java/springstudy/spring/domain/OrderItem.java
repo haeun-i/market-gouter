@@ -30,9 +30,6 @@ public class OrderItem {
     @Column(name="item_count")
     private int count;
 
-    @ManyToOne(mappedBy = "cart", fetch = FetchType.LAZY)
-    private Cart cart;
-
     public static OrderItem createOrderItem(Item item, int count, String option){
         OrderItem orderItem = new OrderItem();
         orderItem.setItem(item);
