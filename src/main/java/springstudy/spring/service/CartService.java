@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 import springstudy.spring.domain.Cart;
 import springstudy.spring.domain.Item;
 import springstudy.spring.domain.OrderItem;
+import springstudy.spring.domain.User;
 import springstudy.spring.repository.CartRepository;
 
 import java.util.List;
@@ -20,8 +21,8 @@ public class CartService {
     private final CartRepository cartRepository;
 
     @Transactional
-    public void addCart(Long userId, Long itemId, String option, int count) {
-        User user = userRepository.findOne(userId);
+    public void addCart(Long userNum, Long itemId, String option, int count) {
+        User user = userRepository.findOne(userNum);
         Item item = itemRepository.findOne(itemId);
 
         Cart cart = Cart.createCart(user, item, option, count);
@@ -29,39 +30,24 @@ public class CartService {
         cartRepository.save(cart);
     }
 
-    public void modifyCartCount(Long userId, Long itemId, int count){
+    public void modifyCartCount(Long cartId, int count){
         // 변경감지 적용되는지 테스트 필요 -> 트랜잭션 추가
-        List<Cart> carts = findCarts(userId);
-        for(Cart cart : carts){
-            if (cart.getItem().getId() == itemId){
-                cart.setCount(count);
-            }
-        }
+        Cart cart = findCart(cartId);
+        cart.setCount(count);
     }
 
-    public void modifyCartOption(Long userId, Long itemId, String option){
+    public void modifyCartOption(Long cartId, String option){
         // 변경감지 적용되는지 테스트 필요 -> 트랜잭션 추가
-        List<Cart> carts = findCarts(userId);
-        for(Cart cart : carts){
-            if (cart.getItem().getId() == itemId){
-                cart.setOption(option);
-            }
-        }
+        Cart cart = findCart(cartId);
+        cart.setOption(option);
     }
 
 
     @Transactional
-    public void deleteCart(Long userId, Long itemId) {
-        List<Cart> carts = findCarts(userId);
-        for(Cart cart : carts){
-            if (cart.getItem().getId() == itemId){
-                cartRepository.delete(cart.getId());
-            }
-        }
-    }
+    public void deleteCart(Long cartId) { cartRepository.delete(cartId); }
 
-    public List<Cart> findCarts(Long memberId){
-        return cartRepository.findAll(memberId);
+    public List<Cart> findCarts(Long userNum){
+        return cartRepository.findAll(userNum);
     }
 
     public Cart findCart(Long cartId){

@@ -20,9 +20,9 @@ public class OrderService {
     private final OrderRepository orderRepository;
 
     @Transactional
-    public Long createOrder(Long userId, Long[] cartIdList, int count, Address address, String pay) {
+    public Long createOrder(Long userNum, Long[] cartIdList, Address address, String pay) {
 
-        User user = userRepository.findOne(userId);
+        User user = userRepository.findOne(userNum);
         List<OrderItem> orderitems = new ArrayList<>();
 
         Delivery delivery = new Delivery();
@@ -52,7 +52,7 @@ public class OrderService {
         orderRepository.delete(order);
     }
 
-    public List<Order> findOrders(Long userId){
-        return orderRepository.findAll(userId);
+    public List<Order> findOrders(Long userNum){
+        return orderRepository.findAll(userNum);
     }
 }

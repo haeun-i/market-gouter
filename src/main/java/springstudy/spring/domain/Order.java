@@ -66,6 +66,7 @@ public class Order {
         order.setDelivery(delivery);
         for(OrderItem orderItem : orderItems){
             order.addOrderItem(orderItem);
+            order.orderTotalPrice += orderItem.getItem().getItemPrice();
         }
         order.setOrderStatus(OrderStatus.ORDER);
         order.setOrderDate(LocalDateTime.now());
