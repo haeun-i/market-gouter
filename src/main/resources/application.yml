@@ -1,0 +1,11 @@
+cloud:
+  aws:
+    credentials:
+      access-key : AKIAVKBKNUNBXAAATZ6G
+      secret-key: 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
+    s3:
+      bucket: itemimagebucket
+    region:
+      static: ap-northeast-2
+    stack:
+      auto: false
