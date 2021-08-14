@@ -42,7 +42,7 @@ public class Recipe {
     }
     public void setMember(User user){
         this.user = user;
-        user.getRecipes.add(this);
+        user.getRecipes().add(this);
     }
     public void addComment(Comment comment){
         commentList.add(comment);

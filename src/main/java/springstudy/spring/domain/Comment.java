@@ -18,6 +18,8 @@ public class Comment {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "recipe_id")
     private Recipe recipe;
+    @Enumerated(EnumType.STRING)    // .origin이 기본, string으로 넣어야 나중에 오류 방지
+    private CommentStatus status; // recipe, cancel
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_num")
@@ -27,5 +29,9 @@ public class Comment {
         Comment comment = new Comment();
         comment.SetDate(recipe_date);
         comment.SetContents(contents);
+    }
+
+    public void cancel(){
+        this.setStatus(CommentStatus.CANCEL);
     }
 }
