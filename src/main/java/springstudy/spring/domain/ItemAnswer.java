@@ -30,4 +30,5 @@ public class ItemAnswer {
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "item_question_id")
     private ItemQuestion itemQuestion;
+
 }
