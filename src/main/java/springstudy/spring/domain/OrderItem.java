@@ -30,6 +30,17 @@ public class OrderItem {
     @Column(name="item_count")
     private int count;
 
-    @OneToMany(mappedBy = "cart", fetch = FetchType.LAZY)
-    private List<Cart> Cart = new ArrayList<>();
+    public static OrderItem createOrderItem(Item item, int count, String option){
+        OrderItem orderItem = new OrderItem();
+        orderItem.setItem(item);
+        orderItem.setCount(count);
+        orderItem.setOption(option);
+
+        item.removeStock(count);
+        return orderItem;
+    }
+
+    public void cancelOrderItem(){
+        getItem().addStock(count);
+    }
 }
