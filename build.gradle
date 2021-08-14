@@ -35,9 +35,28 @@ dependencies {
 	compile 'org.springframework.boot:spring-boot-starter-jdbc'
 	compile 'mysql:mysql-connector-java'
 
+
 	/* Mybatis */
 	compile group: 'org.mybatis.spring.boot', name: 'mybatis-spring-boot-starter', version: '2.1.4'
 	compile group: 'org.mybatis', name: 'mybatis',version: '3.5.1'
+
+	/* AWS S3 */
+	compile 'org.springframework.cloud:spring-cloud-starter-aws:2.0.1.RELEASE'
+	implementation group: 'org.springframework.cloud', name: 'spring-cloud-aws-autoconfigure', version: '2.2.6.RELEASE'
+	compile("org.springframework.cloud:spring-cloud-aws-context:2.4.9")
+	compile("org.springframework.cloud:spring-cloud-aws-autoconfigure:2.4.9")
+
+	implementation platform('com.amazonaws:aws-java-sdk-bom:1.11.1000')
+	implementation 'com.amazonaws:aws-java-sdk-s3'
+
+	testImplementation('org.springframework.boot:spring-boot-starter-test'){
+		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+	}
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+	implementation 'org.springframework.cloud:spring-cloud-starter-aws'
+	implementation 'org.springframework.cloud:spring-cloud-starter-aws-messaging'
+	implementation 'org.springframework.cloud:spring-cloud-starter-aws-parameter-store-config'
 }
 
 test {

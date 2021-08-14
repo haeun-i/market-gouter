@@ -35,8 +35,6 @@ public class User {
     private Address userAddress;
 
 
-
-
     //4번 수정 -> OneToOne 같은 경우에 그대로 필드를 가져다 씀, 그 외에 list타입으로
     //우선 전체적으로 양방향으로 가정하고 쓰기
     //(다빈)양방향
@@ -70,8 +68,6 @@ public class User {
     //(민겸님)
     @OneToMany(mappedBy = "review", cascade = CascadeType.ALL)
     private List<Review> reviews = new ArrayList<>();
-
-
 
 
 }

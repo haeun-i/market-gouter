@@ -3,10 +3,8 @@ package springstudy.spring.repository;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
-import springstudy.spring.domain.User;
 
 import javax.persistence.EntityManager;
-import java.util.List;
 
 
 @Repository //자동으로 관리대상인 스프링 빈으로 등록
