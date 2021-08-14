@@ -9,12 +9,11 @@ import java.sql.Blob;
 import java.util.ArrayList;
 import java.util.List;
 
-import static lombok.AccessLevel.PROTECTED;
 
 @Entity
 @Table(name = "item")
 @Getter @Setter
-@NoArgsConstructor(access = PROTECTED)
+@NoArgsConstructor
 public class Item {
     @Id @GeneratedValue
     @Column(name = "item_id")
@@ -26,7 +25,6 @@ public class Item {
     @Column(length = 100000)
     private byte[] itemImage;
     // byte배열로 Blob 타입의 itemImage 필드 생성
-
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")
