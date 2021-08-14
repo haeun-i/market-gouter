@@ -17,14 +17,11 @@ public class Item {
 
     private String itemName;
 
-<<<<<<< HEAD
     @Lob
     @Column(length = 100000)
     private byte[] itemImage;
     // byte배열로 Blob 타입의 itemImage 필드 생성
-=======
-    private String itemImage;
->>>>>>> Mingyeom
+
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")
@@ -63,3 +60,4 @@ public class Item {
     @JoinColumn(name = "category_id")
     private CategoryItem categoryItem;
 }
+
