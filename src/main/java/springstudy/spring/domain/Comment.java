@@ -25,10 +25,13 @@ public class Comment {
     @JoinColumn(name = "user_num")
     private User user;
 
-    public static Comment createComment(String contents, int recipe_date, int recipe_id, User user){
+    public static Comment createComment(String contents, int recipe_date, Recipe recipe_id, User user){
         Comment comment = new Comment();
-        comment.SetDate(recipe_date);
-        comment.SetContents(contents);
+        comment.setComment_contents(contents);
+        comment.setRecipe_date(recipe_date);
+        comment.setRecipe(recipe_id);
+        comment.setUser(user);
+        return comment;
     }
 
     public void cancel(){
