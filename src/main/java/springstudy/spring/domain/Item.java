@@ -1,20 +1,15 @@
 package springstudy.spring.domain;
 
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.sql.Blob;
 import java.util.ArrayList;
 import java.util.List;
-
-import static lombok.AccessLevel.PROTECTED;
 
 @Entity
 @Table(name = "item")
 @Getter @Setter
-@NoArgsConstructor(access = PROTECTED)
 public class Item {
     @Id @GeneratedValue
     @Column(name = "item_id")
@@ -22,10 +17,14 @@ public class Item {
 
     private String itemName;
 
+<<<<<<< HEAD
     @Lob
     @Column(length = 100000)
     private byte[] itemImage;
     // byte배열로 Blob 타입의 itemImage 필드 생성
+=======
+    private String itemImage;
+>>>>>>> Mingyeom
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")
@@ -37,7 +36,7 @@ public class Item {
 
     private String itemIntro;
 
-    private Long itemPrice;
+    private String itemPrice;
 
     private String itemDescription;
 
