@@ -17,7 +17,6 @@ public class MySQLConnectionTest {
         }
         catch(Exception e){
             System.out.println(e);
-
         }
     }
 }

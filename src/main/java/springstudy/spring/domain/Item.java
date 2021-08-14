@@ -9,11 +9,12 @@ import java.sql.Blob;
 import java.util.ArrayList;
 import java.util.List;
 
+import static lombok.AccessLevel.PROTECTED;
 
 @Entity
 @Table(name = "item")
 @Getter @Setter
-@NoArgsConstructor
+@NoArgsConstructor(access = PROTECTED)
 public class Item {
     @Id @GeneratedValue
     @Column(name = "item_id")

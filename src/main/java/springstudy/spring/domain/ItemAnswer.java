@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class ItemAnswer {
     @Id @GeneratedValue
-    @Column("item_answer_id")
+    @Column(name = "item_answer_id")
     private Long id;
 
     private String itemAnswerContent;
