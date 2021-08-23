@@ -1,20 +1,15 @@
 package springstudy.spring.domain;
 
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.sql.Blob;
 import java.util.ArrayList;
 import java.util.List;
-
-import static lombok.AccessLevel.PROTECTED;
 
 @Entity
 @Table(name = "item")
 @Getter @Setter
-@NoArgsConstructor(access = PROTECTED)
 public class Item {
     @Id @GeneratedValue
     @Column(name = "item_id")
@@ -38,7 +33,7 @@ public class Item {
 
     private String itemIntro;
 
-    private Long itemPrice;
+    private String itemPrice;
 
     private String itemDescription;
 
@@ -65,3 +60,4 @@ public class Item {
     @JoinColumn(name = "category_id")
     private CategoryItem categoryItem;
 }
+

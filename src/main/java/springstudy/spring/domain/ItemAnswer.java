@@ -9,12 +9,12 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "itme_answer")
+@Table(name = "item_answer")
 @Getter @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class ItemAnswer {
     @Id @GeneratedValue
-    @Column("item_answer_id")
+    @Column(name = "item_answer_id")
     private Long id;
 
     private String itemAnswerContent;
@@ -30,4 +30,5 @@ public class ItemAnswer {
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "item_question_id")
     private ItemQuestion itemQuestion;
+
 }
