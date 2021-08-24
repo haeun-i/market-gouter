@@ -3,6 +3,7 @@ package springstudy.spring.repository;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
+import springstudy.spring.domain.User;
 
 import javax.persistence.EntityManager;
 

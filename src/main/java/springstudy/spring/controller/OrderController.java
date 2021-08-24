@@ -17,17 +17,17 @@ import java.util.List;
 
 public class OrderController {
 
-    private final UserService userService;
+//    private final UserService userService;
     private final OrderService orderService;
     private final CartService cartService;
 
 
     @GetMapping(value = "/orders") // 주문내역 전체확인
     public String orderList(Model model) {
-        User user = userService.findUser();
-        List<Order> orders = orderService.findOrders(user.getUserNum());
-        model.addAttribute("user", user);
-        model.addAttribute("orders", orders);
+//        User user = userService.findUser();
+//        List<Order> orders = orderService.findOrders(user.getUserNum());
+//        model.addAttribute("user", user);
+//        model.addAttribute("orders", orders);
         return "order/orderList";
     }
 

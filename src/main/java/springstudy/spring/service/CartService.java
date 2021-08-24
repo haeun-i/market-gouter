@@ -3,11 +3,9 @@ package springstudy.spring.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import springstudy.spring.domain.Cart;
-import springstudy.spring.domain.Item;
-import springstudy.spring.domain.OrderItem;
-import springstudy.spring.domain.User;
+import springstudy.spring.domain.*;
 import springstudy.spring.repository.CartRepository;
+import springstudy.spring.repository.UserRepository;
 
 import java.util.List;
 
@@ -23,7 +21,7 @@ public class CartService {
     @Transactional
     public void addCart(Long userNum, Long itemId, String option, int count) {
         User user = userRepository.findOne(userNum);
-        Item item = itemRepository.findOne(itemId);
+        Item item = itemRepository.getOne(itemId);
 
         Cart cart = Cart.createCart(user, item, option, count);
 

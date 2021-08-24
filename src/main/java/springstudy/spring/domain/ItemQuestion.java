@@ -11,11 +11,13 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "Item_question")
 @Getter @Setter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor
 public class ItemQuestion {
     @Id @GeneratedValue
     @Column(name = "item_question_id")
     private Long id; // PK
+
+    private String itemQuestionContent;
 
     private LocalDateTime itemQuestionDate;
 
