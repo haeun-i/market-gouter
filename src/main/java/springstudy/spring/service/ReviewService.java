@@ -1,2 +1,4 @@
-package springstudy.spring.service;public class ReviewService {
+package springstudy.spring.service;
+
+public class ReviewService {
 }

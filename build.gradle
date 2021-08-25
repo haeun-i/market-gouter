@@ -24,6 +24,8 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.1.4'
+
+
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
@@ -32,9 +34,17 @@ dependencies {
 	compile 'mysql:mysql-connector-java'
 
 
+	//시큐리티
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation 'org.springframework.security:spring-security-test'
+	implementation 'io.jsonwebtoken:jjwt:0.9.1'
+	compile('org.springframework.boot:spring-boot-starter-security')
+
+
 	/* Mybatis */
 	compile group: 'org.mybatis.spring.boot', name: 'mybatis-spring-boot-starter', version: '2.1.4'
 	compile group: 'org.mybatis', name: 'mybatis',version: '3.5.1'
+
 
 	/* AWS S3 */
 	compile 'org.springframework.cloud:spring-cloud-starter-aws:2.0.1.RELEASE'

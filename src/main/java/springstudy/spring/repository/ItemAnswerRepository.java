@@ -1,2 +1,4 @@
-package springstudy.spring.repository;public class ItemAnswerRepository {
+package springstudy.spring.repository;
+
+public class ItemAnswerRepository {
 }

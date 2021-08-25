@@ -20,6 +20,6 @@ public class Payment {
     @Column(name = "payment_name")
     private String name;
 
-    @OneToOne(mappedBy = "order", fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "payment", fetch = FetchType.LAZY)
     private Order order;
 }

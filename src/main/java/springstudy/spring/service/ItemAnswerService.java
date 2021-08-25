@@ -1,2 +1,4 @@
-package springstudy.spring.service;public class ItemAnswerService {
+package springstudy.spring.service;
+
+public class ItemAnswerService {
 }

@@ -1,12 +1,14 @@
 package springstudy.spring.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import springstudy.spring.domain.Cart;
 import springstudy.spring.domain.User;
 import springstudy.spring.service.CartService;
+import springstudy.spring.service.UserService;
 
 import java.util.List;
 
@@ -18,8 +20,8 @@ public class CartController {
     private final CartService cartService;
 
     @GetMapping(value = "/cart") // 장바구니 목록 조회
-    public String orderList(Model model) {
-        User user = userServiece.findUser();
+    public String orderList(Model model, Long userNum) {
+        User user = userService.findByNum(userNum);
         List<Cart> carts = cartService.findCarts(user.getUserNum());
         model.addAttribute("carts", carts);
         return "page/cart";

@@ -1,2 +1,4 @@
-package springstudy.spring.service;public class CategoryItem {
+package springstudy.spring.service;
+
+public class CategoryItemService {
 }

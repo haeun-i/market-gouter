@@ -1,2 +1,4 @@
-package springstudy.spring.repository;public class ReviewRepository {
+package springstudy.spring.repository;
+
+public class ReviewRepository {
 }
