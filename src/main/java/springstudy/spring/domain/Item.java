@@ -10,6 +10,11 @@ import java.util.List;
 @Entity
 @Table(name = "item")
 @Getter @Setter
+<<<<<<< HEAD
+@NoArgsConstructor
+//@NoArgsConstructor(access = PROTECTED)
+=======
+>>>>>>> a403b8e45492a23620e47f84fb5ae2c94658411f
 public class Item {
     @Id @GeneratedValue
     @Column(name = "item_id")
@@ -59,5 +64,6 @@ public class Item {
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "category_id")
     private CategoryItem categoryItem;
+
 }
 

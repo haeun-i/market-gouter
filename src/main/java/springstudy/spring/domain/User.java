@@ -53,7 +53,7 @@ public class User implements UserDetails {
     @OneToMany(mappedBy="user",cascade = CascadeType.ALL)
     private List<Recipe> recipes = new ArrayList<>();
 
-    //(민겸)양방향?
+   //(민겸)양방향?
     @OneToMany(mappedBy="user",cascade = CascadeType.ALL)
     private List<ItemQuestion> itemQuestions = new ArrayList<>();
 
@@ -78,13 +78,12 @@ public class User implements UserDetails {
     private List<Review> reviews = new ArrayList<>();
 
 
-
-
     @ElementCollection(fetch = FetchType.EAGER)
     @Builder.Default
     private List<String> roles = new ArrayList<>();
 
     //권한은 회원당 여러개가 세팅될 수 있으므로 collection으로 선언
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return this.roles.stream()
@@ -101,8 +100,6 @@ public class User implements UserDetails {
     public String getUsername() {
         return userId;
     }
-
-
 
     @Override
     public boolean isAccountNonExpired() {

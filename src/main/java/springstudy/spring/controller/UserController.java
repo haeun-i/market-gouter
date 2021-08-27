@@ -7,7 +7,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import springstudy.spring.domain.User;
 import springstudy.spring.dto.LoginDto;
@@ -20,7 +19,6 @@ import springstudy.spring.security.JwtTokenProvider;
 import springstudy.spring.service.UserService;
 
 import javax.validation.Valid;
-import java.util.Map;
 
 @RequiredArgsConstructor
 @RestController
@@ -39,6 +37,7 @@ public class UserController {
         userService.signUp(userJoinDto);
         return new ResponseEntity(DefaultRes.res(StatusCode.UNAUTHORIZED,
                 ResponseMessage.CREATED_USER, userJoinDto), HttpStatus.OK);
+
     }
 
     // 로그인
@@ -48,6 +47,7 @@ public class UserController {
 
         //해당 user의 id가 존재하지 않는 경우
         if(member == null)
+
         if (!(passwordEncoder.matches(dto.getUserPassword(), member.getUserPassword()))) {
             throw new IllegalArgumentException("잘못된 비밀번호입니다.");
         }
