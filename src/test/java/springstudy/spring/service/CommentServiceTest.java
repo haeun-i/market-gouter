@@ -23,12 +23,10 @@ class CommentServiceTest {
 
     @Test
     public void 댓글작성() throws Exception{
-
         Comment comment = new Comment();
         Long commentId = commentService.join(comment);
         Comment comment1 = commentRepository.findById(commentId);
         assertEquals(CommentStatus.COMMENT, comment1.getStatus());
-
     }
 
     public void 댓글삭제() throws Exception{
