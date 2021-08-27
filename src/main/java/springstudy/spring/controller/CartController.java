@@ -18,10 +18,12 @@ public class CartController {
 
     private final UserService userService;
     private final CartService cartService;
-
+    
     @GetMapping(value = "/cart") // 장바구니 목록 조회
     public String orderList(Model model, Long userNum) {
         User user = userService.findByNum(userNum);
+
+
         List<Cart> carts = cartService.findCarts(user.getUserNum());
         model.addAttribute("carts", carts);
         return "page/cart";
