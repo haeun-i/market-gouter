@@ -52,8 +52,8 @@ public class Order {
         orderItem.setOrder(this);
     }
     public void setDelivery(Delivery delivery) {
-        this.delivery = delivery;
-        delivery.setOrder(this);
+//        this.delivery = delivery;
+//        delivery.setOrder(this);
     }
     public void setPayment(Payment payment) {
         this.payment = payment;
