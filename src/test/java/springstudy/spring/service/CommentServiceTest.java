@@ -7,7 +7,6 @@ import org.springframework.transaction.annotation.Transactional;
 import springstudy.spring.domain.Comment;
 import springstudy.spring.domain.CommentStatus;
 import springstudy.spring.repository.CommentRepository;
-
 import javax.persistence.EntityManager;
 
 import static org.junit.jupiter.api.Assertions.*;
