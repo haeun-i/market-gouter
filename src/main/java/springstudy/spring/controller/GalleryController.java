@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.multipart.MultipartFile;
 import springstudy.spring.dto.GalleryDto;
-import springstudy.spring.service.GalleryService;
 import springstudy.spring.service.S3Service;
 
 import java.io.IOException;

@@ -20,7 +20,7 @@ import java.util.Optional;
 public class CartService {
 
     private final UserRepository userRepository;
-    //private final ItemRepository itemRepository;
+    private final ItemRepository itemRepository;
     private final CartRepository cartRepository;
 
     @Transactional

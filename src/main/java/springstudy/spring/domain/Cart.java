@@ -43,7 +43,7 @@ public class Cart {
         cart.setUser(user);
         cart.setItem(item);
         cart.setCount(count);
-       // cart.setPrice(price);
+        cart.setPrice(price);
         cart.setOption(option);
 
         return cart;
