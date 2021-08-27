@@ -43,11 +43,14 @@ public class Recipe {
 
     //연관관계 매서드
     public void setCategoryRecipe(CategoryRecipe categoryRecipe){
-        this.category_recipe = categoryRecipe;
+        //this.category_recipe = categoryRecipe;
+        //categoryRecipe.setRecipe(this);
     }
+
     public void setMember(User user){
         this.user = user;
         user.getRecipes().add(this);
+
     }
     public void addComment(Comment comment){
         commentList.add(comment);

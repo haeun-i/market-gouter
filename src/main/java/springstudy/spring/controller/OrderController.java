@@ -1,9 +1,7 @@
 package springstudy.spring.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Repository;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import springstudy.spring.domain.Address;
@@ -11,7 +9,10 @@ import springstudy.spring.domain.Order;
 import springstudy.spring.domain.User;
 import springstudy.spring.service.CartService;
 import springstudy.spring.service.OrderService;
-import springstudy.spring.service.UserService;
+<<<<<<< HEAD
+import springstudy.spring.service.CustomUserDetailService;
+=======
+>>>>>>> 3502cf782a6a6c9b32e3bcebd18b297cc5eac7ab
 
 import java.util.List;
 @Controller
@@ -19,7 +20,7 @@ import java.util.List;
 
 public class OrderController {
 
-    private final UserService userService;
+    private final CustomUserDetailService userService;
     private final OrderService orderService;
     private final CartService cartService;
 

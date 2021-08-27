@@ -22,16 +22,19 @@ import java.util.stream.Collectors;
 
 public class User implements UserDetails {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     @Column(name = "user_num", nullable = false, unique = true) //pk 설정
     private Long userNum;
 
+    @Column(name = "user_id", nullable = false, unique = true)
     private String userId;
 
     private String userName;
 
+
     @Column(nullable = false)
     private String userPassword;
+
 
     private String userPhone;
 
@@ -75,11 +78,11 @@ public class User implements UserDetails {
     private List<Review> reviews = new ArrayList<>();
 
 
-
-
     @ElementCollection(fetch = FetchType.EAGER)
     @Builder.Default
     private List<String> roles = new ArrayList<>();
+
+    //권한은 회원당 여러개가 세팅될 수 있으므로 collection으로 선언
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -97,7 +100,6 @@ public class User implements UserDetails {
     public String getUsername() {
         return userId;
     }
-
 
     @Override
     public boolean isAccountNonExpired() {
@@ -118,5 +120,6 @@ public class User implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
 
 }

@@ -2,17 +2,23 @@ package springstudy.spring.controller;
 
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import springstudy.spring.domain.User;
 import springstudy.spring.dto.LoginDto;
+import springstudy.spring.dto.UserJoinDto;
 import springstudy.spring.repository.UserRepository;
+import springstudy.spring.response.DefaultRes;
+import springstudy.spring.response.ResponseMessage;
+import springstudy.spring.response.StatusCode;
 import springstudy.spring.security.JwtTokenProvider;
+import springstudy.spring.service.UserService;
 
-import java.util.Collections;
-import java.util.Map;
+import javax.validation.Valid;
 
 @RequiredArgsConstructor
 @RestController
@@ -21,23 +27,27 @@ public class UserController {
     private final PasswordEncoder passwordEncoder;
     private final JwtTokenProvider jwtTokenProvider;
     private final UserRepository userRepository;
+    private final UserService userService;
 
     // 회원가입
+    //@Valid를 작성하면, @RequestBody로 들어오는 객체(dto)에 대한 검증을 수행
     @PostMapping("/join")
-    public Long join(@RequestBody Map<String,String> user) {
-        return userRepository.save(User.builder()
-                .userId(user.get("id"))
-                .userPassword(passwordEncoder.encode(user.get("password")))
-                .userName(user.get("name"))
-                .userPhone(user.get("phone"))
-                .roles(Collections.singletonList("ROLE_USER")) // 최초 가입시 USER 로 설정
-                .build()).getUserNum();
+    public ResponseEntity join(@Valid @RequestBody UserJoinDto userJoinDto) {
+
+        userService.signUp(userJoinDto);
+        return new ResponseEntity(DefaultRes.res(StatusCode.UNAUTHORIZED,
+                ResponseMessage.CREATED_USER, userJoinDto), HttpStatus.OK);
+
     }
 
     // 로그인
     @PostMapping("/login")
     public String login(@RequestBody LoginDto dto) {
-        User member = userRepository.findByUserId(dto.getUserId());
+        User member = userService.findByUser(dto.getUserId());
+
+        //해당 user의 id가 존재하지 않는 경우
+        if(member == null)
+
         if (!(passwordEncoder.matches(dto.getUserPassword(), member.getUserPassword()))) {
             throw new IllegalArgumentException("잘못된 비밀번호입니다.");
         }
