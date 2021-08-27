@@ -32,6 +32,8 @@ class CommentServiceTest {
         Comment comment = new Comment();
         Long commentId = commentService.join(comment);
 
+        //eee
+
         commentService.cancelComment(commentId);
         Comment comment1 = commentRepository.findById(commentId);
         assertEquals(CommentStatus.CANCEL, comment1.getStatus());
