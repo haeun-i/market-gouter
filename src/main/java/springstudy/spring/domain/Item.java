@@ -14,7 +14,8 @@ import static lombok.AccessLevel.PROTECTED;
 @Entity
 @Table(name = "item")
 @Getter @Setter
-@NoArgsConstructor(access = PROTECTED)
+@NoArgsConstructor
+//@NoArgsConstructor(access = PROTECTED)
 public class Item {
     @Id @GeneratedValue
     @Column(name = "item_id")

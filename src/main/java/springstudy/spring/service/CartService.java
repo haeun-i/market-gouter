@@ -7,6 +7,7 @@ import springstudy.spring.domain.Cart;
 import springstudy.spring.domain.Item;
 import springstudy.spring.domain.User;
 import springstudy.spring.repository.CartRepository;
+import springstudy.spring.repository.ItemRepository;
 import springstudy.spring.repository.UserRepository;
 
 import java.util.List;
@@ -18,17 +19,18 @@ import java.util.Optional;
 public class CartService {
 
     private final UserRepository userRepository;
-//    private final ItemRepository itemRepository;
+    private final ItemRepository itemRepository;
     private final CartRepository cartRepository;
 
     @Transactional
-    public void addCart(Long userNum, Long itemId, String option, int count) {
+    public Long addCart(Long userNum, Long itemId, String option, int count) {
         User user = userRepository.findByUserNum(userNum);
-//        Item item = itemRepository.findOne(itemId);
+        Item item = itemRepository.findOne(itemId);
 
-//        Cart cart = Cart.createCart(user, item, option, count);
+        Cart cart = Cart.createCart(user, item, option, count);
 
- //       cartRepository.save(cart);
+        cartRepository.save(cart);
+        return cart.getId();
     }
 
     public void modifyCartCount(Long cartId, int count){
