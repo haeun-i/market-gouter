@@ -71,6 +71,7 @@ public class Recipe {
         recipe.setRecipe_date(date);
         recipe.setCategoryRecipe(category);
         recipe.setUser(user);
+        recipe.setStatus(RecipeStatus.RECIPE);
         return recipe;
     }
 
