@@ -26,11 +26,11 @@ public class Order {
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "delivery_id")
-    private Delivery delivery; //배송정보
+    private Delivery delivery;
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "payment_id")
-    private Payment payment; //배송정보
+    private Payment payment;
 
     @Column(name="order_date")
     private LocalDateTime orderDate;
@@ -40,8 +40,47 @@ public class Order {
     @Enumerated(EnumType.STRING)
     private OrderStatus orderStatus;
 
-    @Embedded //내장타입으로 매핑
+    @Embedded
     private Address orderAddress;
 
+    public void setUser(User user) {
+        this.user = user;
+        user.getOrders().add(this);
+    }
+    public void addOrderItem(OrderItem orderItem) {
+        orderItems.add(orderItem);
+        orderItem.setOrder(this);
+    }
+    public void setDelivery(Delivery delivery) {
+//        this.delivery = delivery;
+//        delivery.setOrder(this);
+    }
+    public void setPayment(Payment payment) {
+        this.payment = payment;
+        payment.setOrder(this);
+    }
+
+    public static Order createOrder(User user, Delivery delivery, Payment payment, List<OrderItem> orderItems){
+        Order order = new Order();
+        order.setUser(user);
+        order.setDelivery(delivery);
+        for(OrderItem orderItem : orderItems){
+            order.addOrderItem(orderItem);
+            order.orderTotalPrice += orderItem.getItem().getItemPrice();
+        }
+        order.setOrderStatus(OrderStatus.ORDER);
+        order.setOrderDate(LocalDateTime.now());
+        return order;
+    }
+
+    public void cancelOrder(){
+        if(delivery.getDeliveryStatus() == DeliveryStatus.COMP){
+            throw new IllegalStateException("이미 배송완료된 상품은 취소가 불가능합니다.");
+        }
+        this.setOrderStatus(OrderStatus.CANCEL);
+        for(OrderItem orderItem : orderItems){
+            orderItem.cancelOrderItem();
+        }
+    }
 
 }

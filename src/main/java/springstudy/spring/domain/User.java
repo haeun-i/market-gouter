@@ -1,28 +1,36 @@
 package springstudy.spring.domain;
 
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
-
-@Entity
-@Table(name="user")
 @Getter @Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@Entity
+//@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Table(name="user")
 
-public class User {
+public class User implements UserDetails {
     @Id
-    @GeneratedValue
-    @Column(name = "user_num") //pk 설정
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "user_num", nullable = false, unique = true) //pk 설정
     private Long userNum;
+
+    private String userId;
 
     private String userName;
 
-    private Long userId;
-
+    @Column(nullable = false)
     private String userPassword;
 
     private String userPhone;
@@ -42,7 +50,7 @@ public class User {
     @OneToMany(mappedBy="user",cascade = CascadeType.ALL)
     private List<Recipe> recipes = new ArrayList<>();
 
-    //(민겸)양방향?
+   //(민겸)양방향?
     @OneToMany(mappedBy="user",cascade = CascadeType.ALL)
     private List<ItemQuestion> itemQuestions = new ArrayList<>();
 
@@ -66,5 +74,49 @@ public class User {
     @OneToMany(mappedBy = "review", cascade = CascadeType.ALL)
     private List<Review> reviews = new ArrayList<>();
 
+
+
+
+    @ElementCollection(fetch = FetchType.EAGER)
+    @Builder.Default
+    private List<String> roles = new ArrayList<>();
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return this.roles.stream()
+                .map(SimpleGrantedAuthority::new)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public String getPassword() {
+        return userPassword;
+    }
+
+    @Override
+    public String getUsername() {
+        return userId;
+    }
+
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
 
 }

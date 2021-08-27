@@ -32,6 +32,8 @@ public class ItemQuestion {
     @OneToOne(mappedBy = "itemQuestion", fetch = FetchType.LAZY)
     private ItemAnswer itemAnswer;
 
-
-
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> a403b8e45492a23620e47f84fb5ae2c94658411f

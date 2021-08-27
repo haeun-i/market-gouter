@@ -1,5 +1,11 @@
 HELP.md
-build.gradle
+<<<<<<< HEAD
+=======
+
+src/main/resources/application.properties
+src/main/resources/application.yml
+
+>>>>>>> b24edf3da39fddbdf612491394de843c8d98d937
 .gradle
 build/
 !gradle/wrapper/gradle-wrapper.jar
