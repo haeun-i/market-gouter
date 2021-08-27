@@ -25,6 +25,7 @@ public class Comment {
     @JoinColumn(name = "user_num")
     private User user;
 
+
     public static Comment createComment(String contents, int recipe_date, Recipe recipe_id, User user){
         Comment comment = new Comment();
         comment.setComment_contents(contents);

@@ -33,7 +33,7 @@ public class Item {
 
     private String itemIntro;
 
-    private String itemPrice;
+    private Long itemPrice;
 
     private String itemDescription;
 
