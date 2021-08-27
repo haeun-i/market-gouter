@@ -17,7 +17,7 @@ public class CartController {
     private final UserService userService;
     private final CartService cartService;
 
-    @GetMapping(value = "/cart") // 장바구니 목록 조회
+    @GetMapping(value = "/cart") // 장바 구니 목록 조회
     public String orderList(Model model) {
         User user = userServiece.findUser();
         List<Cart> carts = cartService.findCarts(user.getUserNum());
