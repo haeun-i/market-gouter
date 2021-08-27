@@ -1,21 +1,20 @@
 package springstudy.spring.domain;
 
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.sql.Blob;
 import java.util.ArrayList;
 import java.util.List;
-
-import static lombok.AccessLevel.PROTECTED;
 
 @Entity
 @Table(name = "item")
 @Getter @Setter
+<<<<<<< HEAD
 @NoArgsConstructor
 //@NoArgsConstructor(access = PROTECTED)
+=======
+>>>>>>> a403b8e45492a23620e47f84fb5ae2c94658411f
 public class Item {
     @Id @GeneratedValue
     @Column(name = "item_id")
@@ -39,7 +38,7 @@ public class Item {
 
     private String itemIntro;
 
-    private Long itemPrice;
+    private String itemPrice;
 
     private String itemDescription;
 
@@ -65,4 +64,9 @@ public class Item {
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "category_id")
     private CategoryItem categoryItem;
+<<<<<<< HEAD
 }
+=======
+}
+
+>>>>>>> a403b8e45492a23620e47f84fb5ae2c94658411f
