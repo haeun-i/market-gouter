@@ -1,5 +1,6 @@
 package springstudy.spring.controller;
 
+import lombok.RequiredArgsConstructor;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,10 +13,10 @@ import springstudy.spring.service.ItemService;
 import java.util.logging.Logger;
 
 @Controller
+@RequiredArgsConstructor
 public class ItemController {
-    private static final Logger logger = LoggerFactory.getLogger("ItemController.class");
-    @Autowired
-    private ItemService itemService;
+    private final
+
 
     @GetMapping("/")
     public String test(){
