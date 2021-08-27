@@ -38,12 +38,12 @@ public class Cart {
     public static Cart createCart(User user, Item item, String option, int count){
 
         Cart cart = new Cart();
-        int price = item.getItemPrice();
+        //int price = item.getItemPrice();
 
         cart.setUser(user);
         cart.setItem(item);
         cart.setCount(count);
-        cart.setPrice(price);
+       // cart.setPrice(price);
         cart.setOption(option);
 
         return cart;

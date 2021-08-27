@@ -1,28 +1,31 @@
 package springstudy.spring.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import springstudy.spring.domain.*;
 import springstudy.spring.repository.CartRepository;
 import springstudy.spring.repository.OrderRepository;
+import springstudy.spring.repository.UserRepository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class OrderService {
     private final UserRepository userRepository;
-    private final ItemRepository itemRepository;
+    //private final ItemRepository itemRepository;
     private final CartRepository cartRepository;
     private final OrderRepository orderRepository;
 
     @Transactional
     public Long createOrder(Long userNum, Long[] cartIdList, Address address, String pay) {
 
-        User user = userRepository.findOne(userNum);
+        User user = userRepository.findByUserNum(userNum);
         List<OrderItem> orderitems = new ArrayList<>();
 
         Delivery delivery = new Delivery();

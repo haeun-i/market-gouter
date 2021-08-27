@@ -2,40 +2,44 @@ package springstudy.spring.service;
 
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import springstudy.spring.domain.User;
+import springstudy.spring.dto.UserJoinDto;
 import springstudy.spring.repository.UserRepository;
 
-import java.util.List;
+import java.util.Collections;
 
 @Service
-@Transactional(readOnly = true) //읽기전용
 @RequiredArgsConstructor
 public class UserService {
 
+    private final CustomUserDetailService customUserDetailService;
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
-    @Transactional //쓰기가 주
-    public Long join(User user){
+    //userId로 회원찾기
+    public User findByUser(String userId){
+        return userRepository.findByUserId(userId);
+    }
 
-        validateDuplicateUser(user);
+    //userNum으로 회원찾기
+    public User findByNum(Long userNum){
+        return userRepository.findByUserNum(userNum);
+    }
+
+    //회원가입
+    public String signUp(UserJoinDto userJoinDto){
+
+        User user = User.builder()
+                .userId(userJoinDto.getUserId())
+                .userPassword(passwordEncoder.encode(userJoinDto.getUserPassword()))
+                .userName(userJoinDto.getUserName())
+                .userPhone(userJoinDto.getUserPhone())
+                .roles(Collections.singletonList("ROLE_USER")) // 최초 가입시 USER 로 설정
+                .build();
         userRepository.save(user);
         return user.getUserId();
     }
-
-    //id 중복검사
-    private void validateDuplicateUser(User user){
-        List<User> findUserIds = userRepository.findById(user.getUserId());
-        if (!findUserIds.isEmpty()){
-            throw new IllegalArgumentException("이미 존재하는 id입니다");
-        }
-    }
-
-    //id 회원 단건 조회
-    public User findOne(Long userId){
-        return userRepository.findOne(userId);
-    }
-
 
 }

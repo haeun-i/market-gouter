@@ -64,10 +64,10 @@ public class Order {
         Order order = new Order();
         order.setUser(user);
         order.setDelivery(delivery);
-        for(OrderItem orderItem : orderItems){
-            order.addOrderItem(orderItem);
-            order.orderTotalPrice += orderItem.getItem().getItemPrice();
-        }
+//        for(OrderItem orderItem : orderItems){
+//            order.addOrderItem(orderItem);
+//            order.orderTotalPrice += orderItem.getItem().getItemPrice();
+//        }
         order.setOrderStatus(OrderStatus.ORDER);
         order.setOrderDate(LocalDateTime.now());
         return order;

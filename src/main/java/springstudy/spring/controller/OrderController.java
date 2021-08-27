@@ -2,7 +2,6 @@ package springstudy.spring.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Repository;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import springstudy.spring.domain.Address;
@@ -10,6 +9,7 @@ import springstudy.spring.domain.Order;
 import springstudy.spring.domain.User;
 import springstudy.spring.service.CartService;
 import springstudy.spring.service.OrderService;
+import springstudy.spring.service.CustomUserDetailService;
 
 import java.util.List;
 @Controller
@@ -17,14 +17,14 @@ import java.util.List;
 
 public class OrderController {
 
-    private final UserService userService;
+    private final CustomUserDetailService userService;
     private final OrderService orderService;
     private final CartService cartService;
 
 
     @GetMapping(value = "/orders") // 주문내역 전체확인
-    public String orderList(Model model) {
-        User user = userService.findUser();
+    public String orderList(Model model, Long userNum, Long num) {
+        User user = userService.findByNum(userNum);
         List<Order> orders = orderService.findOrders(user.getUserNum());
         model.addAttribute("user", user);
         model.addAttribute("orders", orders);

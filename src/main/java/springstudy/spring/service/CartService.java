@@ -8,8 +8,10 @@ import springstudy.spring.domain.Item;
 import springstudy.spring.domain.OrderItem;
 import springstudy.spring.domain.User;
 import springstudy.spring.repository.CartRepository;
+import springstudy.spring.repository.UserRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional(readOnly = true)
@@ -17,17 +19,17 @@ import java.util.List;
 public class CartService {
 
     private final UserRepository userRepository;
-    private final ItemRepository itemRepository;
+    //private final ItemRepository itemRepository;
     private final CartRepository cartRepository;
 
     @Transactional
     public void addCart(Long userNum, Long itemId, String option, int count) {
-        User user = userRepository.findOne(userNum);
-        Item item = itemRepository.findOne(itemId);
-
-        Cart cart = Cart.createCart(user, item, option, count);
-
-        cartRepository.save(cart);
+//        User user = userRepository.findByNum(userNum);
+//        Item item = itemRepository.findOne(itemId);
+//
+//        Cart cart = Cart.createCart(user, item, option, count);
+//
+//        cartRepository.save(cart);
     }
 
     public void modifyCartCount(Long cartId, int count){

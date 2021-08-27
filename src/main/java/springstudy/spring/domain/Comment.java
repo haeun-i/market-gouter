@@ -23,9 +23,9 @@ public class Comment {
     @JoinColumn(name = "user_num")
     private User user;
 
-    public static Comment createComment(String contents, int recipe_date, int recipe_id, User user){
-        Comment comment = new Comment();
-        comment.SetDate(recipe_date);
-        comment.SetContents(contents);
-    }
+//    public static Comment createComment(String contents, int recipe_date, int recipe_id, User user){
+////        Comment comment = new Comment();
+////        comment.SetDate(recipe_date);
+////        comment.SetContents(contents);
+//    }
 }
