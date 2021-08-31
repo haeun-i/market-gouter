@@ -73,7 +73,4 @@ public class ItemController {
         itemService.updateItem(form.getId(), item);
         return "redirect:/items";
     }
-
-
-
 }

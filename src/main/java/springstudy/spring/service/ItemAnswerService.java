@@ -25,4 +25,3 @@ public class ItemAnswerService {
 
             itemAnswerRepository.save(itemAnswer);
         }
-}

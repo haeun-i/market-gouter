@@ -3,11 +3,16 @@ package springstudy.spring.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import springstudy.spring.domain.*;
+import springstudy.spring.domain.Cart;
+import springstudy.spring.domain.Item;
+import springstudy.spring.domain.User;
 import springstudy.spring.repository.CartRepository;
+import springstudy.spring.repository.ItemRepository;
+
 import springstudy.spring.repository.UserRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional(readOnly = true)
@@ -19,13 +24,15 @@ public class CartService {
     private final CartRepository cartRepository;
 
     @Transactional
-    public void addCart(Long userNum, Long itemId, String option, int count) {
-        User user = userRepository.findOne(userNum);
-        Item item = itemRepository.getOne(itemId);
+
+    public Long addCart(Long userNum, Long itemId, String option, int count) {
+        User user = userRepository.findByUserNum(userNum);
+        Item item = itemRepository.findOne(itemId);
 
         Cart cart = Cart.createCart(user, item, option, count);
 
         cartRepository.save(cart);
+        return cart.getId();
     }
 
     public void modifyCartCount(Long cartId, int count){

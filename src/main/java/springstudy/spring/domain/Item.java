@@ -22,9 +22,12 @@ public class Item {
     @Lob
     @Column(length = 100000)
     private byte[] itemImage;
-    // byte배열로 Blob 타입의 itemImage 필드 생성
 
     private int itemQuantity;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "category_id")
+    private String itemCategory;
 
     private String itemFrom;
 
@@ -62,7 +65,7 @@ public class Item {
     @JoinColumn(name = "category_id")
     private CategoryItem categoryItem;
 
-    @OneToMany(mappedBy = "item", fetch = FetchType.LAZY)
-    private List<Cart> carts = new ArrayList<>();
+//    @OneToMany(mappedBy = "item", fetch = FetchType.LAZY)
+//    private List<Cart> carts = new ArrayList<>();
 }
 

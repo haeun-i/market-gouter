@@ -52,8 +52,8 @@ public class Order {
         orderItem.setOrder(this);
     }
     public void setDelivery(Delivery delivery) {
-        this.delivery = delivery;
-        delivery.setOrder(this);
+//        this.delivery = delivery;
+//        delivery.setOrder(this);
     }
     public void setPayment(Payment payment) {
         this.payment = payment;
@@ -64,10 +64,10 @@ public class Order {
         Order order = new Order();
         order.setUser(user);
         order.setDelivery(delivery);
-        for(OrderItem orderItem : orderItems){
-            order.addOrderItem(orderItem);
-            order.orderTotalPrice += orderItem.getItem().getItemPrice();
-        }
+//        for(OrderItem orderItem : orderItems){
+//            order.addOrderItem(orderItem);
+//            order.orderTotalPrice += orderItem.getItem().getItemPrice();
+//        }
         order.setOrderStatus(OrderStatus.ORDER);
         order.setOrderDate(LocalDateTime.now());
         return order;

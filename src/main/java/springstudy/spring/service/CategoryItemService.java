@@ -38,5 +38,3 @@ public class CategoryItemService {
     public CategoryItem findOne(Long categoryItemId){
         return categoryItemRepository.getOne(categoryItemId);
     }
-
-}

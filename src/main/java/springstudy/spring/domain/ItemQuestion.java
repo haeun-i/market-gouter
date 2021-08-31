@@ -33,5 +33,4 @@ public class ItemQuestion {
     //  ItemQuestion은 ItemAnswer과의 연관관계의 주인이 아님.
     @OneToOne(mappedBy = "itemQuestion", fetch = FetchType.LAZY)
     private ItemAnswer itemAnswer;
-
 }

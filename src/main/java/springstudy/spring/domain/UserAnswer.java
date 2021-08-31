@@ -1,6 +1,5 @@
 package springstudy.spring.domain;
 
-
 import lombok.Getter;
 import lombok.Setter;
 

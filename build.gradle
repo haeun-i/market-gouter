@@ -24,9 +24,11 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.1.4'
-	implementation 'junit:junit:4.12'
-	implementation 'junit:junit:4.12'
-	annotationProcessor 'org.projectlombok:lombok'
+
+	implementation 'commons-io:commons-io:2.6'
+    implementation 'junit:junit:4.13.1'
+    annotationProcessor 'org.projectlombok:lombok'
+
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
 	compile 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.1.4'
@@ -35,11 +37,36 @@ dependencies {
 	runtime 'mysql:mysql-connector-java'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
+	//시큐리티
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation 'org.springframework.security:spring-security-test'
+	implementation 'io.jsonwebtoken:jjwt:0.9.1'
+	compile('org.springframework.boot:spring-boot-starter-security')
+
+
 	/* Mybatis */
 	compile group: 'org.mybatis.spring.boot', name: 'mybatis-spring-boot-starter', version: '2.1.4'
 	compile group: 'org.mybatis', name: 'mybatis',version: '3.5.1'
 
-	implementation 'com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.5.7'
+
+
+	/* AWS S3 */
+	compile 'org.springframework.cloud:spring-cloud-starter-aws:2.0.1.RELEASE'
+	implementation group: 'org.springframework.cloud', name: 'spring-cloud-aws-autoconfigure', version: '2.2.6.RELEASE'
+	compile("org.springframework.cloud:spring-cloud-aws-context:2.4.9")
+	compile("org.springframework.cloud:spring-cloud-aws-autoconfigure:2.4.9")
+
+	implementation platform('com.amazonaws:aws-java-sdk-bom:1.11.1000')
+	implementation 'com.amazonaws:aws-java-sdk-s3'
+
+	testImplementation('org.springframework.boot:spring-boot-starter-test'){
+		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+	}
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+	implementation 'org.springframework.cloud:spring-cloud-starter-aws'
+	implementation 'org.springframework.cloud:spring-cloud-starter-aws-messaging'
+	implementation 'org.springframework.cloud:spring-cloud-starter-aws-parameter-store-config'
 }
 
 test {

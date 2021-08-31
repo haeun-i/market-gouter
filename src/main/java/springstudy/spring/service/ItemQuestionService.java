@@ -15,7 +15,7 @@ public class ItemQuestionService {
     private final ItemRepository itemRepository;
 
     @Transactional
-    public void addItemQuestion(ItemQuestion itemQuestion, Long UserId, Long ItemId){
+    public void addItemQuestion(ItemQuestion itemQuestion, Long UserId, Long ItemId) {
         User findUser = userRepository.findOne(UserId);
         Item findItem = itemRepository.getOne(ItemId);
 
@@ -24,6 +24,5 @@ public class ItemQuestionService {
 
         itemQuestionRepository.save(itemQuestion);
     }
-
 
 }

@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import springstudy.spring.domain.CategoryRecipe;
 import springstudy.spring.domain.Recipe;
+import springstudy.spring.domain.User;
 import springstudy.spring.repository.RecipeRepository;
 
 import java.util.List;
@@ -26,8 +27,18 @@ public class RecipeService {
     //        this.recipeRepository = recipeRepository;
     //    }
     @Transactional  // 읽기전용이 아닌 쓰기도 허용하므로
-    public Long join(Recipe recipe){
+    public Long join(Long id){
+        // 유저 정보 추가 해야함
+        // 유저 id find로 찾아야함
+        User user = new User();
+
+        String content = "contents!!";
+        int date = 826;
+        CategoryRecipe categoryRecipe = new CategoryRecipe();
+        // 레시피 상태
+        Recipe recipe = Recipe.CreateRecipe(content, date, categoryRecipe, user);   // content, date, cate, user
         recipeRepository.save(recipe);
+
         return recipe.getId();
     }
 
