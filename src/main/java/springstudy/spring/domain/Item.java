@@ -26,6 +26,7 @@ public class Item {
     @JoinColumn(name = "category_id")
     private CategoryItem itemCategory;
 
+
     private String itemQuantity;
 
     private String itemFrom;
@@ -57,4 +58,3 @@ public class Item {
 
 
 }
-

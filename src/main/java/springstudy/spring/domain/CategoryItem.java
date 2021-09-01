@@ -17,6 +17,6 @@ public class CategoryItem {
     private String category_name;
 
     // category_item의 PK와 item 의 1 : 1 매핑
-    @OneToOne(mappedBy = "categoryItem")
+    @OneToOne(mappedBy = "itemCategory")
     private Item item;
 }
