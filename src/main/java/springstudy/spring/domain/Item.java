@@ -24,7 +24,7 @@ public class Item {
 
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "category_id")
-    private CategoryItem categoryItem;
+    private CategoryItem itemCategory;
 
     private String itemQuantity;
 
@@ -52,8 +52,6 @@ public class Item {
     // Item : ItemQuestion 의 1 : 다 매핑
     @OneToMany(mappedBy = "item", fetch = FetchType.LAZY)
     private List<ItemQuestion> itemQuestions = new ArrayList<>();
-
-
 
 
 }
