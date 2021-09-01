@@ -1,5 +1,6 @@
 package springstudy.spring.domain;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -12,6 +13,7 @@ import java.util.List;
 @Table(name = "item")
 @Getter @Setter
 @NoArgsConstructor
+@Builder
 public class Item {
     @Id @GeneratedValue
     @Column(name = "item_id")
@@ -37,7 +39,7 @@ public class Item {
 
     private String itemDescription;
 
-    private List<String> itemOption = new ArrayList<>();
+    private List<String> itemOptions = new ArrayList<>();
 
     @OneToMany(mappedBy = "item", fetch = FetchType.LAZY)
     private List<OrderItem> orderItems = new ArrayList<>();
