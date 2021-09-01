@@ -12,7 +12,7 @@ import java.util.List;
 @Table(name = "category_id")
 public class CategoryRecipe {
     @Id @GeneratedValue
-    @Column(name = "category_id")    // 객체 필드와 DB 테이블 컬럼 맵핑
+    @Column(name = "category_recipe")    // 객체 필드와 DB 테이블 컬럼 맵핑
     private Long id;
     @OneToMany(mappedBy = "category_id")
     private List<Recipe> recipe = new ArrayList<>();
