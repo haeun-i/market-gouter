@@ -3,6 +3,8 @@ package springstudy.spring.repository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import springstudy.spring.domain.Item;
+import springstudy.spring.domain.Order;
+
 import javax.persistence.EntityManager;
 import java.util.List;
 
@@ -30,4 +32,6 @@ public class ItemRepository {
                     .setParameter("name", name)
                     .getResultList();
         }
+
+
 }
