@@ -15,8 +15,6 @@ public class CategoryRecipe {
     @Column(name = "category_id")    // 객체 필드와 DB 테이블 컬럼 맵핑
     private Long id;
     @OneToMany(mappedBy = "category_id")
-
-    @JoinColumn(mappedBy = "category_recipe",name = "recipe_id")
     private List<Recipe> recipe = new ArrayList<>();
     private String category_name;
 }

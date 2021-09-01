@@ -77,6 +77,6 @@ public class ItemService {
     @Transactional
     public void deleteItem(Long id){
         // deleteById를 Repository에서 구현하는 법?
-        itemRepository.deleteById(id);
+        //itemRepository.deleteById(id);
     }
 }

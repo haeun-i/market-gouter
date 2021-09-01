@@ -1,9 +1,6 @@
 package springstudy.spring.domain;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -12,7 +9,7 @@ import java.util.List;
 @Entity
 @Table(name = "item")
 @Getter @Setter
-@NoArgsConstructor
+@AllArgsConstructor
 @Builder
 public class Item {
     @Id @GeneratedValue
