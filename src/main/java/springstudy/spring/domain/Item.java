@@ -22,9 +22,9 @@ public class Item {
     @Column(length = 100000)
     private byte[] itemImage;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "category_id")
-    private String itemCategory;
+    private CategoryItem categoryItem;
 
     private String itemQuantity;
 
@@ -54,10 +54,6 @@ public class Item {
     private List<ItemQuestion> itemQuestions = new ArrayList<>();
 
 
-    // Item과 Category_item 1 : 1 매핑, Item이 연관관계의 주인이므로 @JoinColumn 추가
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "category_id")
-    private CategoryItem categoryItem;
+
 
 }
-
