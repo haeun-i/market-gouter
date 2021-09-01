@@ -7,7 +7,7 @@ import java.util.List;
 
 @Getter @Setter
 @ToString
-@NoArgsConstructor
+@AllArgsConstructor
 @Builder
 public class ItemDto {
     private Long id;
