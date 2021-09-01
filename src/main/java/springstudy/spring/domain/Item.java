@@ -24,7 +24,8 @@ public class Item {
 
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "category_id")
-    private CategoryItem categoryItem;
+    private CategoryItem itemCategory;
+
 
     private String itemQuantity;
 
