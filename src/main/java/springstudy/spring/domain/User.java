@@ -74,7 +74,7 @@ public class User implements UserDetails {
     private List<Comment> comments = new ArrayList<>();
 
     //(민겸님)
-    @OneToMany(mappedBy = "review", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Review> reviews = new ArrayList<>();
 
 
