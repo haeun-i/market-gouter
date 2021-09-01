@@ -1,6 +1,8 @@
 package springstudy.spring.dto;
 
+import jdk.jfr.Category;
 import lombok.*;
+import springstudy.spring.domain.CategoryItem;
 import springstudy.spring.domain.Item;
 
 import java.util.List;
@@ -14,7 +16,7 @@ public class ItemDto {
     private String name;
     private String itemName;
     private byte[] itemImage;
-    private String  itemCategory;
+    private CategoryItem itemCategory;
     private String itemQuantity;
     private String itemFrom;
     private String itemIntro;
