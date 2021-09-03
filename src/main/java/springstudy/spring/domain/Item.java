@@ -1,8 +1,6 @@
 package springstudy.spring.domain;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -11,7 +9,8 @@ import java.util.List;
 @Entity
 @Table(name = "item")
 @Getter @Setter
-@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Item {
     @Id @GeneratedValue
     @Column(name = "item_id")
@@ -23,9 +22,9 @@ public class Item {
     @Column(length = 100000)
     private byte[] itemImage;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "category_id")
-    private String itemCategory;
+    private CategoryItem ItemCategory;
 
     private String itemQuantity;
 
@@ -37,7 +36,7 @@ public class Item {
 
     private String itemDescription;
 
-    private List<String> itemOption = new ArrayList<>();
+    private List<String> itemOptions = new ArrayList<>();
 
     @OneToMany(mappedBy = "item", fetch = FetchType.LAZY)
     private List<OrderItem> orderItems = new ArrayList<>();
@@ -55,10 +54,6 @@ public class Item {
     private List<ItemQuestion> itemQuestions = new ArrayList<>();
 
 
-    // Item과 Category_item 1 : 1 매핑, Item이 연관관계의 주인이므로 @JoinColumn 추가
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "category_id")
-    private CategoryItem categoryItem;
+
 
 }
-

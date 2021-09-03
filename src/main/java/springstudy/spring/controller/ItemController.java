@@ -13,7 +13,7 @@ import java.util.logging.Logger;
 
 @Controller
 public class ItemController {
-    private static final Logger logger = LoggerFactory.getLogger("ItemController.class");
+    //private static final Logger logger = LoggerFactory.getLogger("ItemController.class");
     @Autowired
     private ItemService itemService;
 
