@@ -26,7 +26,7 @@ public class ItemDto {
 
     // Dto 에서 필요한 부분을 빌더 패턴을 통해 Entity화
     // 추후 수정 필요!
-    public Item toEntity(){
+    public Item toEntity() {
         Item build = Item.builder()
                 .id(id)
                 .itemName(itemName)

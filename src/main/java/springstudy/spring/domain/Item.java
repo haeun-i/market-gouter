@@ -11,6 +11,7 @@ import java.util.List;
 @Getter @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+
 @Builder
 public class Item {
     @Id @GeneratedValue
@@ -36,6 +37,7 @@ public class Item {
     private Long itemPrice;
 
     private String itemDescription;
+
 
     @ElementCollection
     private List<String> itemOptions = new ArrayList<>();

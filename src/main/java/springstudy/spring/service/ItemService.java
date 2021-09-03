@@ -19,19 +19,19 @@ public class ItemService {
 
     // Create
     @Transactional
-    public void saveItem(Item item){
+    public void saveItem(Item item) {
         itemRepository.save(item);
     } // 매개변수에 Item을 넣는 것과 ItemDto를 넣는 것이 차이?
 
     // Update
     @Transactional
-    public void updateItem(Long itemId, Item item){
+    public void updateItem(Long itemId, Item item) {
         Item findItem = itemRepository.findOne(itemId);
 
     }
 
     // Read One
-    public ItemDto getItem(Long itemId){
+    public ItemDto getItem(Long itemId) {
         Item item = itemRepository.findOne(itemId);
         ItemDto itemDto = ItemDto.builder()
                 .id(item.getId())
@@ -51,11 +51,11 @@ public class ItemService {
 
     // Read All
     @Transactional
-    public List<ItemDto> getItemList(){
+    public List<ItemDto> getItemList() {
         List<Item> itemList = itemRepository.findAll();
         List<ItemDto> itemDtoList = new ArrayList<>();
 
-        for (Item item : itemList){
+        for (Item item : itemList) {
             ItemDto itemDto = ItemDto.builder()
                     .id(item.getId())
                     .itemName(item.getItemName())
@@ -75,7 +75,7 @@ public class ItemService {
 
     // Delete
     @Transactional
-    public void deleteItem(Long id){
+    public void deleteItem(Long id) {
         // deleteById를 Repository에서 구현하는 법?
         //itemRepository.deleteById(id);
     }
