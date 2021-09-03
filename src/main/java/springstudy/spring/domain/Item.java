@@ -10,6 +10,7 @@ import java.util.List;
 @Table(name = "item")
 @Getter @Setter
 @AllArgsConstructor
+@NoArgsConstructor
 @Builder
 public class Item {
     @Id @GeneratedValue
@@ -24,7 +25,7 @@ public class Item {
 
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "category_id")
-    private CategoryItem ItemCategory;
+    private CategoryItem itemCategory;
 
     private String itemQuantity;
 
@@ -36,6 +37,7 @@ public class Item {
 
     private String itemDescription;
 
+    @ElementCollection
     private List<String> itemOptions = new ArrayList<>();
 
     @OneToMany(mappedBy = "item", fetch = FetchType.LAZY)
