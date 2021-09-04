@@ -19,7 +19,9 @@ import java.util.List;
 @Controller
 @RequiredArgsConstructor
 public class ItemController {
- 
+
+
+    //private static final Logger logger = LoggerFactory.getLogger("ItemController.class");
     @Autowired
     private ItemService itemService;
     private ItemQuestionService itemQuestionService;

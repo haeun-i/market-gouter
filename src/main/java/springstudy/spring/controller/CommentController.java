@@ -13,15 +13,15 @@ public class CommentController {
 
     private final CommentService commentService;
 
-    @PostMapping("/recipes/details")     // 댓글 작성
+    @PostMapping("/comment")     // 댓글 작성
     public String createForm(Model model){
         model.addAttribute("commentForm", new CommentForm());
-        return "redirect:/recipes/details";
+        return "redirect:/comment";
     }
 
-    @PostMapping(value = "/recipes/cancel")
+    @PostMapping(value = "/commentcancel")
     public String cancelComment(@RequestParam("CommentId") Long commentId){
         commentService.cancelComment(commentId);
-        return "redirect:/recipes/details";
+        return "redirect:/comment";
     }
 }
