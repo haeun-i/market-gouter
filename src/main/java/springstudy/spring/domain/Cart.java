@@ -30,7 +30,7 @@ public class Cart {
     private int count;
 
     @Column(name="cart_total_price")
-    private Long price;
+    private int price;
 
     @Column(name="option")
     private String option;
@@ -38,7 +38,7 @@ public class Cart {
     public static Cart createCart(User user, Item item, String option, int count){
 
         Cart cart = new Cart();
-        Long price = item.getItemPrice();
+        int price = item.getItemPrice();
 
         cart.setUser(user);
         cart.setItem(item);

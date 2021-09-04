@@ -115,7 +115,7 @@ class CartServiceTest {
     private Item createItem(){
         Item item = new Item();
         item.setItemName("apple");
-        item.setItemPrice(30000L);
+        item.setItemPrice(30000);
 
         em.persist(item);
         return item;

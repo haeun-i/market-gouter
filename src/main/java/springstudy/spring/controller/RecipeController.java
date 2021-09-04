@@ -19,29 +19,30 @@ public class RecipeController {
 
     private final RecipeService recipeService;
 
-    @GetMapping(value = "/recipes")     // 레시피 전체 조회
+    @GetMapping(value = "/recipesAll")     // 레시피 전체 조회
     public String recipeList(Model model){
         List<Recipe> recipes = recipeService.findRecipe();
         model.addAttribute("recipes", recipes);
-        return "recipes";
+        return "recipes/recipeList";
     }
 
-    @GetMapping(value = "/recipes")
-    public String recipeCategory(@RequestParam("categoryRecipe") CategoryRecipe categoryRecipe){
+    @GetMapping(value = "/recipesCategory")   // 카테고리별 조회
+    public String recipeCategory(Model model, @RequestParam("categoryRecipe") CategoryRecipe categoryRecipe){
         List<Recipe> category = recipeService.findRecipeByCategory(categoryRecipe);
+        model.addAttribute("recipes", category);
         return "recipes/categories";
     }
 
-    @PostMapping("/recipes/new")          // 레시피 작성
+    @PostMapping("/recipes")          // 레시피 작성
     public String createForm(Model model){
         model.addAttribute("recipeForm", new RecipeForm());
-        return "recipes/createRecipeForm";
+        return "redirect:/recipes";
     }
 
-    @PostMapping("/recipes")        // 레시피 검색
+    @GetMapping("/recipe")        // 레시피 검색
     public String searchRecipe(@RequestParam("recipeId") Long recipeId){
         recipeService.findone(recipeId);
-        return "/recipes/details";
+        return "recipes/details";
     }
 
     @PostMapping(value = "/recipes/cancel")     // 레시피 삭제

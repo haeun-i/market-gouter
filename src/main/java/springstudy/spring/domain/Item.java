@@ -10,6 +10,8 @@ import java.util.List;
 @Table(name = "item")
 @Getter @Setter
 @AllArgsConstructor
+@NoArgsConstructor
+
 @Builder
 public class Item {
     @Id @GeneratedValue
@@ -29,7 +31,6 @@ public class Item {
     @JoinColumn(name = "category_id")
     private CategoryItem itemCategory;
 
-
     private String itemFrom;
 
     private String itemIntro;
@@ -38,12 +39,9 @@ public class Item {
 
     private String itemDescription;
 
-    private ArrayList<String> itemOptions = new ArrayList<String>();
 
-    public void setItemOptions(ArrayList<String> NewItemOptions){
-        itemOptions = (ArrayList<String>)NewItemOptions.clone();
-    }
-
+    @ElementCollection
+    private List<String> itemOptions = new ArrayList<>();
 
     @OneToMany(mappedBy = "item", fetch = FetchType.LAZY)
     private List<OrderItem> orderItems = new ArrayList<>();

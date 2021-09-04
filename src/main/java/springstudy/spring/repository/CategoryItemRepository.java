@@ -22,4 +22,13 @@ public class CategoryItemRepository {
         }
         return categoryItem.getId();
     }
+
+    public List<CategoryItem> findAll(){
+        return em.createQuery("select i from CategoryItem i", CategoryItem.class)
+                .getResultList();
+    }
+
+    public CategoryItem findOne(Long id){
+        return em.find(CategoryItem.class, id);
+    }
 }
