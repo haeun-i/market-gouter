@@ -4,15 +4,27 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import springstudy.spring.domain.Item;
+<<<<<<< HEAD
+=======
+import java.util.List;
+>>>>>>> main
 import springstudy.spring.dto.ItemDto;
 import springstudy.spring.repository.ItemRepository;
-
 import java.util.ArrayList;
+<<<<<<< HEAD
 import java.util.List;
+=======
+
+>>>>>>> main
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class ItemService {
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> main
     private final ItemRepository itemRepository;
 
     // Create
@@ -29,52 +41,20 @@ public class ItemService {
     }
 
     // Read One
-    public ItemDto getItem(Long itemId){
-        Item item = itemRepository.findOne(itemId);
-        ItemDto itemDto = ItemDto.builder()
-                .id(item.getId())
-                .name(item.getItemName())
-                .itemImage(item.getItemImage())
-                .itemCategory(item.getItemCategory())
-                .itemQuantity(item.getItemQuantity())
-                .itemFrom(item.getItemFrom())
-                .itemIntro(item.getItemIntro())
-                .itemPrice(item.getItemPrice())
-                .itemDescription(item.getItemDescription())
-                .itemOptions(item.getItemOptions())
-                .build();
-        return itemDto;
+    public Item getItem(Long itemId){  // builder 말고 set으로 수정
+        return itemRepository.findOne(itemId);
     }
-
 
     // Read All
-    @Transactional
-    public List<ItemDto> getItemList(){
-        List<Item> itemList = itemRepository.findAll();
-        List<ItemDto> itemDtoList = new ArrayList<>();
-
-        for (Item item : itemList){
-            ItemDto itemDto = ItemDto.builder()
-                    .id(item.getId())
-                    .itemName(item.getItemName())
-                    .itemImage(item.getItemImage())
-                    .itemCategory(item.getItemCategory())
-                    .itemQuantity(item.getItemQuantity())
-                    .itemFrom(item.getItemFrom())
-                    .itemIntro(item.getItemIntro())
-                    .itemPrice(item.getItemPrice())
-                    .itemDescription(item.getItemDescription())
-                    .itemOptions(item.getItemOptions())
-                    .build();
-            itemDtoList.add(itemDto);
-        }
-        return itemDtoList;
+    public List<Item> findItems(){
+        return itemRepository.findAll();
     }
+
 
     // Delete
     @Transactional
     public void deleteItem(Long id){
-        // deleteById를 Repository에서 구현하는 법?
-        //itemRepository.deleteById(id);
+        Item findItem = itemRepository.findOne(id);
+        itemRepository.delete(findItem);
     }
 }

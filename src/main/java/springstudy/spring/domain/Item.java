@@ -25,6 +25,10 @@ public class Item {
     private int itemQuantity;
 
     @ManyToOne(fetch = FetchType.LAZY)
+<<<<<<< HEAD
+=======
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+>>>>>>> main
     @JoinColumn(name = "category_id")
     private CategoryItem itemCategory;
 
@@ -37,31 +41,35 @@ public class Item {
 
     private String itemDescription;
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> main
     private ArrayList<String> itemOptions = new ArrayList<String>();
 
     public void setItemOptions(ArrayList<String> NewItemOptions){
         itemOptions = (ArrayList<String>)NewItemOptions.clone();
     }
+<<<<<<< HEAD
+=======
+
+>>>>>>> main
 
     @OneToMany(mappedBy = "item", fetch = FetchType.LAZY)
     private List<OrderItem> orderItems = new ArrayList<>();
     // DB에 없는데, Item : Order_item 이 '1 : 다' 관계이므로 Item 클래스에 @OneToMany 어노테이션 추가
     // OrderItem DB 생성자는 OrderItem 엔티티 내부에 다음 주석과 같이 작성해야 함.
 
-
-    /*
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "item_id")
-    private Item item;
-    */
-
     // Item : ItemQuestion 의 1 : 다 매핑
     @OneToMany(mappedBy = "item", fetch = FetchType.LAZY)
     private List<ItemQuestion> itemQuestions = new ArrayList<>();
 
 
+<<<<<<< HEAD
 //    @OneToMany(mappedBy = "item", fetch = FetchType.LAZY)
 //    private List<Cart> carts = new ArrayList<>();
 }
 
+=======
+}
+>>>>>>> main

@@ -13,16 +13,17 @@ import java.util.List;
 @Builder
 public class ItemDto {
     private Long id;
-    private String name;
     private String itemName;
     private byte[] itemImage;
+<<<<<<< HEAD
     private CategoryItem itemCategory;
     private int itemQuantity;
     private String itemFrom;
     private String itemIntro;
+=======
+>>>>>>> main
     private int itemPrice;
     private String itemDescription;
-    private List<String> itemOptions;
 
     // Dto 에서 필요한 부분을 빌더 패턴을 통해 Entity화
     // 추후 수정 필요!
@@ -30,9 +31,6 @@ public class ItemDto {
         Item build = Item.builder()
                 .id(id)
                 .itemName(itemName)
-                .itemFrom(itemFrom)
-                .itemQuantity(itemQuantity)
-                .itemIntro(itemIntro)
                 .itemPrice(itemPrice)
                 .itemDescription(itemDescription)
                 .build();

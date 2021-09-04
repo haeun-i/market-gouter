@@ -25,9 +25,14 @@ public class OrderService {
     @Transactional
     public Long createOrder(Long userNum, Long[] cartIdList, Address address, String pay) {
 
+<<<<<<< HEAD
 
         User user = userRepository.findByUserNum(userNum);
         List<OrderItem> orderitems = new ArrayList<>();
+=======
+        User user = userRepository.findByUserNum(userNum);
+        List<OrderItem> orderItems = new ArrayList<>();
+>>>>>>> main
 
         Delivery delivery = new Delivery();
         delivery.setAddress(address);

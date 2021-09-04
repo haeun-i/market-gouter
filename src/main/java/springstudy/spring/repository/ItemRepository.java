@@ -33,5 +33,9 @@ public class ItemRepository {
                     .getResultList();
         }
 
+        public Long delete(Item item){
+            em.remove(item);
+            return item.getId();
+        }
 
 }
