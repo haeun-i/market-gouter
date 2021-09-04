@@ -14,7 +14,7 @@ public class CategoryItem {
     @Column(name = "category_id")
     private Long id;
 
-    private String category_name;
+    private String categoryName;
 
     // category_item의 PK와 item 의 1 : 1 매핑
 

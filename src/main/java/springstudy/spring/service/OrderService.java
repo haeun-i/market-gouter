@@ -26,7 +26,7 @@ public class OrderService {
     public Long createOrder(Long userNum, Long[] cartIdList, Address address, String pay) {
 
         User user = userRepository.findByUserNum(userNum);
-        List<OrderItem> orderitems = new ArrayList<>();
+        List<OrderItem> orderItems = new ArrayList<>();
 
         Delivery delivery = new Delivery();
         delivery.setAddress(address);
@@ -38,10 +38,10 @@ public class OrderService {
         for(Long cartId : cartIdList){
             Cart cart = cartRepository.findOne(cartId);
             OrderItem orderItem = OrderItem.createOrderItem(cart.getItem(), cart.getCount(), cart.getOption());
-            orderitems.add(orderItem);
+            orderItems.add(orderItem);
         }
 
-        Order order = Order.createOrder(user, delivery, payment, orderitems);
+        Order order = Order.createOrder(user, delivery, payment, orderItems);
 
         orderRepository.save(order);
 
