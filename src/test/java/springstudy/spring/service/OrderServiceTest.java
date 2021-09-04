@@ -14,7 +14,6 @@ import javax.persistence.PersistenceContext;
 import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.*;
 
-@RunWith(SpringRunner.class)
 @SpringBootTest
 @Transactional
 class OrderServiceTest {

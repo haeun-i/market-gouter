@@ -23,7 +23,7 @@ public class Recipe {
     private RecipeStatus status; // recipe, cancel
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "category_id")       // 레시피-카테고리 다대일관계
+    @JoinColumn(name = "recipe")       // 레시피-카테고리 다대일관계
     private CategoryRecipe category_recipe;
 
     @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL)
