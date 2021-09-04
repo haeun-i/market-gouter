@@ -17,9 +17,11 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ItemController {
 
+
     //private static final Logger logger = LoggerFactory.getLogger("ItemController.class");
     @Autowired
     private ItemService itemService;
+
 
     // item 들어가면 기 작성된 item 엔티티들이 표시
     @GetMapping("/item")
