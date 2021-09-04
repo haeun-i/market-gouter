@@ -24,6 +24,7 @@ public class CartService {
     private final CartRepository cartRepository;
 
     @Transactional
+
     public Long addCart(Long userNum, Long itemId, String option, int count) {
         User user = userRepository.findByUserNum(userNum);
         Item item = itemRepository.findOne(itemId);

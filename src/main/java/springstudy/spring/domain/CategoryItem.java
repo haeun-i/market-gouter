@@ -15,10 +15,6 @@ public class CategoryItem {
     private Long id;
 
 
-    // category_item의 PK와 item 의 1 : 1 매핑
-
-    @OneToOne(mappedBy = "itemCategory")
-
     private Item item;
 
     private String category_name;

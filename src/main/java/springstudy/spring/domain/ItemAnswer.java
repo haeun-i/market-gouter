@@ -7,11 +7,11 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.Date;
 
 @Entity
 @Table(name = "item_answer")
 @Getter @Setter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class ItemAnswer {
     @Id @GeneratedValue
     @Column(name = "item_answer_id")
@@ -19,7 +19,7 @@ public class ItemAnswer {
 
     private String itemAnswerContent;
 
-    private LocalDateTime itemAnswerDate;
+    private Date itemAnswerDate;
 
 
     @ManyToOne(fetch = FetchType.LAZY)
