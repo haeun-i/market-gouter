@@ -17,10 +17,10 @@ public class ItemDto {
     private String itemName;
     private byte[] itemImage;
     private CategoryItem itemCategory;
-    private String itemQuantity;
+    private int itemQuantity;
     private String itemFrom;
     private String itemIntro;
-    private Long itemPrice;
+    private int itemPrice;
     private String itemDescription;
     private List<String> itemOptions;
 

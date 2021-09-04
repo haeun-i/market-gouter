@@ -9,12 +9,10 @@ import springstudy.spring.repository.ItemRepository;
 
 import java.util.ArrayList;
 import java.util.List;
-
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class ItemService {
-
     private final ItemRepository itemRepository;
 
     // Create
@@ -25,7 +23,7 @@ public class ItemService {
 
     // Update
     @Transactional
-    public void updateItem(Long itemId, Item item){
+    public Item updateItem(Long itemId, Item item){
         Item findItem = itemRepository.findOne(itemId);
 
     }
