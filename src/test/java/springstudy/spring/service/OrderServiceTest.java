@@ -85,7 +85,7 @@ class OrderServiceTest {
     private Cart createCart(User user, String itemName, String option, int count){
         Item item = new Item();
         item.setItemName(itemName);
-        item.setItemPrice(30000L);
+        item.setItemPrice(30000);
 
         Cart cart = new Cart();
         cart.setOption(option);
