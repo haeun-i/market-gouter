@@ -63,7 +63,7 @@ public class ItemQuestionController {
 
     /* 질문 삭제*/
     // 딸려있는 Answer Entity도 함께 삭제되도록 구현?
-    @GetMapping("/item/itemQuestion/{id}")
+    @GetMapping("/item/itemQuestion/cancel/{id}")
     public String delete(@PathVariable("id")Long id){
         itemQuestionService.deleteItemQuestion(id);
         return "redirect:/";
