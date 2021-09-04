@@ -10,7 +10,7 @@ import java.util.List;
 
 @Repository
 @RequiredArgsConstructor
-public class CategoryRepository {
+public class CategoryItemRepository {
     private final EntityManager em;
 
     // 카테고리 명에는 별도의 검색 메소드가 필요하다고 생각하지 않아 추가X

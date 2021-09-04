@@ -3,57 +3,48 @@ package springstudy.spring.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import springstudy.spring.domain.CategoryItem;
-import springstudy.spring.domain.CategoryItemRepository;
 import springstudy.spring.domain.Item;
-import springstudy.spring.domain.ItemRepository;
-
 import java.util.List;
-
+import springstudy.spring.dto.ItemDto;
+import springstudy.spring.repository.ItemRepository;
+import java.util.ArrayList;
 
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class ItemService {
+
+
     private final ItemRepository itemRepository;
-    private final CategoryItemRepository categoryItemRepository;
 
+    // Create
     @Transactional
-    public void saveItem(Item item, Long categoryItemId){
-
-        // FK 관계의 categoryItem을 가져옴
-        CategoryItem findCategoryItem = categoryItemRepository.getOne(categoryItemId);
-        item.setCategoryItem(findCategoryItem);
-
+    public void saveItem(Item item){
         itemRepository.save(item);
-    }
+    } // 매개변수에 Item을 넣는 것과 ItemDto를 넣는 것이 차이?
 
+    // Update
     @Transactional
-    public Item updateItem(Long itemId, Item item){ // update 할 item의 PK값, 덮어씌울 Item 객체 내용
-        Item findItem = itemRepository.getOne(itemId);
-        findItem.setItemName(item.getItemName());
-        findItem.setItemImage(item.getItemImage());
-        findItem.setCategoryItem(item.getCategoryItem());
-        findItem.setItemQuantity(item.getItemQuantity());
-        findItem.setItemFrom(item.getItemFrom());
-        findItem.setItemIntro(item.getItemIntro());
-        findItem.setItemPrice(item.getItemPrice());
-        findItem.setItemDescription(item.getItemDescription());
+    public void updateItem(Long itemId, Item item){
+        Item findItem = itemRepository.findOne(itemId);
 
-        findItem.setItemOptions(item.getItemOptions());
-        // 사용자 정의 메소드 이용
-        return findItem;
     }
 
+    // Read One
+    public Item getItem(Long itemId){  // builder 말고 set으로 수정
+        return itemRepository.findOne(itemId);
+    }
+
+    // Read All
     public List<Item> findItems(){
         return itemRepository.findAll();
     }
 
-    public Item findOne(Long itemId){
-        return itemRepository.getOne(itemId);
+
+    // Delete
+    @Transactional
+    public void deleteItem(Long id){
+        Item findItem = itemRepository.findOne(id);
+        itemRepository.delete(findItem);
     }
-
-
 }
-
-

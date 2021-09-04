@@ -47,10 +47,11 @@ public class UserController {
 
         //해당 user의 id가 존재하지 않는 경우
         if(member == null)
+            throw new IllegalArgumentException("가입되지 않은 ID 입니다.");
 
         if (!(passwordEncoder.matches(dto.getUserPassword(), member.getUserPassword()))) {
             throw new IllegalArgumentException("잘못된 비밀번호입니다.");
         }
-        return jwtTokenProvider.createToken(member.getUserId(), member.getRoles());
+        return jwtTokenProvider.createToken(member.getUsername(), member.getRoles());
     }
 }

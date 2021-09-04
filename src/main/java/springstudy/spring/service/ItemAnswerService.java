@@ -6,22 +6,36 @@ import org.springframework.transaction.annotation.Transactional;
 import springstudy.spring.domain.*;
 import springstudy.spring.repository.UserRepository;
 
+import java.util.Date;
+
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
 public class ItemAnswerService {
-        private final ItemAnswerRepository itemAnswerRepository;
-        private final UserRepository userRepository;
-        private final ItemQuestionRepository itemQuestionRepository;
+    private final ItemAnswerRepository itemAnswerRepository;
+    private final UserRepository userRepository;
+    private final ItemQuestionRepository itemQuestionRepository;
 
-        @Transactional
-        public void addItemAnswer(ItemAnswer itemAnswer, Long userId, Long ItemQuestionId)
-        {
-            User findUser = userRepository.findOne(userId);
-            ItemQuestion findItemQuestion = itemQuestionRepository.getOne(ItemQuestionId);
+    @Transactional
+    public void addItemAnswer(Long userId, String itemAnswerContent, Long itemQuestionId ) {
+        User findUser = userRepository.getOne(userId);
+        ItemQuestion findItemQuestion = itemQuestionRepository.getOne(itemQuestionId);
 
-            itemAnswer.setUser(findUser);
-            itemAnswer.setItemQuestion(findItemQuestion);
+        ItemAnswer itemAnswer= new ItemAnswer();
+        itemAnswer.setItemQuestion(findItemQuestion);
+        Date now = new Date();
+        itemAnswer.setItemAnswerDate(now);
+        itemAnswer.setUser(findUser);
+        itemAnswer.setItemAnswerContent(itemAnswerContent);
 
-            itemAnswerRepository.save(itemAnswer);
-        }
+        itemAnswerRepository.save(itemAnswer);
+    }
+
+    /* DELETE */
+    @Transactional
+    public void deleteItemAnswer(ItemAnswer itemAnswer, Long id){
+        ItemAnswer findItemAnswer = itemAnswerRepository.getOne(id);
+        itemAnswerRepository.delete(findItemAnswer);
+
+    }
+}

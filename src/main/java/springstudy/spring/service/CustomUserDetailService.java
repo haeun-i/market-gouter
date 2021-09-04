@@ -19,7 +19,7 @@ public class CustomUserDetailService implements UserDetailsService {
 
     private final UserRepository userRepository;
 
-    @Override
+    @Override //실제 DB의 회원정보를 가져오는 로직 -> 회원id로 찾자
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return null;
     }
