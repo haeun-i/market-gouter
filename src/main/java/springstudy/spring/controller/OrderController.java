@@ -8,21 +8,10 @@ import springstudy.spring.domain.Address;
 import springstudy.spring.domain.Order;
 import springstudy.spring.domain.User;
 import springstudy.spring.service.CartService;
-<<<<<<< HEAD
-<<<<<<< HEAD
-import springstudy.spring.service.OrderService;
-import springstudy.spring.service.CustomUserDetailService;
-
-=======
-import springstudy.spring.service.CustomUserDetailService;
-import springstudy.spring.service.OrderService;
->>>>>>> main
-=======
 
 import springstudy.spring.service.OrderService;
 import springstudy.spring.service.CustomUserDetailService;
 
->>>>>>> main
 
 import java.util.List;
 @Controller

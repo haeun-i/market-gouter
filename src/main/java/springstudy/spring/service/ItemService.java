@@ -4,27 +4,17 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import springstudy.spring.domain.Item;
-<<<<<<< HEAD
-=======
 import java.util.List;
->>>>>>> main
 import springstudy.spring.dto.ItemDto;
 import springstudy.spring.repository.ItemRepository;
 import java.util.ArrayList;
-<<<<<<< HEAD
-import java.util.List;
-=======
 
->>>>>>> main
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class ItemService {
-<<<<<<< HEAD
-=======
 
 
->>>>>>> main
     private final ItemRepository itemRepository;
 
     // Create
@@ -35,7 +25,7 @@ public class ItemService {
 
     // Update
     @Transactional
-    public Item updateItem(Long itemId, Item item){
+    public void updateItem(Long itemId, Item item){
         Item findItem = itemRepository.findOne(itemId);
 
     }

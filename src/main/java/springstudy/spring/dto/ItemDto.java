@@ -15,13 +15,6 @@ public class ItemDto {
     private Long id;
     private String itemName;
     private byte[] itemImage;
-<<<<<<< HEAD
-    private CategoryItem itemCategory;
-    private int itemQuantity;
-    private String itemFrom;
-    private String itemIntro;
-=======
->>>>>>> main
     private int itemPrice;
     private String itemDescription;
 

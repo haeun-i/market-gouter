@@ -25,10 +25,7 @@ public class Item {
     private int itemQuantity;
 
     @ManyToOne(fetch = FetchType.LAZY)
-<<<<<<< HEAD
-=======
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
->>>>>>> main
     @JoinColumn(name = "category_id")
     private CategoryItem itemCategory;
 
@@ -41,19 +38,12 @@ public class Item {
 
     private String itemDescription;
 
-<<<<<<< HEAD
-
-=======
->>>>>>> main
     private ArrayList<String> itemOptions = new ArrayList<String>();
 
     public void setItemOptions(ArrayList<String> NewItemOptions){
         itemOptions = (ArrayList<String>)NewItemOptions.clone();
     }
-<<<<<<< HEAD
-=======
 
->>>>>>> main
 
     @OneToMany(mappedBy = "item", fetch = FetchType.LAZY)
     private List<OrderItem> orderItems = new ArrayList<>();
@@ -65,11 +55,4 @@ public class Item {
     private List<ItemQuestion> itemQuestions = new ArrayList<>();
 
 
-<<<<<<< HEAD
-//    @OneToMany(mappedBy = "item", fetch = FetchType.LAZY)
-//    private List<Cart> carts = new ArrayList<>();
 }
-
-=======
-}
->>>>>>> main
