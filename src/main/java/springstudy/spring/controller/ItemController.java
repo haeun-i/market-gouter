@@ -15,7 +15,10 @@ import java.util.List;
 @Controller
 @RequiredArgsConstructor
 public class ItemController {
-    private final ItemService itemService;
+ 
+    @Autowired
+    private ItemService itemService;
+
 
     // item 들어가면 기 작성된 item 엔티티들이 표시
     @GetMapping("/item")
