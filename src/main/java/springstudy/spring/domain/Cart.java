@@ -1,28 +1,29 @@
 package springstudy.spring.domain;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-
-@Entity
-@Table(name="delivery")
 @Getter
 @Setter
+@Entity
+@Table(name="carts")
 public class Cart {
     @Id
     @GeneratedValue
     @Column(name = "cart_id")
     private Long id;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_num")
     private User user;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "item_id")
     private Item item;
 
@@ -33,7 +34,7 @@ public class Cart {
     private int price;
 
     @Column(name="option")
-    private String option;
+    private String cartOption;
 
     public static Cart createCart(User user, Item item, String option, int count){
 
@@ -44,7 +45,7 @@ public class Cart {
         cart.setItem(item);
         cart.setCount(count);
         cart.setPrice(price);
-        cart.setOption(option);
+        cart.setCartOption(option);
 
         return cart;
     }

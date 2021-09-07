@@ -43,7 +43,7 @@ public class CartService {
     public void modifyCartOption(Long cartId, String option){
         // 변경감지 적용되는지 테스트 필요 -> 트랜잭션 추가
         Cart cart = findCart(cartId);
-        cart.setOption(option);
+        cart.setCartOption(option);
     }
 
 

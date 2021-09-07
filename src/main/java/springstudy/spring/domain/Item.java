@@ -26,7 +26,9 @@ public class Item {
 
     private int itemQuantity;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "item", fetch = FetchType.LAZY)
+    private Cart cart;
+
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "category_id")
     private CategoryItem itemCategory;
