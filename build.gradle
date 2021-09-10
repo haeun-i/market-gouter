@@ -44,6 +44,10 @@ dependencies {
 	compile('org.springframework.boot:spring-boot-starter-security')
 
 
+	//swagger
+	compile 'io.springfox:springfox-swagger2:2.9.2'
+	compile 'io.springfox:springfox-swagger-ui:2.9.2'
+
 	/* Mybatis */
 	compile group: 'org.mybatis.spring.boot', name: 'mybatis-spring-boot-starter', version: '2.1.4'
 	compile group: 'org.mybatis', name: 'mybatis',version: '3.5.1'

@@ -24,11 +24,14 @@ public class UserJoinDto {
         @NotBlank(message = "이름을 입력하시오")
         private String userName;
 
-        @NotBlank(message = "6자 이상의 영문 혹은 영문과 숫자를 조합")
+        @NotBlank(message = "6자에서 20자 사이의 영,소문자를 입력해주세요. ")
+        @Pattern(regexp="^[A-Za-z]{1}[A-Za-z0-9]{5,12}$")
         @Size(min = 6, message = "6")
         private String userId;
 
-        @NotBlank(message = "6자 이상의 영문 혹은 영문과 숫자를 조합")
+        @NotBlank(message = "6자 이상 20자 이하의 영문과 숫자, 특수문자 모두를 조합해주세요.")
+        @Pattern(regexp="^(?=.*[a-zA-Z])(?=.*\\d)(?=.*\\W).{6,20}$")
+        @Size(min = 6, message = "6")
         private String userPassword;
 
         @NotBlank(message = "핸드폰 번호를 입력하시오.")
@@ -36,7 +39,7 @@ public class UserJoinDto {
         private String userPhone;
 
 
-        //private Address userAddress;
+        private Address userAddress;
 
 
     }
