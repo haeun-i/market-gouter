@@ -30,7 +30,7 @@ class OrderServiceTest {
         Cart cartB = createCart(user, "딸기", "2개", 2);
         Cart cartC = createCart(user, "감자", "3개", 3);
 
-        Long cartIdList[] = {cartA.getId(), cartB.getId(), cartC.getId()};
+        Long cartIdList[] = {cartA.getCartId(), cartB.getCartId(), cartC.getCartId()};
         Address address = new Address("서울", "강가", "123-123");
 
         //When
@@ -56,7 +56,7 @@ class OrderServiceTest {
         Cart cartB = createCart(user, "딸기", "2개", 2);
         Cart cartC = createCart(user, "감자", "3개", 3);
 
-        Long cartIdList[] = {cartA.getId(), cartB.getId(), cartC.getId()};
+        Long cartIdList[] = {cartA.getCartId(), cartB.getCartId(), cartC.getCartId()};
         Address address = new Address("서울", "강가", "123-123");
 
         Long orderId = orderService.createOrder(user.getUserNum(), cartIdList, address,"card");
@@ -88,8 +88,8 @@ class OrderServiceTest {
         item.setItemPrice(30000);
 
         Cart cart = new Cart();
-        cart.setOption(option);
-        cart.setCount(count);
+        cart.setCartOption(option);
+        cart.setCartCount(count);
         cart.setItem(item);
         cart.setUser(user);
 
