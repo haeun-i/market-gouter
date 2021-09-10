@@ -42,10 +42,10 @@ class CartServiceTest {
         Cart getCart = cartRepository.findOne(cartId);
         assertEquals(getCart.getUser().getUserId(), user.getUserId());
         assertEquals(getCart.getItem().getItemName(), item.getItemName());
-        assertEquals(getCart.getOption(), option);
+        assertEquals(getCart.getCartOption(), option);
         // option, 수량 확인 필요
         System.out.println("cart에 들어가있는 item의 수량은");
-        System.out.println(getCart.getCount());
+        System.out.println(getCart.getCartCount());
     }
 
     @Test
@@ -79,7 +79,7 @@ class CartServiceTest {
         //Then
         Cart getCart = cartRepository.findOne(cartId);
         System.out.println("cart에 들어가있는 item의 수량은");
-        System.out.println(getCart.getCount());
+        System.out.println(getCart.getCartCount());
     }
 
     @Test
@@ -97,7 +97,7 @@ class CartServiceTest {
 
         //Then
         Cart getCart = cartRepository.findOne(cartId);
-        assertEquals("cart에 들어가있는 item의 이름은", getCart.getOption(), modifyOption);
+        assertEquals("cart에 들어가있는 item의 이름은", getCart.getCartOption(), modifyOption);
     }
 
     private User createUser() {
