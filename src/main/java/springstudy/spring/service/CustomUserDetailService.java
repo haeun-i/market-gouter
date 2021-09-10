@@ -21,7 +21,11 @@ public class CustomUserDetailService implements UserDetailsService {
 
     @Override //실제 DB의 회원정보를 가져오는 로직 -> 회원id로 찾자
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return null;
+        User user = userRepository.findByUserId(username);
+        if(user != null){
+            return user;
+        }
+        throw new UsernameNotFoundException("User '" + username );   //참조
     }
 
     public User findByNum(Long userNum) throws UsernameNotFoundException {
