@@ -32,15 +32,15 @@ public class User implements UserDetails {
     private String userName;
 
 
-    @Column(nullable = false) 
+    @Column(nullable = false)
     private String userPassword;
 
 
     private String userPhone;
 
-//    //2번(수정)
-//    @Embedded //내장타입으로 매핑
-//    private Address userAddress;
+    //2번(수정)
+    @Embedded //내장타입으로 매핑
+    private Address userAddress;
 
 
     //4번 수정 -> OneToOne 같은 경우에 그대로 필드를 가져다 씀, 그 외에 list타입으로

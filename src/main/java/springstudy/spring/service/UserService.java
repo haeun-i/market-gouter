@@ -17,28 +17,57 @@ public class UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
-    //userId로 회원찾기
-    public User findByUser(String userId){
-        return userRepository.findByUserId(userId);
-    }
-
-    //userNum으로 회원찾기
+    //userNum으로 회원전체 찾기
     public User findByNum(Long userNum){
         return userRepository.findByUserNum(userNum);
     }
 
-    //회원가입
-    public String signUp(UserJoinDto userJoinDto){
+    //userId로 회원전체 찾기
+    public User findByUser(String userId){
+        return userRepository.findByUserId(userId);
+    }
 
-        User user = User.builder()
-                .userId(userJoinDto.getUserId())
-                .userPassword(passwordEncoder.encode(userJoinDto.getUserPassword()))
-                .userName(userJoinDto.getUserName())
-                .userPhone(userJoinDto.getUserPhone())
-                .roles(Collections.singletonList("ROLE_USER")) // 최초 가입시 USER 로 설정
-                .build();
-        userRepository.save(user);
-        return user.getUserId();
+    //중복 id검사
+    public boolean findById(String id){
+        boolean msg = (userRepository.findByUserId(id) != null );
+        return msg;
+    }
+
+
+
+//    회원탈퇴
+//
+//    public void deleteUser(String id) {
+//
+//        User user = findByUser(id);
+//        this.userRepository.delete(user);
+//        //return userRepository.deleteByUserId(userId);
+//    }
+
+    //회원수정
+
+
+
+
+    //회원가입
+    public String signUp(UserJoinDto userJoinDto) {
+        //중복id 검사
+        if (findById(userJoinDto.getUserId())) {
+            return "no";
+        }
+        else {
+            User user = User.builder()
+                    .userId(userJoinDto.getUserId())
+                    .userPassword(passwordEncoder.encode(userJoinDto.getUserPassword()))
+                    .userName(userJoinDto.getUserName())
+                    .userPhone(userJoinDto.getUserPhone())
+                    .roles(Collections.singletonList("ROLE_USER")) // 최초 가입시 USER 로 설정
+                    .build();
+
+            userRepository.save(user);
+            return user.getUserId();
+
+        }
     }
 
 }
