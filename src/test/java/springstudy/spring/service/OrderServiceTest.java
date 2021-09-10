@@ -3,6 +3,7 @@ package springstudy.spring.service;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 import springstudy.spring.domain.*;
@@ -20,17 +21,18 @@ class OrderServiceTest {
     @PersistenceContext EntityManager em;
 
     @Autowired OrderService orderService;
+    @Autowired CartService cartService;
+    @Autowired UserService userService;
     @Autowired OrderRepository orderRepository;
 
     @Test
+    @Rollback(false)
     public void 주문실행() throws Exception {
         //Given
-        User user = createUser();
-        Cart cartA = createCart(user, "사과", "1개", 1);
-        Cart cartB = createCart(user, "딸기", "2개", 2);
-        Cart cartC = createCart(user, "감자", "3개", 3);
-
-        Long cartIdList[] = {cartA.getId(), cartB.getId(), cartC.getId()};
+        User user = userService.findByNum(1L);
+        Cart cartA = cartService.findCart(10L);
+        Cart cartB = cartService.findCart(11L);
+        Long cartIdList[] = {cartA.getCartId(), cartB.getCartId()};
         Address address = new Address("서울", "강가", "123-123");
 
         //When
@@ -56,7 +58,7 @@ class OrderServiceTest {
         Cart cartB = createCart(user, "딸기", "2개", 2);
         Cart cartC = createCart(user, "감자", "3개", 3);
 
-        Long cartIdList[] = {cartA.getId(), cartB.getId(), cartC.getId()};
+        Long cartIdList[] = {cartA.getCartId(), cartB.getCartId(), cartC.getCartId()};
         Address address = new Address("서울", "강가", "123-123");
 
         Long orderId = orderService.createOrder(user.getUserNum(), cartIdList, address,"card");
@@ -88,8 +90,8 @@ class OrderServiceTest {
         item.setItemPrice(30000);
 
         Cart cart = new Cart();
-        cart.setOption(option);
-        cart.setCount(count);
+        cart.setCartOption(option);
+        cart.setCartCount(count);
         cart.setItem(item);
         cart.setUser(user);
 

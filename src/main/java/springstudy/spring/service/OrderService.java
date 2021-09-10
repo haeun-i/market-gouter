@@ -35,10 +35,13 @@ public class OrderService {
         Payment payment = new Payment();
         payment.setName(pay);
 
+        int price = 0;
+
         for(Long cartId : cartIdList){
             Cart cart = cartRepository.findOne(cartId);
             OrderItem orderItem = OrderItem.createOrderItem(cart.getItem(), cart.getCartCount(), cart.getCartOption());
             orderItems.add(orderItem);
+            price += cart.getCartPrice();
         }
 
         Order order = Order.createOrder(user, delivery, payment, orderItems);
