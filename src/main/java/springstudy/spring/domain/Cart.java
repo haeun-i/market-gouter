@@ -17,23 +17,23 @@ public class Cart {
     @Id
     @GeneratedValue
     @Column(name = "cart_id")
-    private Long id;
+    private Long cartId;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_num")
     private User user;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "item_id")
     private Item item;
 
     @Column(name="count")
-    private int count;
+    private int cartCount;
 
     @Column(name="cart_total_price")
-    private int price;
+    private int cartPrice;
 
-    @Column(name="option")
+    @Column(name="cart_option")
     private String cartOption;
 
     public static Cart createCart(User user, Item item, String option, int count){
@@ -43,8 +43,8 @@ public class Cart {
 
         cart.setUser(user);
         cart.setItem(item);
-        cart.setCount(count);
-        cart.setPrice(price);
+        cart.setCartCount(count);
+        cart.setCartPrice(price);
         cart.setCartOption(option);
 
         return cart;

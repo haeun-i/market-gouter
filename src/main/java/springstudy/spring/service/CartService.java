@@ -31,13 +31,13 @@ public class CartService {
         Cart cart = Cart.createCart(user, item, option, count);
 
         cartRepository.save(cart);
-        return cart.getId();
+        return cart.getCartId();
     }
 
     public void modifyCartCount(Long cartId, int count){
         // 변경감지 적용되는지 테스트 필요 -> 트랜잭션 추가
         Cart cart = findCart(cartId);
-        cart.setCount(count);
+        cart.setCartCount(count);
     }
 
     public void modifyCartOption(Long cartId, String option){

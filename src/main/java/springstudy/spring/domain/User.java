@@ -62,7 +62,7 @@ public class User implements UserDetails {
     private List<ItemAnswer> itemAnswers = new ArrayList<>();
 
     //(하은)양방향 -> 수정 OneToMany와 ManyToOne 관계
-    @OneToMany(mappedBy="user",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy="user", cascade = CascadeType.ALL)
     private List<Cart> carts = new ArrayList<>();
 
     //(하은)
