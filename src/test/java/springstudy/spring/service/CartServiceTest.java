@@ -40,9 +40,9 @@ class CartServiceTest {
 
         //Then
         Cart getCart = cartRepository.findOne(cartId);
-        assertEquals("cart가 들어가있는 user의 ID는", getCart.getUser().getUserId(), user.getUserId());
-        assertEquals("cart에 들어가있는 item의 이름은", getCart.getItem().getItemName(), item.getItemName());
-        assertEquals("cart에 들어가있는 item의 옵션은", getCart.getOption(), option);
+        assertEquals(getCart.getUser().getUserId(), user.getUserId());
+        assertEquals(getCart.getItem().getItemName(), item.getItemName());
+        assertEquals(getCart.getOption(), option);
         // option, 수량 확인 필요
         System.out.println("cart에 들어가있는 item의 수량은");
         System.out.println(getCart.getCount());
