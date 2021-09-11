@@ -39,7 +39,7 @@ public class Cart {
     public static Cart createCart(User user, Item item, String option, int count){
 
         Cart cart = new Cart();
-        int price = item.getItemPrice();
+        int price = item.getItemPrice() * count;
 
         cart.setUser(user);
         cart.setItem(item);

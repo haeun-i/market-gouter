@@ -52,6 +52,9 @@ dependencies {
 	compile group: 'org.mybatis.spring.boot', name: 'mybatis-spring-boot-starter', version: '2.1.4'
 	compile group: 'org.mybatis', name: 'mybatis',version: '3.5.1'
 
+	//swagger
+	compile 'io.springfox:springfox-swagger2:2.9.2'
+	compile 'io.springfox:springfox-swagger-ui:2.9.2'
 
 //	/* AWS S3 */
 //	compile 'org.springframework.cloud:spring-cloud-starter-aws:2.0.1.RELEASE'
