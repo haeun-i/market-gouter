@@ -23,7 +23,6 @@ public class CategoryItemService {
         return categoryItem.getId(); // 카테고리명 아이디 리턴
     }
 
-
     // 카테고리 전체 조회
     public List<CategoryItem> findCategoryItems() {
         return categoryItemRepository.findAll();
