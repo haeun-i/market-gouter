@@ -40,8 +40,8 @@ class CartServiceTest {
     @Rollback(false)
     public void 상품추가() throws Exception {
         //Given
-        User user = userService.findByNum(1L);
-        Item item = itemService.getItem(2L);
+        User user = userService.findByNum(2L);
+        Item item = itemService.getItem(1L);
         String option = "100g";
         int count = 3;
 

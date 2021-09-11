@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 import springstudy.spring.domain.*;
 import springstudy.spring.repository.CartRepository;
 import springstudy.spring.repository.OrderRepository;
+import springstudy.spring.repository.PaymentRepository;
 import springstudy.spring.repository.UserRepository;
 
 import java.util.ArrayList;
@@ -21,19 +22,15 @@ public class OrderService {
     //private final ItemRepository itemRepository;
     private final CartRepository cartRepository;
     private final OrderRepository orderRepository;
+    private final PaymentRepository paymentRepository;
 
     @Transactional
-    public Long createOrder(Long userNum, Long[] cartIdList, Address address, String pay) {
+    public Long createOrder(Long userNum, Long[] cartIdList, Address address, Long payId) {
 
         User user = userRepository.findByUserNum(userNum);
         List<OrderItem> orderItems = new ArrayList<>();
 
-        Delivery delivery = new Delivery();
-        delivery.setAddress(address);
-        delivery.setDeliveryStatus(DeliveryStatus.READY);
-
-        Payment payment = new Payment();
-        payment.setName(pay);
+        Payment payment = paymentRepository.findOne(payId);
 
         int price = 0;
 
@@ -42,23 +39,47 @@ public class OrderService {
             OrderItem orderItem = OrderItem.createOrderItem(cart.getItem(), cart.getCartCount(), cart.getCartOption());
             orderItems.add(orderItem);
             price += cart.getCartPrice();
+
+            cartRepository.delete(cartId);
         }
 
-        Order order = Order.createOrder(user, delivery, payment, orderItems);
-
+        Order order = Order.createOrder(user, address, payment, orderItems);
         orderRepository.save(order);
 
         return order.getId();
     }
 
     @Transactional
-    public void cancelOrder(Long orderId) {
+    public void deleteOrder(Long orderId) {
         Order order = orderRepository.findOne(orderId);
-        order.cancelOrder();
+        order.deleteOrder();
         orderRepository.delete(order);
     }
 
+    @Transactional
+    public void cancelOrder(Long orderId) {
+        Order order = orderRepository.findOne(orderId);
+        order.cancelOrder();
+    }
+
+    public void modifyOrderAddress(Long orderId, String city, String street, String zipcode){
+        // 변경감지 적용되는지 테스트 필요 -> 트랜잭션 추가
+        Order order = findOrder(orderId);
+        Address address = new Address(city, street, zipcode);
+        order.setOrderAddress(address);
+    }
+
+    public void modifyDeliveryStatus(Long orderId){
+        // 변경감지 적용되는지 테스트 필요 -> 트랜잭션 추가
+        Order order = findOrder(orderId);
+        order.setDeliveryStatus(DeliveryStatus.COMP);
+    }
+
+
     public List<Order> findOrders(Long userNum){
         return orderRepository.findAll(userNum);
+    }
+    public Order findOrder(Long orderId){
+        return orderRepository.findOne(orderId);
     }
 }

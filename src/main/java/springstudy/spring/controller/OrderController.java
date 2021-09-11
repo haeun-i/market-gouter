@@ -37,11 +37,17 @@ public class OrderController {
     public String order(@RequestParam("userNum") Long userNum,
                         @RequestParam("cartIdList") Long[] cartIdList,
                         @RequestParam("address") Address address,
-                        @RequestParam("pay") String pay) {
-        orderService.createOrder(userNum, cartIdList, address, pay);
+                        @RequestParam("pay") Long payId) {
+        orderService.createOrder(userNum, cartIdList, address, payId);
         return "redirect:/orders";
     }
 
+
+    @PostMapping(value = "/orders/{orderId}/delete") // 주문 삭제
+    public String deleteOrder(@PathVariable("orderId") Long orderId) {
+        orderService.deleteOrder(orderId);
+        return "redirect:/orders";
+    }
 
     @PostMapping(value = "/orders/{orderId}/cancel") // 주문 취소
     public String cancelOrder(@PathVariable("orderId") Long orderId) {

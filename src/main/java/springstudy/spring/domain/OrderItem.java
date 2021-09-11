@@ -30,12 +30,14 @@ public class OrderItem {
     @Column(name="item_count")
     private int count;
 
+    @Column(name="item_total_price")
+    private int orderItem_total_price;
+
     public static OrderItem createOrderItem(Item item, int count, String option){
         OrderItem orderItem = new OrderItem();
         orderItem.setItem(item);
         orderItem.setCount(count);
         orderItem.setOption(option);
-
  //       item.removeStock(count);
 
         return orderItem;
