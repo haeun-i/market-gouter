@@ -38,13 +38,12 @@ public class OrderItem {
         orderItem.setItem(item);
         orderItem.setCount(count);
         orderItem.setOption(option);
- //       item.removeStock(count);
+        item.removeStock(count);
 
         return orderItem;
     }
 
     public void cancelOrderItem(){
-
-        // getItem().addStock(count);
+        getItem().addStock(count);
     }
 }

@@ -30,8 +30,8 @@ class OrderServiceTest {
     public void 주문실행() throws Exception {
         //Given
         User user = userService.findByNum(2L);
-        Cart cartA = cartService.findCart(6L);
-        Cart cartB = cartService.findCart(7L);
+        Cart cartA = cartService.findCart(32L);
+        Cart cartB = cartService.findCart(33L);
         Long cartIdList[] = {cartA.getCartId(), cartB.getCartId()};
         Address address = new Address("서울", "강가", "123-123");
 
@@ -54,7 +54,7 @@ class OrderServiceTest {
     @Rollback(false)
     public void 주문내역삭제() {
         //Given
-        Order getOrder = orderService.findOrder(14L);
+        Order getOrder = orderService.findOrder(29L);
         Long orderId = getOrder.getId();
 
         //When
@@ -68,7 +68,7 @@ class OrderServiceTest {
     @Rollback(false)
     public void 주문취소() {
         //Given
-        Order getOrder = orderService.findOrder(11L);
+        Order getOrder = orderService.findOrder(34L);
         Long orderId = getOrder.getId();
 
         //When
