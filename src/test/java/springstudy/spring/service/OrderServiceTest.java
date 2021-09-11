@@ -33,6 +33,7 @@ class OrderServiceTest {
         Cart cartA = cartService.findCart(32L);
         Cart cartB = cartService.findCart(33L);
         Long cartIdList[] = {cartA.getCartId(), cartB.getCartId()};
+
         Address address = new Address("서울", "강가", "123-123");
 
         //When
