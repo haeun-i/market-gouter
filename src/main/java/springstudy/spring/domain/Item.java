@@ -1,6 +1,7 @@
 package springstudy.spring.domain;
 
 import lombok.*;
+import springstudy.spring.exception.NotEnoughStockException;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -10,8 +11,6 @@ import java.util.List;
 @Table(name = "item")
 @Getter @Setter
 @AllArgsConstructor
-@NoArgsConstructor
-
 @Builder
 public class Item {
     @Id @GeneratedValue
@@ -55,4 +54,15 @@ public class Item {
     private List<ItemQuestion> itemQuestions = new ArrayList<>();
 
 
+    public void addStock(int quantity){
+        this.itemQuantity +=quantity;
+    }
+
+    public void removeStock(int quantity) {
+        int restStock = this.itemQuantity = quantity;
+        if(restStock < 0){
+            throw new NotEnoughStockException("need more stock!");
+        }
+        this.itemQuantity = restStock;
+    }
 }
