@@ -49,7 +49,7 @@ public class UserService {
     public void modify(String id,UserJoinDto dto){
 
         User member=findByUser(dto.getUserId());
-        // ***** 패스워드값 확인 부분 ****
+         //***** 패스워드값 확인 부분 ****
 //        if(!passwordEncoder.matches(password, member.getPassword())){
 //            throw new IllegalArgumentException("패스워드가 맞지 않습니다.");
 //        }
