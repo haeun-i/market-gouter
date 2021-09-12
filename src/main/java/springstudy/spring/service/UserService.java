@@ -8,6 +8,7 @@ import springstudy.spring.dto.UserJoinDto;
 import springstudy.spring.repository.UserRepository;
 
 import java.util.Collections;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -27,11 +28,11 @@ public class UserService {
         return userRepository.findByUserId(userId);
     }
 
-    //중복 id검사
-    public boolean findById(String id){
-        boolean msg = (userRepository.findByUserId(id) != null );
-        return msg;
-    }
+//    //중복 id검사
+//    public boolean findById(String id){
+//        boolean msg = (userRepository.findByUserId(id) != null );
+//        return msg;
+//    }
 
 
 
@@ -45,6 +46,21 @@ public class UserService {
 //    }
 
     //회원수정
+    public void modify(String id,UserJoinDto dto){
+
+        User member=findByUser(dto.getUserId());
+        // ***** 패스워드값 확인 부분 ****
+        if(!passwordEncoder.matches(password, member.getPassword())){
+            throw new IllegalArgumentException("패스워드가 맞지 않습니다.");
+        }
+
+    //이름, 폰번호, 패스워드 수정
+        member.setUserName(dto.getUserName());
+        member.setUserPhone(dto.getUserPhone());
+        member.setUserPassword(passwordEncoder.encode(dto.getUserPassword()));
+
+        userRepository.save(member);
+    }
 
 
 
@@ -52,7 +68,8 @@ public class UserService {
     //회원가입
     public String signUp(UserJoinDto userJoinDto) {
         //중복id 검사
-        if (findById(userJoinDto.getUserId())) {
+        User member = findByUser(userJoinDto.getUserId());
+        if (member==null) {
             return "no";
         }
         else {
