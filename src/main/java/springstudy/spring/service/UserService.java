@@ -57,7 +57,7 @@ public class UserService {
     //이름, 폰번호, 패스워드 수정
         member.setUserName(dto.getUserName());
         member.setUserPhone(dto.getUserPhone());
-        member.setUserPassword(passwordEncoder.encode(dto.getUserPassword()));
+        //member.setUserPassword(passwordEncoder.encode(dto.getUserPassword()));
 
         userRepository.save(member);
     }
