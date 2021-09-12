@@ -85,14 +85,16 @@ public class UserController {
     @ApiOperation(value = "회원수정", notes = "userId로 회원정보 수정")
     @PutMapping(value = "/user")
     public ResponseEntity<? extends BasicResponse> modifyUser(
-            //@ApiParam(value="회원id", required = true) @RequestBody String userId,
+            @ApiParam(value="기존 비밀번호", required = true) @RequestBody String password,
             @RequestBody UserJoinDto dto)
     {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String id = authentication.getName();
 
+        //userService.modify(id,dto,password);
         userService.modify(id,dto);
-        return ResponseEntity.ok().body(new CommonResponse<String>("수정 성공"));
+        User member=userService.findByUser(id);
+        return ResponseEntity.ok().body(new CommonResponse<User>(member));
     }
 
 

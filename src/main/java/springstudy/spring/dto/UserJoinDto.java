@@ -39,7 +39,7 @@ public class UserJoinDto {
         private String userPhone;
 
 
-        private Address userAddress;
+        //private Address userAddress;
 
 
     }
