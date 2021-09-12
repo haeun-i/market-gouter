@@ -11,6 +11,7 @@ import java.util.List;
 @Table(name = "item")
 @Getter @Setter
 @AllArgsConstructor
+@NoArgsConstructor
 @Builder
 public class Item {
     @Id @GeneratedValue
