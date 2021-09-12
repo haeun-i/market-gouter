@@ -17,24 +17,24 @@ public class Order {
     @Column(name = "order_id")
     private Long id;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_num")
     private User user;
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     private List<OrderItem> orderItems = new ArrayList<>();
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "delivery_id")
-    private Delivery delivery;
+    @Enumerated(EnumType.STRING)
+    private DeliveryStatus deliveryStatus;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "payment_id")
     private Payment payment;
 
     @Column(name="order_date")
     private LocalDateTime orderDate;
 
+    @Column(name = "order_price")
     private int orderTotalPrice;
 
     @Enumerated(EnumType.STRING)
@@ -47,34 +47,35 @@ public class Order {
         this.user = user;
         user.getOrders().add(this);
     }
+
     public void addOrderItem(OrderItem orderItem) {
         orderItems.add(orderItem);
         orderItem.setOrder(this);
     }
-    public void setDelivery(Delivery delivery) {
-//        this.delivery = delivery;
-//        delivery.setOrder(this);
-    }
+
     public void setPayment(Payment payment) {
         this.payment = payment;
         payment.setOrder(this);
     }
 
-    public static Order createOrder(User user, Delivery delivery, Payment payment, List<OrderItem> orderItems){
+    public static Order createOrder(User user, Address address, Payment payment, List<OrderItem> orderItems){
         Order order = new Order();
         order.setUser(user);
-        order.setDelivery(delivery);
-//        for(OrderItem orderItem : orderItems){
-//            order.addOrderItem(orderItem);
-//            order.orderTotalPrice += orderItem.getItem().getItemPrice();
-//        }
+
+        order.setOrderAddress(address);
+        for(OrderItem orderItem : orderItems){
+            order.addOrderItem(orderItem);
+            order.orderTotalPrice += orderItem.getCount() * orderItem.getItem().getItemPrice();
+        }
+        order.setDeliveryStatus(DeliveryStatus.READY);
         order.setOrderStatus(OrderStatus.ORDER);
         order.setOrderDate(LocalDateTime.now());
+        order.setPayment(payment);
         return order;
     }
 
-    public void cancelOrder(){
-        if(delivery.getDeliveryStatus() == DeliveryStatus.COMP){
+    public void deleteOrder(){
+        if(this.getDeliveryStatus() == DeliveryStatus.COMP){
             throw new IllegalStateException("이미 배송완료된 상품은 취소가 불가능합니다.");
         }
         this.setOrderStatus(OrderStatus.CANCEL);
@@ -83,4 +84,13 @@ public class Order {
         }
     }
 
+    public void cancelOrder(){
+        if(this.getDeliveryStatus() == DeliveryStatus.COMP){
+            throw new IllegalStateException("이미 배송완료된 상품은 취소가 불가능합니다.");
+        }
+        this.setOrderStatus(OrderStatus.CANCEL);
+        for(OrderItem orderItem : orderItems){
+            orderItem.cancelOrderItem();
+        }
+    }
 }

@@ -44,9 +44,9 @@ public class UserController {
         String user=userService.signUp(userJoinDto);
         System.out.println(user);
 
-        if(user == "no"){
+        if(user == "no"){   //중복된 id
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body(new ErrorResponse("사용불가한 id"));
+                    .body(new ErrorResponse("중복된 id입니다."));
         }
         else {
             return ResponseEntity.ok().body(new CommonResponse<String>("회원가입 성공"));
@@ -65,24 +65,40 @@ public class UserController {
         if(member == null){
             throw new IllegalArgumentException("가입되지 않은 ID 입니다.");
         }
-
         if (!(passwordEncoder.matches(dto.getUserPassword(), member.getUserPassword()))) {
             throw new IllegalArgumentException("잘못된 비밀번호입니다.");
         }
+        //정상적으로 토큰생성
         return jwtTokenProvider.createToken(member.getUsername(), member.getRoles());
     }
+
+
 
     //로그아웃 -> 현재 로그인한 유저의 정보를 db에서 찾음 찾아낸 유저의 토큰을 지워줌
 
 
     //로그인 된 userId의 dto로 '회원정보 수정'
     //유효한 jwt 토큰을 설정해야만 user 리소스를 사용할 수 있음 -> 헤더 설정
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "X-AUTH-TOKEN", value = "로그인 성공 후 access_token", required = true, dataType = "String", paramType = "header")
+    })
+    @ApiOperation(value = "회원수정", notes = "userId로 회원정보 수정")
+    @PutMapping(value = "/user")
+    public ResponseEntity<? extends BasicResponse> modifyUser(
+            //@ApiParam(value="회원id", required = true) @RequestBody String userId,
+            @RequestBody UserJoinDto dto)
+    {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String id = authentication.getName();
 
-//    @ApiOperation(value = "회원수정", notes = "userId로 회원정보 수정")
-//    @PutMapping("/modify")
-//    public ResponseEntity<?> modifyUser() {
-//
-//    }
+        userService.modify(id,dto);
+        return ResponseEntity.ok().body(new CommonResponse<String>("수정 성공"));
+    }
+
+
+
+
+
 
 
     //user id로 회원 조회
@@ -95,7 +111,7 @@ public class UserController {
         // SecurityContext에서 인증받은 회원의 정보를 얻어온다.
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        System.out.println("authentication은 : " + authentication);
+        //System.out.println("authentication은 : " + authentication);
         String id = authentication.getName();   //id는 해당 userId이다.
         System.out.println("결과: 회원 단건조회를 위한 id=" + id);
 
@@ -106,6 +122,7 @@ public class UserController {
     }
 
 
+    //회원탈퇴
     @ApiImplicitParams({
             @ApiImplicitParam(name = "X-AUTH-TOKEN", value = "로그인 성공 후 access_token", required = true, dataType = "String", paramType = "header")
     })

@@ -3,6 +3,7 @@ package springstudy.spring.service;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 import springstudy.spring.domain.*;
@@ -20,21 +21,23 @@ class OrderServiceTest {
     @PersistenceContext EntityManager em;
 
     @Autowired OrderService orderService;
+    @Autowired CartService cartService;
+    @Autowired UserService userService;
     @Autowired OrderRepository orderRepository;
 
     @Test
+    @Rollback(false)
     public void 주문실행() throws Exception {
         //Given
-        User user = createUser();
-        Cart cartA = createCart(user, "사과", "1개", 1);
-        Cart cartB = createCart(user, "딸기", "2개", 2);
-        Cart cartC = createCart(user, "감자", "3개", 3);
+        User user = userService.findByNum(2L);
+        Cart cartA = cartService.findCart(32L);
+        Cart cartB = cartService.findCart(33L);
+        Long cartIdList[] = {cartA.getCartId(), cartB.getCartId()};
 
-        Long cartIdList[] = {cartA.getCartId(), cartB.getCartId(), cartC.getCartId()};
         Address address = new Address("서울", "강가", "123-123");
 
         //When
-        Long orderId = orderService.createOrder(user.getUserNum(), cartIdList, address,"card");
+        Long orderId = orderService.createOrder(user.getUserNum(), cartIdList, address,1L);
 
         //Then
         Order getOrder = orderRepository.findOne(orderId);
@@ -49,50 +52,62 @@ class OrderServiceTest {
     }
 
     @Test
-    public void 주문취소() {
+    @Rollback(false)
+    public void 주문내역삭제() {
         //Given
-        User user = createUser();
-        Cart cartA = createCart(user, "사과", "1개", 1);
-        Cart cartB = createCart(user, "딸기", "2개", 2);
-        Cart cartC = createCart(user, "감자", "3개", 3);
-
-        Long cartIdList[] = {cartA.getCartId(), cartB.getCartId(), cartC.getCartId()};
-        Address address = new Address("서울", "강가", "123-123");
-
-        Long orderId = orderService.createOrder(user.getUserNum(), cartIdList, address,"card");
+        Order getOrder = orderService.findOrder(29L);
+        Long orderId = getOrder.getId();
 
         //When
-        orderService.cancelOrder(orderId);
+        orderService.deleteOrder(orderId);
 
         //Then
         assertNull(orderRepository.findOne(orderId));
     }
 
+    @Test
+    @Rollback(false)
+    public void 주문취소() {
+        //Given
+        Order getOrder = orderService.findOrder(34L);
+        Long orderId = getOrder.getId();
 
+        //When
+        orderService.cancelOrder(orderId);
 
-    private User createUser() {
-        User user = new User();
-        user.setUserId("nueahx7674");
-        user.setUserName("haeun");
-        user.setUserPhone("010-5917-9098");
-        user.setUserPassword("qwerty");
-        user.setUserAddress(new Address("서울", "강가", "123-123"));
-
-        em.persist(user);
-        return user;
+        //Then
+        assertNotNull(orderRepository.findOne(orderId));
     }
 
-    private Cart createCart(User user, String itemName, String option, int count){
-        Item item = new Item();
-        item.setItemName(itemName);
-        item.setItemPrice(30000);
+    @Test
+    @Rollback(false)
+    public void 주문주소수정() {
+        //Given
+        Order getOrder = orderService.findOrder(14L);
+        Long orderId = getOrder.getId();
 
-        Cart cart = new Cart();
-        cart.setCartOption(option);
-        cart.setCartCount(count);
-        cart.setItem(item);
-        cart.setUser(user);
+        String checkcity = "인천";
 
-        return cart;
+        //When
+        orderService.modifyOrderAddress(orderId, "인천", "주안", "33333");
+
+        //Then
+        assertEquals(getOrder.getOrderAddress().getCity(), checkcity);
     }
+
+
+    @Test
+    @Rollback(false)
+    public void 배달상태수정() {
+        //Given
+        Order getOrder = orderService.findOrder(14L);
+        Long orderId = getOrder.getId();
+
+        //When
+        orderService.modifyDeliveryStatus(orderId);
+
+        //Then
+        System.out.println(getOrder.getDeliveryStatus());
+    }
+
 }

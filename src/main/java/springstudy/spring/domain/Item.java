@@ -10,6 +10,7 @@ import java.util.List;
 @Entity
 @Table(name = "item")
 @Getter @Setter
+@NoArgsConstructor
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
@@ -60,7 +61,7 @@ public class Item {
     }
 
     public void removeStock(int quantity) {
-        int restStock = this.itemQuantity = quantity;
+        int restStock = this.itemQuantity -= quantity;
         if(restStock < 0){
             throw new NotEnoughStockException("need more stock!");
         }
