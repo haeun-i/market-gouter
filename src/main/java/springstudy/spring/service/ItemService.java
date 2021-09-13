@@ -13,13 +13,12 @@ import java.util.ArrayList;
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class ItemService {
-
-
     private final ItemRepository itemRepository;
 
     // Create
     @Transactional
     public void saveItem(Item item){
+
         itemRepository.save(item);
     } // 매개변수에 Item을 넣는 것과 ItemDto를 넣는 것이 차이?
 
