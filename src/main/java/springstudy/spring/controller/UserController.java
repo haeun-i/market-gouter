@@ -44,7 +44,7 @@ public class UserController {
         String user=userService.signUp(userJoinDto);
         System.out.println(user);
 
-        if(user == "no"){   //중복된 id
+        if(user != "no"){   //중복된 id
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body(new ErrorResponse("중복된 id입니다."));
         }

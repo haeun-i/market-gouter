@@ -1,6 +1,10 @@
 package springstudy.spring.controller;
 
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -8,6 +12,7 @@ import springstudy.spring.domain.Cart;
 import springstudy.spring.domain.User;
 import springstudy.spring.service.CartService;
 import springstudy.spring.service.CustomUserDetailService;
+import springstudy.spring.service.UserService;
 
 
 import java.util.List;
@@ -16,16 +21,23 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CartController {
 
-    private final CustomUserDetailService userService;
+    private final UserService userService;
     private final CartService cartService;
     
     @GetMapping(value = "/cart") // 장바구니 목록 조회
-    public String orderList(Model model, Long userNum) {
-        User user = userService.findByNum(userNum);
-
-
+//    @ApiImplicitParams({
+//            @ApiImplicitParam(name = "X-AUTH-TOKEN", value = "로그인 성공 후 access_token", required = true, dataType = "String", paramType = "header")
+//    })
+    public String orderList(Model model) {
+//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//        String id = authentication.getName();
+        User user = userService.findByUser("user999");
+        Long userNum = user.getUserNum();
         List<Cart> carts = cartService.findCarts(user.getUserNum());
-        model.addAttribute("carts", carts);
+        System.out.println(carts);
+
+
+//        model.addAttribute("carts", carts);
         return "page/cart";
     }
 
