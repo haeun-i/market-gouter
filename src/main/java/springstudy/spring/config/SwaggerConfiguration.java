@@ -19,7 +19,7 @@ public class SwaggerConfiguration {
 
         return new ApiInfoBuilder()
                 .title("Spring loginTest")
-                .description("서버 API에 대한 연동 문서입니다")
+                .description("스프링 스터디 아자아자")
                 .build();
 
     }
