@@ -20,9 +20,9 @@ public class Item {
 
     private String itemName;
 
-    @Lob
-    @Column(length = 100000)
-    private byte[] itemImage;
+    @OneToMany(mappedBy = "item", cascade = {CascadeType.PERSIST, CascadeType.REMOVE},
+            orphanRemoval = true)
+    private List<ItemPhoto> photo;
 
     private int itemQuantity;
 
@@ -41,12 +41,8 @@ public class Item {
 
     private String itemDescription;
 
-
-    // 컬렉션(item_option)d을 테이블로 생성해서 One-To-Many 관계 생성
-    @ElementCollection
-    @CollectionTable(name = "item_options", joinColumns = @JoinColumn(name = "id"))
-    @Column(name = "item_option")
-    private List<String> itemOptions = new ArrayList<>();
+    @OneToMany(mappedBy = "item", cascade = CascadeType.ALL)
+    private List<ItemOption> itemOptions = new ArrayList<>();
 
     @OneToMany(mappedBy = "item", fetch = FetchType.LAZY)
     private List<OrderItem> orderItems = new ArrayList<>();

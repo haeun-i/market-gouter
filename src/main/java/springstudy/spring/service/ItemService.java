@@ -18,6 +18,7 @@ public class ItemService {
     // Create
     @Transactional
     public void saveItem(Item item){
+        List<String> itemOptions  = new ArrayList<>();
 
         itemRepository.save(item);
     } // 매개변수에 Item을 넣는 것과 ItemDto를 넣는 것이 차이?
