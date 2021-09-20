@@ -5,6 +5,7 @@ import lombok.*;
 import javax.persistence.*;
 
 @Entity
+@Builder
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
 @Table(name = "ItemPhoto")
 @Getter @Setter
@@ -14,6 +15,7 @@ public class ItemPhoto {
     @Column(name = "item_photo_id")
     private Long id;
 
+    // item과의 FK
     @ManyToOne
     @JoinColumn(name = "item_id")
     private Item item;
@@ -42,4 +44,5 @@ public class ItemPhoto {
             // 파일 추가
             item.getPhoto().add(this);
     }
+
 }
