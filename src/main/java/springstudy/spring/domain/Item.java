@@ -89,7 +89,7 @@ public class Item {
         itemQuestion.setItem(this);
     }
 
-    public void createItem(String name, List<ItemPhoto> photos, int quantity, List<Cart> carts, CategoryItem category, String from, String intro, int price, String description,
+    public static Item createItem(String name, List<ItemPhoto> photos, int quantity, List<Cart> carts, CategoryItem category, String from, String intro, int price, String description,
                            List<ItemOption> options, List<OrderItem> orderItems, List<ItemQuestion> itemQuestions){
         Item item = new Item();
         item.setItemName(name);
@@ -114,6 +114,6 @@ public class Item {
         for(ItemQuestion itemQuestion : itemQuestions){
             item.addItemQuestion(itemQuestion);
         }
-
+        return item;
     }
 }
