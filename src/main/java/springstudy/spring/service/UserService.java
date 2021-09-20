@@ -47,20 +47,20 @@ public class UserService {
 //        //return userRepository.deleteByUserId(userId);
 //    }
 
-//    //회원수정
-//    public User modify(String id,UserJoinDto dto){
-//
-//        User member=findByUser(dto.getUserId());
-//
-//        //이름, 폰번호, 패스워드 수정
-//        member.setUserName(dto.getUserName());
-//        member.setUserPhone(dto.getUserPhone());
-//        member.setUserPassword(passwordEncoder.encode(dto.getUserPassword()));
-//
-//        userRepository.save(member);
-//        return member;
-//
-//    }
+    //회원수정
+    public User modify(String id,UserJoinDto dto){
+
+        User member=findByUser(dto.getUserId());
+
+        //이름, 폰번호, 패스워드 수정
+        member.setUserName(dto.getUserName());
+        member.setUserPhone(dto.getUserPhone());
+        member.setUserPassword(passwordEncoder.encode(dto.getUserPassword()));
+
+        userRepository.save(member);
+        return member;
+
+    }
 
 
 
