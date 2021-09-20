@@ -49,10 +49,13 @@ public class UserController {
                     .body(new ErrorResponse("중복된 id입니다."));
         }
         else {
+            User newUser = userService.findByUser(user);
+            //return ResponseEntity.created(URI.create("/user")).body(new CommonResponse<User>(newUser));
             return ResponseEntity.ok().body(new CommonResponse<String>("회원가입 성공"));
         }
 
     }
+
     // 로그인
     @ApiOperation(value = "로그인", notes="회원 로그인")
     @PostMapping("/login")
@@ -76,57 +79,35 @@ public class UserController {
 
 
 
-//    //비밀번호 확인하는 API
-//    @ApiImplicitParams({
-//            @ApiImplicitParam(name = "X-AUTH-TOKEN", value = "로그인 성공 후 access_token", required = true, dataType = "String", paramType = "header")
-//    })
-//    @ApiOperation(value = "회원수정 이전", notes = "비밀번호 재확인")
-//    @PostMapping(value = "/correct")
-//    public ResponseEntity<? extends CommonResponse> correctPw(
-//            @ApiParam(value="기존 비밀번호", required = true) @RequestBody String password,
-//            @RequestBody UserJoinDto dto)
-//    {
-//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//        String id = authentication.getName();
+
+
+
+    //로그인 된 userId의 dto로 '회원정보 수정'
+    //유효한 jwt 토큰을 설정해야만 user 리소스를 사용할 수 있음 -> 헤더 설정
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "X-AUTH-TOKEN", value = "로그인 성공 후 access_token", required = true, dataType = "String", paramType = "header")
+    })
+    @ApiOperation(value = "회원수정", notes = "userId 외의 회원정보 수정")
+    @PutMapping(value = "/user/{userId}")
+    public ResponseEntity<? extends BasicResponse> modifyUser(
+            //@ApiParam(value="기존 비밀번호", required = true)@RequestParam String password,
+            @RequestBody UserJoinDto dto)
+    {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String id = authentication.getName();
+
+//        User member=userService.findByUser(id);
+//        System.out.println("기존 pw:"+password+"새로 정한 pw: "+member.getUserPassword());
 //
-//        User correctUser = userService.findByUser(id);
-//        System.out.println("사용자가 누른 pw:" + password + " dto에서의 pw: "+ dto.getUserPassword());
-//
-//        if (!(passwordEncoder.matches(password , correctUser.getUserPassword()))) {  //본인확인 pw로 재확인
+//        if (!(passwordEncoder.matches(password,member.getUserPassword()))) {  //본인확인 pw로 재확인
 //            throw new IllegalArgumentException("비밀번호를 정확하게 입력해주세요.");
 //        }
-//
-//        return ResponseEntity.ok().body(new CommonResponse<String>("비밀번호 성공"));
-//    }
+//        userService.modify(id,dto,password);
+        User user = userService.modify(id,dto);
+        //System.out.println("수정 후의 pw: " + user.getUserPassword()); //해싱한 값
 
-
-
-
-//    //로그인 된 userId의 dto로 '회원정보 수정'
-//    //유효한 jwt 토큰을 설정해야만 user 리소스를 사용할 수 있음 -> 헤더 설정
-//    @ApiImplicitParams({
-//            @ApiImplicitParam(name = "X-AUTH-TOKEN", value = "로그인 성공 후 access_token", required = true, dataType = "String", paramType = "header")
-//    })
-//    @ApiOperation(value = "회원수정", notes = "userId 외의 회원정보 수정")
-//    @PutMapping(value = "/user/{userId}")
-//    public ResponseEntity<? extends BasicResponse> modifyUser(
-//            //@ApiParam(value="기존 비밀번호", required = true)@RequestParam String password,
-//            @RequestBody UserJoinDto dto)
-//    {
-//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//        String id = authentication.getName();
-//
-////        User member=userService.findByUser(id);
-////        System.out.println("기존 pw:"+password+"새로 정한 pw: "+member.getUserPassword());
-////
-////        if (!(passwordEncoder.matches(password,member.getUserPassword()))) {  //본인확인 pw로 재확인
-////            throw new IllegalArgumentException("비밀번호를 정확하게 입력해주세요.");
-////        }
-//        //userService.modify(id,dto,password);
-//        User member = userService.modify(id,dto);
-//
-//        return ResponseEntity.ok().body(new CommonResponse<User>(member));
-//    }
+        return ResponseEntity.ok().body(new CommonResponse<User>(user));
+    }
 
 
 
@@ -138,20 +119,21 @@ public class UserController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "X-AUTH-TOKEN", value = "로그인 성공 후 access_token", required = true, dataType = "String", paramType = "header")
     })
-    @ApiOperation(value = "회원 단건 조회", notes = "회원id로 회원을 조회한다")
+    @ApiOperation(value = "회원 단건 조회", notes = "토큰에서 가져온 id로 회원을 조회한다")
     @GetMapping(value = "/user")
-    public ResponseEntity<? extends BasicResponse> findUser(HttpServletRequest request) {   //request의 헤더에 토큰값이 있음
+    public ResponseEntity<? extends BasicResponse> findUser() {   //request의 헤더에 토큰값이 있음
         // SecurityContext에서 인증받은 회원의 정보를 얻어온다.
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        //System.out.println("authentication은 : " + authentication);
-        String id = authentication.getName();   //id는 해당 userId이다.
-        System.out.println("결과: 회원 단건조회를 위한 id=" + id);
+        String id = authentication.getName();   //userId
+        //System.out.println("결과: 회원 단건조회를 위한 id=" + id);
+
+
 
         User user = userService.findByUser(id);
         return ResponseEntity.ok().body(new CommonResponse<User>(user));
 
-        // 결과데이터가 단일건인경우 getSingleResult를 이용해서 결과를 출력한다
+
     }
 
 
@@ -165,8 +147,7 @@ public class UserController {
             @ApiParam(value = "회원id", required = true) @RequestBody String userId){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String id = authentication.getName();   //id는 해당 userId이다.
-        //String id = jwtTokenProvider.getUserPk(jwtTokenProvider.resolveToken(request));
-        //System.out.println("결과: 회원id=" + id);
+
 
         User member= userService.findByUser(id);
         userRepository.delete(member);
