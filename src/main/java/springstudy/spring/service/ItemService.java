@@ -4,8 +4,12 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import springstudy.spring.domain.Item;
+
+import java.lang.invoke.CallSite;
 import java.util.List;
-import springstudy.spring.dto.ItemDto;
+
+import springstudy.spring.domain.ItemPhoto;
+import springstudy.spring.domain.ItemPhotoRepository;
 import springstudy.spring.repository.ItemRepository;
 import java.util.ArrayList;
 
@@ -13,13 +17,11 @@ import java.util.ArrayList;
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class ItemService {
-
-
     private final ItemRepository itemRepository;
-
     // Create
     @Transactional
     public void saveItem(Item item){
+        List<String> itemOptions  = new ArrayList<>();
         itemRepository.save(item);
     } // 매개변수에 Item을 넣는 것과 ItemDto를 넣는 것이 차이?
 

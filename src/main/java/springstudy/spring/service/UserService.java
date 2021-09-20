@@ -68,16 +68,16 @@ public class UserService {
     //회원가입
     public String signUp(UserJoinDto userJoinDto) {
 
-            User user = User.builder()
-                    .userId(userJoinDto.getUserId())
-                    .userPassword(passwordEncoder.encode(userJoinDto.getUserPassword()))
-                    .userName(userJoinDto.getUserName())
-                    .userPhone(userJoinDto.getUserPhone())
-                    .roles(Collections.singletonList("ROLE_USER")) // 최초 가입시 USER 로 설정
-                    .build();
+        User user = User.builder()
+                .userId(userJoinDto.getUserId())
+                .userPassword(passwordEncoder.encode(userJoinDto.getUserPassword()))
+                .userName(userJoinDto.getUserName())
+                .userPhone(userJoinDto.getUserPhone())
+                .roles(Collections.singletonList("ROLE_USER")) // 최초 가입시 USER 로 설정
+                .build();
 
-            userRepository.save(user);
-            return user.getUserId();
+        userRepository.save(user);
+        return user.getUserId();
 
 
     }

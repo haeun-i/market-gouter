@@ -20,9 +20,9 @@ public class Item {
 
     private String itemName;
 
-    @Lob
-    @Column(length = 100000)
-    private byte[] itemImage;
+    @OneToMany(mappedBy = "item", cascade = {CascadeType.PERSIST, CascadeType.REMOVE},
+            orphanRemoval = true)
+    private List<ItemPhoto> photos = new ArrayList<>();
 
     private int itemQuantity;
 
@@ -41,9 +41,8 @@ public class Item {
 
     private String itemDescription;
 
-
-    @ElementCollection
-    private List<String> itemOptions = new ArrayList<>();
+    @OneToMany(mappedBy = "item", cascade = CascadeType.ALL)
+    private List<ItemOption> itemOptions = new ArrayList<>();
 
     @OneToMany(mappedBy = "item", fetch = FetchType.LAZY)
     private List<OrderItem> orderItems = new ArrayList<>();
@@ -65,5 +64,56 @@ public class Item {
             throw new NotEnoughStockException("need more stock!");
         }
         this.itemQuantity = restStock;
+    }
+
+    public void addItemPhoto(ItemPhoto itemPhoto) {
+        photos.add(itemPhoto);
+        itemPhoto.setItem(this);
+    }
+    public void addItemOption(ItemOption itemOption){
+        itemOptions.add(itemOption);
+        itemOption.setItem(this);
+    }
+
+    public void addItemCart(Cart cart){
+        carts.add(cart);
+        cart.setItem(this);
+    }
+
+    public void addOrderItem(OrderItem orderItem) {
+        orderItems.add(orderItem);
+        orderItem.setItem(this);
+    }
+    public void addItemQuestion(ItemQuestion itemQuestion){
+        itemQuestions.add(itemQuestion);
+        itemQuestion.setItem(this);
+    }
+
+    public void createItem(String name, List<ItemPhoto> photos, int quantity, List<Cart> carts, CategoryItem category, String from, String intro, int price, String description,
+                           List<ItemOption> options, List<OrderItem> orderItems, List<ItemQuestion> itemQuestions){
+        Item item = new Item();
+        item.setItemName(name);
+        item.setItemQuantity(quantity);
+        item.setItemCategory(category);
+        item.setItemFrom(from);
+        item.setItemPrice(price);
+        item.setItemDescription(description);
+
+        for(ItemPhoto photo: photos){
+            item.addItemPhoto(photo);
+        }
+        for(Cart cart : carts){
+            item.addItemCart(cart);
+        }
+        for (ItemOption option : options){
+            item.addItemOption(option);
+        }
+        for (OrderItem orderItem : orderItems) {
+            item.addOrderItem(orderItem);
+        }
+        for(ItemQuestion itemQuestion : itemQuestions){
+            item.addItemQuestion(itemQuestion);
+        }
+
     }
 }
