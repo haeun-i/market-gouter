@@ -47,20 +47,20 @@ public class UserService {
 //        //return userRepository.deleteByUserId(userId);
 //    }
 
-//    //회원수정
-//    public User modify(String id,UserJoinDto dto){
-//
-//        User member=findByUser(dto.getUserId());
-//
-//        //이름, 폰번호, 패스워드 수정
-//        member.setUserName(dto.getUserName());
-//        member.setUserPhone(dto.getUserPhone());
-//        member.setUserPassword(passwordEncoder.encode(dto.getUserPassword()));
-//
-//        userRepository.save(member);
-//        return member;
-//
-//    }
+    //회원수정
+    public User modify(String id,UserJoinDto dto){
+
+        User member=findByUser(dto.getUserId());
+
+        //이름, 폰번호, 패스워드 수정
+        member.setUserName(dto.getUserName());
+        member.setUserPhone(dto.getUserPhone());
+        member.setUserPassword(passwordEncoder.encode(dto.getUserPassword()));
+
+        userRepository.save(member);
+        return member;
+
+    }
 
 
 
@@ -68,16 +68,16 @@ public class UserService {
     //회원가입
     public String signUp(UserJoinDto userJoinDto) {
 
-            User user = User.builder()
-                    .userId(userJoinDto.getUserId())
-                    .userPassword(passwordEncoder.encode(userJoinDto.getUserPassword()))
-                    .userName(userJoinDto.getUserName())
-                    .userPhone(userJoinDto.getUserPhone())
-                    .roles(Collections.singletonList("ROLE_USER")) // 최초 가입시 USER 로 설정
-                    .build();
+        User user = User.builder()
+                .userId(userJoinDto.getUserId())
+                .userPassword(passwordEncoder.encode(userJoinDto.getUserPassword()))
+                .userName(userJoinDto.getUserName())
+                .userPhone(userJoinDto.getUserPhone())
+                .roles(Collections.singletonList("ROLE_USER")) // 최초 가입시 USER 로 설정
+                .build();
 
-            userRepository.save(user);
-            return user.getUserId();
+        userRepository.save(user);
+        return user.getUserId();
 
 
     }
