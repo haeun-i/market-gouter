@@ -78,22 +78,22 @@ public class UserController {
 
 
     //로그인 된 userId의 dto로 '회원정보 수정'
-    //유효한 jwt 토큰을 설정해야만 user 리소스를 사용할 수 있음 -> 헤더 설정
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "X-AUTH-TOKEN", value = "로그인 성공 후 access_token", required = true, dataType = "String", paramType = "header")
-    })
-    @ApiOperation(value = "회원수정", notes = "userId로 회원정보 수정")
-    @PutMapping(value = "/user")
-    public ResponseEntity<? extends BasicResponse> modifyUser(
-            //@ApiParam(value="회원id", required = true) @RequestBody String userId,
-            @RequestBody UserJoinDto dto)
-    {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String id = authentication.getName();
-
-        userService.modify(id,dto);
-        return ResponseEntity.ok().body(new CommonResponse<String>("수정 성공"));
-    }
+//    //유효한 jwt 토큰을 설정해야만 user 리소스를 사용할 수 있음 -> 헤더 설정
+//    @ApiImplicitParams({
+//            @ApiImplicitParam(name = "X-AUTH-TOKEN", value = "로그인 성공 후 access_token", required = true, dataType = "String", paramType = "header")
+//    })
+//    @ApiOperation(value = "회원수정", notes = "userId로 회원정보 수정")
+//    @PutMapping(value = "/user")
+//    public ResponseEntity<? extends BasicResponse> modifyUser(
+//            //@ApiParam(value="회원id", required = true) @RequestBody String userId,
+//            @RequestBody UserJoinDto dto)
+//    {
+//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//        String id = authentication.getName();
+//
+//        userService.modify(id, dto);
+//        return ResponseEntity.ok().body(new CommonResponse<String>("수정 성공"));
+//    }
 
 
 

@@ -8,6 +8,7 @@ import springstudy.spring.domain.CategoryRecipe;
 import springstudy.spring.domain.Recipe;
 import springstudy.spring.domain.User;
 import springstudy.spring.repository.RecipeRepository;
+import springstudy.spring.repository.UserRepository;
 
 import java.util.List;
 
@@ -18,6 +19,7 @@ public class RecipeService {
 
 //    @Autowired   // 필드 주입, setter injection 등으로 바꿀수도 있다.
     private final RecipeRepository recipeRepository;
+    private final UserRepository userRepository;
 
     //Autowired 대신 생성자 주입
     // 필요한 기능들
@@ -27,16 +29,14 @@ public class RecipeService {
     //        this.recipeRepository = recipeRepository;
     //    }
     @Transactional  // 읽기전용이 아닌 쓰기도 허용하므로
-    public Long join(Long id){
+    public Long join(Long userNum, String content, int date, CategoryRecipe category){
         // 유저 정보 추가 해야함
         // 유저 id find로 찾아야함
-        User user = new User();
+        User user = userRepository.findByUserNum(userNum);
 
-        String content = "contents!!";
-        int date = 826;
-        CategoryRecipe categoryRecipe = new CategoryRecipe();
         // 레시피 상태
-        Recipe recipe = Recipe.CreateRecipe(content, date, categoryRecipe, user);   // content, date, cate, user
+        Recipe recipe = Recipe.CreateRecipe(content, date, category, user);   // content, date, cate, user
+        //String content, int date, CategoryRecipe category, User user
         recipeRepository.save(recipe);
 
         return recipe.getId();
@@ -53,7 +53,7 @@ public class RecipeService {
     }
 
     // 레시피 검색(상세) - 하나만 검색
-    public Recipe findone(Long recipeID){
+    public Recipe findOne(Long recipeID){
         return recipeRepository.findById(recipeID);
     }
 

@@ -45,22 +45,22 @@ public class UserService {
 //        //return userRepository.deleteByUserId(userId);
 //    }
 
-    //회원수정
-    public void modify(String id,UserJoinDto dto){
-
-        User member=findByUser(dto.getUserId());
-        // ***** 패스워드값 확인 부분 ****
-        if(!passwordEncoder.matches(password, member.getPassword())){
-            throw new IllegalArgumentException("패스워드가 맞지 않습니다.");
-        }
-
-    //이름, 폰번호, 패스워드 수정
-        member.setUserName(dto.getUserName());
-        member.setUserPhone(dto.getUserPhone());
-        member.setUserPassword(passwordEncoder.encode(dto.getUserPassword()));
-
-        userRepository.save(member);
-    }
+//    //회원수정
+//    public void modify(String id,UserJoinDto dto){
+//
+//        User member=findByUser(dto.getUserId());
+//        // ***** 패스워드값 확인 부분 ****
+//        if(!passwordEncoder.matches(password, member.getPassword())){
+//            throw new IllegalArgumentException("패스워드가 맞지 않습니다.");
+//        }
+//
+//    //이름, 폰번호, 패스워드 수정
+//        member.setUserName(dto.getUserName());
+//        member.setUserPhone(dto.getUserPhone());
+//        member.setUserPassword(passwordEncoder.encode(dto.getUserPassword()));
+//
+//        userRepository.save(member);
+//    }
 
 
 
