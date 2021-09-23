@@ -22,4 +22,9 @@ public class CommentService {
         Comment comment = commentRepository.findById(commentId);
         comment.cancel();
     }
+
+    public Comment findComment(Long commentId)
+    {
+        return commentRepository.findById(commentId);
+    }
 }
