@@ -33,7 +33,7 @@ public class ItemController {
     } // 넘어가는 itemList들의 속성을 html에서 어떻게 사용하는지 가이드라인 작성 필요
 
     /* Create */
-    @GetMapping("/item/write")
+    @GetMapping("/item/post")
     public String postItem(){
         return "items/postItem";
     } // item 작성 페이지로 이동하기
