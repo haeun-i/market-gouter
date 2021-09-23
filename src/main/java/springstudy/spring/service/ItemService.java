@@ -3,30 +3,34 @@ package springstudy.spring.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import springstudy.spring.domain.Item;
-
-import java.lang.invoke.CallSite;
-import java.util.List;
-
-import springstudy.spring.domain.ItemPhoto;
-import springstudy.spring.domain.ItemPhotoRepository;
-import springstudy.spring.repository.ItemRepository;
-import springstudy.spring.repository.PhotoRepository;
+import springstudy.spring.domain.*;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import springstudy.spring.repository.*;
 
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class ItemService {
     private final ItemRepository itemRepository;
+    private final ItemPhotoRepository itemPhotoRepository;
+    private final CategoryItemRepository categoryItemRepository;
+    private final ItemOptionRepository itemOptionRepository;
     // Create
     @Transactional
-    public void saveItem(String name, Long photoId, int quantity, Long cartId, Long categoryId, String from, String intro, int price,
-                         String description, Long optionId, Long orderItemId, Long itemQuestionId){
-        ItemPhoto itemPhoto = ItemPhotoRepository.findOne(photoId);
+    public Long saveItem(String name, Long photoId, int quantity, Long categoryId, String from, String intro, int price,
+                         String description, Long optionId){
+        List<ItemPhoto> itemPhotos = itemPhotoRepository.findAll(photoId);
+        CategoryItem categoryItem = categoryItemRepository.findOne(categoryId);
+        List<ItemOption> itemOptions = itemOptionRepository.findAll(optionId);
 
+        Item item = new Item();
+        item.createItem(name, itemPhotos, quantity, categoryItem, from, intro, price, description, itemOptions);
         itemRepository.save(item);
+
+        return item.getId();
     } // 매개변수에 Item을 넣는 것과 ItemDto를 넣는 것이 차이?
 
     // Update
