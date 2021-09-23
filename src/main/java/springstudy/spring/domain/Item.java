@@ -89,13 +89,14 @@ public class Item {
         itemQuestion.setItem(this);
     }
 
-    public void createItem(String name, List<ItemPhoto> photos, int quantity, List<Cart> carts, CategoryItem category, String from, String intro, int price, String description,
-                           List<ItemOption> options, List<OrderItem> orderItems, List<ItemQuestion> itemQuestions){
+    public Item createItem(String name, List<ItemPhoto> photos, int quantity, CategoryItem category, String from, String intro, int price, String description,
+                           List<ItemOption> options){
         Item item = new Item();
         item.setItemName(name);
         item.setItemQuantity(quantity);
         item.setItemCategory(category);
         item.setItemFrom(from);
+        item.setItemIntro(intro);
         item.setItemPrice(price);
         item.setItemDescription(description);
 
@@ -108,12 +109,9 @@ public class Item {
         for (ItemOption option : options){
             item.addItemOption(option);
         }
-        for (OrderItem orderItem : orderItems) {
-            item.addOrderItem(orderItem);
-        }
         for(ItemQuestion itemQuestion : itemQuestions){
             item.addItemQuestion(itemQuestion);
         }
-
+        return item;
     }
 }

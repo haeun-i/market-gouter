@@ -40,9 +40,8 @@ public class ItemPhoto {
         this.item = item;
 
         // 게시글에 현재 파일이 존재하지 않는다면
-        if (!item.getPhoto().contains(this))
+        if (!item.getPhotos().contains(this))
             // 파일 추가
-            item.getPhoto().add(this);
+            item.getPhotos().add(this);
     }
-
 }
