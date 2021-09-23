@@ -11,6 +11,8 @@ import java.util.List;
 import springstudy.spring.domain.ItemPhoto;
 import springstudy.spring.domain.ItemPhotoRepository;
 import springstudy.spring.repository.ItemRepository;
+import springstudy.spring.repository.PhotoRepository;
+
 import java.util.ArrayList;
 
 @Service
@@ -20,10 +22,10 @@ public class ItemService {
     private final ItemRepository itemRepository;
     // Create
     @Transactional
-    public void saveItem(Item item){
+    public void saveItem(String name, Long photoId, int quantity, Long cartId, Long categoryId, String from, String intro, int price,
+                         String description, Long optionId, Long orderItemId, Long itemQuestionId){
+        ItemPhoto itemPhoto = ItemPhotoRepository.findOne(photoId);
 
-
-        List<String> itemOptions  = new ArrayList<>();
         itemRepository.save(item);
     } // 매개변수에 Item을 넣는 것과 ItemDto를 넣는 것이 차이?
 

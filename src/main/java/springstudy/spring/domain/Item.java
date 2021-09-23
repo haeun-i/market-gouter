@@ -89,13 +89,14 @@ public class Item {
         itemQuestion.setItem(this);
     }
 
-    public static Item createItem(String name, List<ItemPhoto> photos, int quantity, List<Cart> carts, CategoryItem category, String from, String intro, int price, String description,
+    public Item createItem(String name, List<ItemPhoto> photos, int quantity, List<Cart> carts, CategoryItem category, String from, String intro, int price, String description,
                            List<ItemOption> options, List<OrderItem> orderItems, List<ItemQuestion> itemQuestions){
         Item item = new Item();
         item.setItemName(name);
         item.setItemQuantity(quantity);
         item.setItemCategory(category);
         item.setItemFrom(from);
+        item.setItemIntro(intro);
         item.setItemPrice(price);
         item.setItemDescription(description);
 
