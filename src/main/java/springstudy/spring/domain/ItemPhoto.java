@@ -5,7 +5,7 @@ import lombok.*;
 import javax.persistence.*;
 
 @Entity
-@Builder
+//@Builder
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
 @Table(name = "ItemPhoto")
 @Getter @Setter

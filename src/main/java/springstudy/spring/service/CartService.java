@@ -1,6 +1,7 @@
 package springstudy.spring.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import springstudy.spring.domain.Cart;
@@ -20,6 +21,8 @@ import java.util.Optional;
 public class CartService {
     private final UserRepository userRepository;
     private final ItemRepository itemRepository;
+
+    @Autowired
     private final CartRepository cartRepository;
 
     @Transactional
@@ -49,8 +52,8 @@ public class CartService {
     @Transactional
     public void deleteCart(Long cartId) { cartRepository.delete(cartId); }
 
-    public List<Cart> findCarts(Long userNum){
-        return cartRepository.findAll(userNum);
+    public List<Cart> findCarts(User user){
+        return cartRepository.findAll(user);
     }
 
     public Cart findCart(Long cartId){

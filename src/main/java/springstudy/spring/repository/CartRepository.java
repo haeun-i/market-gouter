@@ -3,6 +3,7 @@ package springstudy.spring.repository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import springstudy.spring.domain.Cart;
+import springstudy.spring.domain.User;
 
 import javax.persistence.EntityManager;
 import java.util.List;
@@ -20,10 +21,10 @@ public class CartRepository {
         return em.find(Cart.class, id);
     }
 
-    public List<Cart> findAll(Long usernum){
-        return em.createQuery("select c from Cart c where c.user_num = :user_num",
+    public List<Cart> findAll(User user){
+        return em.createQuery("select c from Cart c where c.user = :userNum",
                 Cart.class)
-                .setParameter("user_num", usernum)
+                .setParameter("userNum", user)
                 .getResultList();
     }
 
