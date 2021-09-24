@@ -41,7 +41,7 @@ public class RecipeController {
 
     @GetMapping("/recipe")        // 레시피 검색
     public String searchRecipe(@RequestParam("recipeId") Long recipeId){
-        recipeService.findone(recipeId);
+        recipeService.findOne(recipeId);
         return "recipes/details";
     }
 
