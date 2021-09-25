@@ -18,12 +18,12 @@ public class UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
-    //userNum으로 회원전체 찾기
+    //userNum으로 단건회원 찾기
     public User findByNum(Long userNum){
         return userRepository.findByUserNum(userNum);
     }
 
-    //userId로 회원전체 찾기
+    //userId로 단건회원 찾기
     public User findByUser(String userId){
         return userRepository.findByUserId(userId);
     }
@@ -38,14 +38,7 @@ public class UserService {
 
 
 
-//    회원탈퇴
-//
-//    public void deleteUser(String id) {
-//
-//        User user = findByUser(id);
-//        this.userRepository.delete(user);
-//        //return userRepository.deleteByUserId(userId);
-//    }
+
 
     //회원수정
     public User modify(String id,UserJoinDto dto){
@@ -66,7 +59,7 @@ public class UserService {
 
 
     //회원가입
-    public String signUp(UserJoinDto userJoinDto) {
+    public User signUp(UserJoinDto userJoinDto) {
 
         User user = User.builder()
                 .userId(userJoinDto.getUserId())
@@ -77,7 +70,7 @@ public class UserService {
                 .build();
 
         userRepository.save(user);
-        return user.getUserId();
+        return user;
 
 
     }
