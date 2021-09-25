@@ -28,6 +28,7 @@ import java.net.URI;
 
 
 @Api(tags="1. User")
+@RequestMapping(value="users")
 @RequiredArgsConstructor
 @RestController
 public class UserController {
@@ -42,16 +43,17 @@ public class UserController {
     @PostMapping("/join")
     public ResponseEntity<? extends BasicResponse> join(@Valid @RequestBody UserJoinDto userJoinDto) {
 
-        String user=userService.signUp(userJoinDto);
+        //String user=userService.signUp(userJoinDto);
 
         if(userService.duplictionId(userJoinDto.getUserId())){   //중복된 id
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body(new ErrorResponse("중복된 id입니다."));
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(new ErrorResponse("중복된 id입니다."));
         }
         else {
-            User newUser = userService.findByUser(user);
-            //return ResponseEntity.created(URI.create("/user")).body(new CommonResponse<User>(newUser));
-            return ResponseEntity.ok().body(new CommonResponse<String>("회원가입 성공"));
+            //User newUser = userService.findByUser(user);
+            User user=userService.signUp(userJoinDto);
+            //return ResponseEntity.status(HttpStatus.CREATED).body(new CommonResponse<User>(user));
+            return ResponseEntity.created(URI.create("/users/member")).build();//.body(new CommonResponse<User>(user));
+            //return ResponseEntity.ok().body(new CommonResponse<String>("회원가입 성공"));
         }
 
     }
@@ -89,26 +91,27 @@ public class UserController {
             @ApiImplicitParam(name = "X-AUTH-TOKEN", value = "로그인 성공 후 access_token", required = true, dataType = "String", paramType = "header")
     })
     @ApiOperation(value = "회원수정", notes = "userId 외의 회원정보 수정")
-    @PutMapping(value = "/user/{userId}")
+    @PutMapping(value = "/modify")
     public ResponseEntity<? extends BasicResponse> modifyUser(
             //@ApiParam(value="기존 비밀번호", required = true)@RequestParam String password,
             @RequestBody UserJoinDto dto)
     {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String id = authentication.getName();
+        User saveUser = userService.findByUser(id);
 
-//        User member=userService.findByUser(id);
-//        System.out.println("기존 pw:"+password+"새로 정한 pw: "+member.getUserPassword());
-//
-//        if (!(passwordEncoder.matches(password,member.getUserPassword()))) {  //본인확인 pw로 재확인
-//            throw new IllegalArgumentException("비밀번호를 정확하게 입력해주세요.");
-//        }
-//        userService.modify(id,dto,password);
+        if(saveUser == null){
+            System.out.println("유저 없음");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(new ErrorResponse("일치하는 회원이 아닙니다."));
+        }
+
         User user = userService.modify(id,dto);
-        //System.out.println("수정 후의 pw: " + user.getUserPassword()); //해싱한 값
 
         return ResponseEntity.ok().body(new CommonResponse<User>(user));
     }
+
+
 
 
 
@@ -122,19 +125,15 @@ public class UserController {
             @ApiImplicitParam(name = "X-AUTH-TOKEN", value = "로그인 성공 후 access_token", required = true, dataType = "String", paramType = "header")
     })
     @ApiOperation(value = "회원 단건 조회", notes = "토큰에서 가져온 id로 회원을 조회한다")
-    @GetMapping(value = "/user")
-    public ResponseEntity<? extends BasicResponse> findUser() {   //request의 헤더에 토큰값이 있음
+    @GetMapping(value = "/member")
+    public ResponseEntity<? extends BasicResponse> findUser() {
         // SecurityContext에서 인증받은 회원의 정보를 얻어온다.
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String id = authentication.getName();   //userId
-        //System.out.println("결과: 회원 단건조회를 위한 id=" + id);
-
-
-
         User user = userService.findByUser(id);
-        return ResponseEntity.ok().body(new CommonResponse<User>(user));
 
+        return ResponseEntity.ok().body(new CommonResponse<User>(user));
 
     }
 
@@ -144,15 +143,13 @@ public class UserController {
             @ApiImplicitParam(name = "X-AUTH-TOKEN", value = "로그인 성공 후 access_token", required = true, dataType = "String", paramType = "header")
     })
     @ApiOperation(value = "회원 삭제", notes = "회원 id로 회원정보 삭제")
-    @DeleteMapping(value = "/user/{userId}")
-    public ResponseEntity<User> delete(
-            @ApiParam(value = "회원id", required = true) @RequestBody String userId){
+    @DeleteMapping(value = "/delete")
+    public ResponseEntity<User> delete(){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String id = authentication.getName();   //id는 해당 userId이다.
 
-
-        User member= userService.findByUser(id);
-        userRepository.delete(member);
+        User user= userService.findByUser(id);
+        userRepository.delete(user);
         SecurityContextHolder.clearContext(); //로그아웃처리
         return ResponseEntity.ok().build();
 
