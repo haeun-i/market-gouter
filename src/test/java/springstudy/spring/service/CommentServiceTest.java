@@ -6,6 +6,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 import springstudy.spring.domain.Comment;
 import springstudy.spring.domain.CommentStatus;
+import springstudy.spring.domain.Recipe;
+import springstudy.spring.domain.User;
 import springstudy.spring.repository.CommentRepository;
 import javax.persistence.EntityManager;
 
@@ -19,25 +21,31 @@ class CommentServiceTest {
     @Autowired CommentService commentService;
     @Autowired
     CommentRepository commentRepository;
+    @Autowired
+    UserService userService;
+    @Autowired
+    RecipeService recipeService;
+
 
     @Test
     public void 댓글작성() throws Exception{
-        Comment comment = new Comment();
+        User user = userService.findByNum(2L);
+        String content = "wow";
+        int date = 20;
+        Recipe recipe = recipeService.findOne(10L);
+        Comment comment = Comment.createComment(content, date, recipe, user);
         Long commentId = commentService.join(comment);
         Comment comment1 = commentRepository.findById(commentId);
         assertEquals(CommentStatus.COMMENT, comment1.getStatus());
     }
 
     public void 댓글삭제() throws Exception{
-        Comment comment = new Comment();
+        Comment comment = commentService.findComment(5L);
         Long commentId = commentService.join(comment);
-
-        //eee
 
         commentService.cancelComment(commentId);
         Comment comment1 = commentRepository.findById(commentId);
         assertEquals(CommentStatus.CANCEL, comment1.getStatus());
-
     }
 
 }
