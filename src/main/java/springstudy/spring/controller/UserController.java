@@ -43,17 +43,17 @@ public class UserController {
     @PostMapping("/join")
     public ResponseEntity<? extends BasicResponse> join(@Valid @RequestBody UserJoinDto userJoinDto) {
 
-        //String user=userService.signUp(userJoinDto);
+
 
         if(userService.duplictionId(userJoinDto.getUserId())){   //중복된 id
             return ResponseEntity.status(HttpStatus.CONFLICT).body(new ErrorResponse("중복된 id입니다."));
         }
         else {
-            //User newUser = userService.findByUser(user);
+
             User user=userService.signUp(userJoinDto);
             //return ResponseEntity.status(HttpStatus.CREATED).body(new CommonResponse<User>(user));
             return ResponseEntity.created(URI.create("/users/member")).build();//.body(new CommonResponse<User>(user));
-            //return ResponseEntity.ok().body(new CommonResponse<String>("회원가입 성공"));
+
         }
 
     }
@@ -85,6 +85,7 @@ public class UserController {
 
 
     //로그인 된 userId의 dto로 '회원정보 수정'
+
     //유효한 jwt 토큰을 설정해야만 user 리소스를 사용할 수 있음 -> 헤더 설정
     @ApiImplicitParams({
             @ApiImplicitParam(name = "X-AUTH-TOKEN", value = "로그인 성공 후 access_token", required = true, dataType = "String", paramType = "header")
@@ -109,6 +110,7 @@ public class UserController {
 
         return ResponseEntity.ok().body(new CommonResponse<User>(user));
     }
+
 
 
 

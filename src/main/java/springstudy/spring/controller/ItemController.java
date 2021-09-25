@@ -40,8 +40,9 @@ public class ItemController {
 
     // 작성 값 넘겨주기
     @PostMapping("/item/write")
-    public String writeItem(Item item){
-        itemService.saveItem(item);
+    public String writeItem(String name, Long photoId, int quantity, Long categoryId, String from, String intro, int price,
+                            String description, Long optionId){
+        itemService.saveItem(name, photoId, quantity, categoryId, from, intro, price, description, optionId);
         return "redirect:/";
     }
 

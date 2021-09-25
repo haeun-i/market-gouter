@@ -22,59 +22,43 @@ class RecipeServiceTest {
     @Autowired RecipeService recipeService;
     @Autowired
     RecipeRepository recipeRepository;
+    @Autowired
+    UserService userService;
     @Test
     public void 레시피추가() throws Exception{
-        User user = new User();
-        //user.setUserId();
-        em.persist(user);
+        //given
+        User user = userService.findByNum(2L);
 
         CategoryRecipe categoryRecipe = new CategoryRecipe();
         categoryRecipe.setCategory_name("meat");
-        em.persist(categoryRecipe);
+        categoryRecipe.setId(100L);
 
-        Recipe recipe = new Recipe();
-        recipe.setId(10000L);
-        recipe.setName("sausage");
-        recipe.setRecipe_content("소세지 야채 볶음은 이렇다!");
-        recipe.setRecipe_date(826);
-        recipe.setCategoryRecipe(categoryRecipe);
-        recipe.setUser(user);
-        em.persist(recipe);
+        //CreateRecipe(String content, int date, CategoryRecipe category, User user
+        String content = "recipe contents!";
+        int date = 26;
 
         // when
-        Long id = 1000L;       // 유저 아이디로 세팅해야함
-        Long recipeId = recipeService.join(id);
+        // public Long join(Long userNum, String content, int date, CategoryRecipe category
+        Long recipeId = recipeService.join(user.getUserNum(), content, date, categoryRecipe);
 
         // then
         Recipe recipe1 = recipeRepository.findById(recipeId);    // setID 부분 채워야함
 
         assertEquals(RecipeStatus.RECIPE, recipe1.getStatus()); // 기댓값, 실제 상태가 같냐?
+        System.out.println("recipe의 카테고리는");
+        System.out.println(recipe1.getCategory_recipe());
     }
 
-    @Test      // 먼저 주문을 하고 취소를 해얗ㅁ
+    @Test
     public void 레시피삭제() throws Exception{
-        User user = new User();
-        //user.setUserId();
 
-        CategoryRecipe categoryRecipe = new CategoryRecipe();
-        categoryRecipe.setCategory_name("meat");
+        //레시피 아이디가 20인 것 생성 후 삭제 확인 가능
+        Recipe getRecipe = recipeRepository.findById(20L);
+        Long recipeID = getRecipe.getId();
 
-        Recipe recipe = new Recipe();
-        recipe.setId(10000L);
-        recipe.setName("sausage");
-        recipe.setRecipe_content("소세지 야채 볶음은 이렇다!");
-        recipe.setRecipe_date(826);
-        recipe.setCategoryRecipe(categoryRecipe);
-        recipe.setUser(user);
-
-        Long id = 1000L;       // 유저 아이디로 세팅해야함
-        Long recipeId = recipeService.join(id);
-        //when
-        recipeService.cancelRecipe(recipeId);
-
-        Recipe recipe1 = recipeRepository.findById(recipeId);
-
-        assertEquals(RecipeStatus.CANCEL, recipe1.getStatus());
+        recipeService.cancelRecipe(recipeID);
+        // 상태가 cancel로 동일해야함
+        assertEquals(RecipeStatus.CANCEL, getRecipe.getStatus());
 
     }
 
