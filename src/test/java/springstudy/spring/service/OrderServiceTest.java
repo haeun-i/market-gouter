@@ -37,7 +37,8 @@ class OrderServiceTest {
         Address address = new Address("서울", "강가", "123-123");
 
         //When
-        Long orderId = orderService.createOrder(user.getUserNum(), cartIdList, address,1L);
+        Order order = orderService.createOrder(user.getUserNum(), cartIdList, address,1L);
+        Long orderId = order.getId();
 
         //Then
         Order getOrder = orderRepository.findOne(orderId);

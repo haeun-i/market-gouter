@@ -38,6 +38,7 @@ public class OrderItem {
         orderItem.setItem(item);
         orderItem.setCount(count);
         orderItem.setOption(option);
+        orderItem.setOrderItem_total_price(item.getItemPrice() * count);
         item.removeStock(count);
 
         return orderItem;

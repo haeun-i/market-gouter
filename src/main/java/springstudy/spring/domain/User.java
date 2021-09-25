@@ -1,6 +1,7 @@
 package springstudy.spring.domain;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -63,10 +64,12 @@ public class User implements UserDetails {
 
     //(하은)양방향 -> 수정 OneToMany와 ManyToOne 관계
     @OneToMany(mappedBy="user", cascade = CascadeType.ALL)
+    @JsonBackReference
     private List<Cart> carts = new ArrayList<>();
 
     //(하은)
     @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
+    @JsonBackReference
     private List<Order> orders = new ArrayList<>();
 
     //(유성님 )

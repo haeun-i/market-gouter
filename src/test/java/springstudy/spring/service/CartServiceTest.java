@@ -40,13 +40,14 @@ class CartServiceTest {
     @Rollback(false)
     public void 상품추가() throws Exception {
         //Given
-        User user = userService.findByNum(2L);
+        User user = userService.findByNum(1L);
         Item item = itemService.getItem(1L);
         String option = "100g";
         int count = 3;
 
         //When
-        Long cartId = cartService.addCart(user.getUserNum(), item.getId(), option, count);
+        Cart cart = cartService.addCart(user.getUserNum(), item.getId(), option, count);
+        Long cartId = cart.getCartId();
 
         //Then
         Cart getCart = cartRepository.findOne(cartId);
@@ -80,7 +81,7 @@ class CartServiceTest {
     @Rollback(false)
     public void 상품수량변경() {
         //Given
-        Cart cart = cartService.findCart(10L);
+        Cart cart = cartService.findCart(21L);
         // 이게 디비에 있는 카트를 기준으로 확인해보려고
         // ID에 그냥 DB에 있는 카트 아이디 아무거나 찾아서 넣었습니다
         // 나중에 진짜 서비스에서는 아이디 가져와서 넣어서 쓰면 될 것 같아요!
