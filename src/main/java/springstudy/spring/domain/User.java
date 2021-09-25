@@ -69,6 +69,7 @@ public class User implements UserDetails {
 
     //(하은)
     @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
+    @JsonBackReference
     private List<Order> orders = new ArrayList<>();
 
     //(유성님 )

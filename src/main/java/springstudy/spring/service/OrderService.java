@@ -5,6 +5,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import springstudy.spring.domain.*;
+import springstudy.spring.dto.CartDto;
+import springstudy.spring.dto.OrderDto;
 import springstudy.spring.repository.CartRepository;
 import springstudy.spring.repository.OrderRepository;
 import springstudy.spring.repository.PaymentRepository;
@@ -25,7 +27,7 @@ public class OrderService {
     private final PaymentRepository paymentRepository;
 
     @Transactional
-    public Long createOrder(Long userNum, Long[] cartIdList, Address address, Long payId) {
+    public Order createOrder(Long userNum, Long[] cartIdList, Address address, Long payId) {
 
         User user = userRepository.findByUserNum(userNum);
         List<OrderItem> orderItems = new ArrayList<>();
@@ -46,7 +48,7 @@ public class OrderService {
         Order order = Order.createOrder(user, address, payment, orderItems);
         orderRepository.save(order);
 
-        return order.getId();
+        return order;
     }
 
     @Transactional
@@ -57,9 +59,10 @@ public class OrderService {
     }
 
     @Transactional
-    public void cancelOrder(Long orderId) {
+    public Order cancelOrder(Long orderId) {
         Order order = orderRepository.findOne(orderId);
         order.cancelOrder();
+        return order;
     }
 
     public void modifyOrderAddress(Long orderId, String city, String street, String zipcode){
@@ -76,8 +79,14 @@ public class OrderService {
     }
 
 
-    public List<Order> findOrders(User user){
-        return orderRepository.findAll(user);
+    public List<OrderDto> findOrders(User user){
+        List<Order> orders = orderRepository.findAll(user);
+        List<OrderDto> orderDtos = new ArrayList<>();
+        for(Order order : orders) {
+            OrderDto response = new OrderDto(order);
+            orderDtos.add(response);
+        }
+        return orderDtos;
     }
 
     public Order findOrder(Long orderId){
