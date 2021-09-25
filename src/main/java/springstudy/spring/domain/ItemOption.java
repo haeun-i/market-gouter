@@ -22,7 +22,7 @@ public class ItemOption {
     @JoinColumn(name = "item_id")
     private Item item;
 
-    public static ItemOption createItemOption(Item item, String name, Long stock){
+    public ItemOption createItemOption(Item item, String name, Long stock){
         ItemOption itemOption = new ItemOption();
         itemOption.setName(name);
         itemOption.setStock(stock);

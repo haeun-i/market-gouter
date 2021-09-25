@@ -13,6 +13,10 @@ import java.util.List;
 public class ItemOptionRepository{
     private final EntityManager em;
 
+    public void save(ItemOption itemOption){
+        em.persist(itemOption);
+    }
+
     public ItemOption findOne(Long id){
         return em.find(ItemOption.class, id);
     }
