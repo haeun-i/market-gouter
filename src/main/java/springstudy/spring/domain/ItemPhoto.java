@@ -5,7 +5,7 @@ import lombok.*;
 import javax.persistence.*;
 
 @Entity
-@Builder
+//@Builder
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
 @Table(name = "ItemPhoto")
 @Getter @Setter
@@ -39,10 +39,10 @@ public class ItemPhoto {
     public void setItem(Item item) {
         this.item = item;
 
-        // 게시글에 현재 파일이 존재하지 않는다면
-        if (!item.getPhoto().contains(this))
+         //게시글에 현재 파일이 존재하지 않는다면
+        if (!item.getPhotos().contains(this))
             // 파일 추가
-            item.getPhoto().add(this);
+            item.getPhotos().add(this);
     }
 
 }
