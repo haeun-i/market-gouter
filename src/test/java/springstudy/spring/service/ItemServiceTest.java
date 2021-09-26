@@ -81,7 +81,7 @@ public class ItemServiceTest {
     }
 
     @Test
-    public void deleteItem() {
+    public void 아이템삭제() {
         Long itemId = 2L;
         itemService.deleteItem(itemId);
     }
