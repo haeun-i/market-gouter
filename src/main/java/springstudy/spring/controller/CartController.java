@@ -13,12 +13,15 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 import springstudy.spring.domain.Cart;
+import springstudy.spring.domain.Item;
 import springstudy.spring.domain.OrderItem;
 import springstudy.spring.domain.User;
 import springstudy.spring.dto.CartDto;
 import springstudy.spring.exception.BasicResponse;
 import springstudy.spring.exception.CommonResponse;
+import springstudy.spring.exception.ErrorResponse;
 import springstudy.spring.service.CartService;
+import springstudy.spring.service.ItemService;
 import springstudy.spring.service.UserService;
 
 
@@ -71,9 +74,18 @@ public class CartController {
     })
     public ResponseEntity<? extends BasicResponse> ModifyCartOpt(@RequestParam("cartId") Long cartId,
                                 @RequestParam("option") String option) {
-        Cart cart = cartService.modifyCartOption(cartId, option);
-        CartDto response = new CartDto(cart);
-        return ResponseEntity.ok().body(new CommonResponse<CartDto>(response));
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String id = authentication.getName();
+        User user = userService.findByUser(id);
+        Cart cart_check = cartService.findCart(cartId);
+        if(cart_check.getUser() != user){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(new ErrorResponse("삭제 권한이 없는 사용자입니다."));
+        }else{
+            Cart cart = cartService.modifyCartOption(cartId, option);
+            CartDto response = new CartDto(cart);
+            return ResponseEntity.ok().body(new CommonResponse<CartDto>(response));
+        }
     }
 
     @PutMapping(value = "/cart/count") // 장바구니 수량 수정
@@ -83,9 +95,18 @@ public class CartController {
     })
     public ResponseEntity<? extends BasicResponse> ModifyCartCount(@RequestParam("cartId") Long cartId,
                                   @RequestParam("count") int count) {
-        Cart cart = cartService.modifyCartCount(cartId, count);
-        CartDto response = new CartDto(cart);
-        return ResponseEntity.ok().body(new CommonResponse<CartDto>(response));
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String id = authentication.getName();
+        User user = userService.findByUser(id);
+        Cart cart_check = cartService.findCart(cartId);
+        if(cart_check.getUser() != user){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(new ErrorResponse("삭제 권한이 없는 사용자입니다."));
+        }else{
+            Cart cart = cartService.modifyCartCount(cartId, count);
+            CartDto response = new CartDto(cart);
+            return ResponseEntity.ok().body(new CommonResponse<CartDto>(response));
+        }
     }
 
     @PostMapping(value = "/cart/cancel") // 장바구니 삭제
@@ -94,8 +115,19 @@ public class CartController {
             @ApiImplicitParam(name = "X-AUTH-TOKEN", required = true, dataType = "String", paramType = "header")
     })
     ResponseEntity<? extends BasicResponse> cancelOrder(@RequestParam("cartId") Long cartId) {
-        cartService.deleteCart(cartId);
-        return ResponseEntity.ok().body(new CommonResponse<String>("delete success"));
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String id = authentication.getName();
+        User user = userService.findByUser(id);
+        Cart cart = cartService.findCart(cartId);
+
+        if(cart.getUser() != user){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(new ErrorResponse("삭제 권한이 없는 사용자입니다."));
+        }
+        else{
+            cartService.deleteCart(cartId);
+            return ResponseEntity.ok().body(new CommonResponse<String>("delete success"));
+        }
     }
 
 }

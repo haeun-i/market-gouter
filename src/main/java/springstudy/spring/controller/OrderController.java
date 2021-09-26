@@ -3,6 +3,7 @@ package springstudy.spring.controller;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -14,6 +15,7 @@ import springstudy.spring.dto.CartDto;
 import springstudy.spring.dto.OrderDto;
 import springstudy.spring.exception.BasicResponse;
 import springstudy.spring.exception.CommonResponse;
+import springstudy.spring.exception.ErrorResponse;
 import springstudy.spring.service.CartService;
 
 import springstudy.spring.service.OrderService;
@@ -72,8 +74,18 @@ public class OrderController {
             @ApiImplicitParam(name = "X-AUTH-TOKEN", required = true, dataType = "String", paramType = "header")
     })
     public ResponseEntity<? extends BasicResponse> deleteOrder(@PathVariable("orderId") Long orderId) {
-        orderService.deleteOrder(orderId);
-        return ResponseEntity.ok().body(new CommonResponse<String>("delete success"));
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String id = authentication.getName();
+        User user = userService.findByUser(id);
+        Order order = orderService.findOrder(orderId);
+
+        if(order.getUser() != user){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(new ErrorResponse("삭제 권한이 없는 사용자입니다."));
+        }else{
+            orderService.deleteOrder(orderId);
+            return ResponseEntity.ok().body(new CommonResponse<String>("delete success"));
+        }
     }
 
     @PostMapping(value = "/orders/{orderId}/cancel") // 주문 취소
@@ -82,7 +94,17 @@ public class OrderController {
             @ApiImplicitParam(name = "X-AUTH-TOKEN", required = true, dataType = "String", paramType = "header")
     })
     public ResponseEntity<? extends BasicResponse> cancelOrder(@PathVariable("orderId") Long orderId) {
-        Order order = orderService.cancelOrder(orderId);
-        return ResponseEntity.ok().body(new CommonResponse<OrderStatus>(order.getOrderStatus()));
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String id = authentication.getName();
+        User user = userService.findByUser(id);
+        Order order = orderService.findOrder(orderId);
+
+        if(order.getUser() != user){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(new ErrorResponse("삭제 권한이 없는 사용자입니다."));
+        }else{
+            orderService.cancelOrder(orderId);
+            return ResponseEntity.ok().body(new CommonResponse<String>("delete success"));
+        }
     }
 }
