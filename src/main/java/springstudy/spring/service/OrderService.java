@@ -76,6 +76,7 @@ public class OrderService {
         // 변경감지 적용되는지 테스트 필요 -> 트랜잭션 추가
         Order order = findOrder(orderId);
         order.setDeliveryStatus(DeliveryStatus.COMP);
+        orderRepository.save(order);
     }
 
 
