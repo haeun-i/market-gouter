@@ -66,6 +66,9 @@ public class Item {
         this.itemQuantity = restStock;
     }
 
+    @Enumerated(EnumType.STRING)
+    private ItemStatus status;
+
     public void addItemPhoto(ItemPhoto itemPhoto) {
         photos.add(itemPhoto);
         itemPhoto.setItem(this);
@@ -84,6 +87,7 @@ public class Item {
         orderItems.add(orderItem);
         orderItem.setItem(this);
     }
+
     public void addItemQuestion(ItemQuestion itemQuestion){
         itemQuestions.add(itemQuestion);
         itemQuestion.setItem(this);
@@ -113,5 +117,9 @@ public class Item {
             item.addItemQuestion(itemQuestion);
         }
         return item;
+    }
+
+    public void cancel(){
+        this.setStatus(ItemStatus.CANCEL);
     }
 }

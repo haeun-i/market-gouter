@@ -3,6 +3,7 @@ package springstudy.spring.repository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import springstudy.spring.domain.Item;
+import springstudy.spring.domain.ItemStatus;
 import springstudy.spring.domain.Order;
 
 import javax.persistence.EntityManager;
@@ -14,6 +15,7 @@ public class ItemRepository {
         private final EntityManager em;
 
         public Long save(Item item){
+            item.setStatus(ItemStatus.ITEM);
             em.persist(item);
             return item.getId();
         }
