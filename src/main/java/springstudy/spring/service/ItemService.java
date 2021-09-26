@@ -36,6 +36,13 @@ public class ItemService {
     @Transactional
     public void updateItem(Long itemId, Item item){
         Item findItem = itemRepository.findOne(itemId);
+        findItem.setItemName(item.getItemName());
+        findItem.setItemPrice(item.getItemPrice());
+        findItem.setItemCategory(item.getItemCategory());
+        findItem.setItemDescription(item.getItemDescription());
+        findItem.setItemIntro(item.getItemIntro());
+        findItem.setItemFrom(item.getItemFrom());
+        findItem.setItemQuantity(item.getItemQuantity());
 
     }
 
@@ -55,5 +62,6 @@ public class ItemService {
     public void deleteItem(Long id){
         Item findItem = itemRepository.findOne(id);
         itemRepository.delete(findItem);
+        findItem.cancel();
     }
 }

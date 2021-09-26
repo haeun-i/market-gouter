@@ -1,15 +1,13 @@
 package springstudy.spring.service;
 
+import com.sun.istack.Nullable;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
-import springstudy.spring.domain.CategoryItem;
-import springstudy.spring.domain.Item;
-import springstudy.spring.domain.ItemOption;
-import springstudy.spring.domain.ItemPhoto;
+import springstudy.spring.domain.*;
 import springstudy.spring.repository.ItemRepository;
 
 import javax.persistence.EntityManager;
@@ -28,6 +26,7 @@ public class ItemServiceTest {
     @Autowired CategoryItemService categoryItemService;
     @Autowired ItemOptionService itemOptionService;
     @Autowired EntityManager em;
+    @Autowired ItemRepository itemRepository;
 
     @Test
     public void 아이템등록() throws Exception {
@@ -36,7 +35,8 @@ public class ItemServiceTest {
 //        List<ItemPhoto> itemPhotoList = itemPhotoService.getItemPhotos(1L);
         Long photoId = 1L;
         int quantity = 10;
-        CategoryItem categoryItem = categoryItemService.findOne(1L);
+        Long categoryId = 1L;
+//        CategoryItem categoryItem = categoryItemService.findOne(1L);
         String from = "국산";
         String intro = "간편 단호박의 단호한 간편함 (400g)";
         int price = 4300;
@@ -45,20 +45,44 @@ public class ItemServiceTest {
         Long optionId = 1L;
 
         //when
-
+        Long itemId = itemService.createItem(name, photoId, quantity, categoryId, from, intro, price, description, optionId );
 
         //then
+        Item item = itemRepository.findOne(itemId);
+        assertEquals( ItemStatus.ITEM,  item.getStatus());
+        System.out.println("Item의 카테고리는" + item.getItemCategory());
     }
 
     @Test
-    public void updateItem() {
+    public void 아이템수정() {
+        //Given
+        Long itemId = 1L;
+        Item findItem = itemRepository.findOne(itemId);
+
+        String name = "수정된 아이템 이름";
+        String description = "수정된 아이템 설명";
+        int price = 6000;
+
+        //When
+        findItem.setItemName(name);
+        findItem.setItemDescription(description);
+        findItem.setItemPrice(price);
+
+        // Then
+        itemService.updateItem(itemId, findItem);
     }
 
     @Test
-    public void findItems() {
+    public void 아이템조회() {
+        Long itemId = 2L;
+        Item item = itemService.getItem(itemId);
+        System.out.println("찾은 Item의 이름은" + item.getItemName());
+        System.out.println("찾은 Item의 가격은" + item.getItemPrice());
     }
 
     @Test
-    public void deleteItem() {
+    public void 아이템삭제() {
+        Long itemId = 2L;
+        itemService.deleteItem(itemId);
     }
 }
