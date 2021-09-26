@@ -101,7 +101,7 @@ class OrderServiceTest {
     @Rollback(false)
     public void 배달상태수정() {
         //Given
-        Order getOrder = orderService.findOrder(14L);
+        Order getOrder = orderService.findOrder(35L);
         Long orderId = getOrder.getId();
 
         //When

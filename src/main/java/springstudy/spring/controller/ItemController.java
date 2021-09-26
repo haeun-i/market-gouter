@@ -41,7 +41,7 @@ public class ItemController {
     @PostMapping("/item/write")
     public String writeItem(String name, Long photoId, int quantity, Long categoryId, String from, String intro, int price,
                             String description, Long optionId){
-        itemService.saveItem(name, photoId, quantity, categoryId, from, intro, price, description, optionId);
+        itemService.createItem(name, photoId, quantity, categoryId, from, intro, price, description, optionId);
         return "redirect:/";
     }
 

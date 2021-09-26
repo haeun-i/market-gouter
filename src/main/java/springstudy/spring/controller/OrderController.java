@@ -107,4 +107,16 @@ public class OrderController {
             return ResponseEntity.ok().body(new CommonResponse<String>("delete success"));
         }
     }
+
+    @PostMapping(value = "/orders/{orderId}/delivery") // 배송한 상태로 수정
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "X-AUTH-TOKEN", required = true, dataType = "String", paramType = "header")
+    })
+    public ResponseEntity<? extends BasicResponse> modifyDelivery(@PathVariable("orderId") Long orderId) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String id = authentication.getName();
+        User user = userService.findByUser(id);
+        orderService.modifyDeliveryStatus(orderId);
+        return ResponseEntity.ok().body(new CommonResponse<String>("delivery started"));
+    }
 }
