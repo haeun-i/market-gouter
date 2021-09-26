@@ -45,7 +45,8 @@ public class ItemServiceTest {
         Long optionId = 1L;
 
         //when
-        Long ItemId = itemService.createItem(name, itemPhotoList)
+
+
         //then
     }
 
