@@ -43,17 +43,15 @@ public class UserController {
     @PostMapping("/join")
     public ResponseEntity<? extends BasicResponse> join(@Valid @RequestBody UserJoinDto userJoinDto) {
 
-        //String user=userService.signUp(userJoinDto);
+
 
         if(userService.duplictionId(userJoinDto.getUserId())){   //중복된 id
             return ResponseEntity.status(HttpStatus.CONFLICT).body(new ErrorResponse("중복된 id입니다."));
         }
         else {
-            //User newUser = userService.findByUser(user);
+
             User user=userService.signUp(userJoinDto);
-            //return ResponseEntity.status(HttpStatus.CREATED).body(new CommonResponse<User>(user));
-            return ResponseEntity.created(URI.create("/users/member")).build();//.body(new CommonResponse<User>(user));
-            //return ResponseEntity.ok().body(new CommonResponse<String>("회원가입 성공"));
+            return ResponseEntity.created(URI.create("/users/member")).build();
         }
 
     }
@@ -93,7 +91,6 @@ public class UserController {
     @ApiOperation(value = "회원수정", notes = "userId 외의 회원정보 수정")
     @PutMapping(value = "/modify")
     public ResponseEntity<? extends BasicResponse> modifyUser(
-            //@ApiParam(value="기존 비밀번호", required = true)@RequestParam String password,
             @RequestBody UserJoinDto dto)
     {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -106,13 +103,10 @@ public class UserController {
                     .body(new ErrorResponse("일치하는 회원이 아닙니다."));
         }
 
-        User user = userService.modify(id,dto);
+        User user = this.userService.modify(id,dto);
 
         return ResponseEntity.ok().body(new CommonResponse<User>(user));
     }
-
-
-
 
 
 
