@@ -51,9 +51,7 @@ public class UserController {
         else {
 
             User user=userService.signUp(userJoinDto);
-            //return ResponseEntity.status(HttpStatus.CREATED).body(new CommonResponse<User>(user));
-            return ResponseEntity.created(URI.create("/users/member")).build();//.body(new CommonResponse<User>(user));
-
+            return ResponseEntity.created(URI.create("/users/member")).build();
         }
 
     }
@@ -93,7 +91,6 @@ public class UserController {
     @ApiOperation(value = "회원수정", notes = "userId 외의 회원정보 수정")
     @PutMapping(value = "/modify")
     public ResponseEntity<? extends BasicResponse> modifyUser(
-            //@ApiParam(value="기존 비밀번호", required = true)@RequestParam String password,
             @RequestBody UserJoinDto dto)
     {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -106,7 +103,7 @@ public class UserController {
                     .body(new ErrorResponse("일치하는 회원이 아닙니다."));
         }
 
-        User user = userService.modify(id,dto);
+        User user = this.userService.modify(id,dto);
 
         return ResponseEntity.ok().body(new CommonResponse<User>(user));
     }

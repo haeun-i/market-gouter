@@ -1,6 +1,7 @@
 package springstudy.spring.domain;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -29,25 +30,20 @@ public class User implements UserDetails {
     @Column(name = "user_id", nullable = false, unique = true)
     private String userId;
 
+    @Column(name = "user_name", nullable = false)
     private String userName;
 
 
     @Column(nullable = false)
     private String userPassword;
 
-
+    @Column(name = "user_phone", nullable = false)
     private String userPhone;
 
-    //2번(수정)
-//    @Embedded //내장타입으로 매핑
-//    private Address userAddress;
 
 
-    //4번 수정 -> OneToOne 같은 경우에 그대로 필드를 가져다 씀, 그 외에 list타입으로
-    //우선 전체적으로 양방향으로 가정하고 쓰기
-    //(다빈)양방향
-    @OneToMany(mappedBy = "user")
-    private List<UserQuestion> userQuestions = new ArrayList<>();
+
+
 
     //(유성)
     @OneToMany(mappedBy="user",cascade = CascadeType.ALL)
@@ -63,10 +59,12 @@ public class User implements UserDetails {
 
     //(하은)양방향 -> 수정 OneToMany와 ManyToOne 관계
     @OneToMany(mappedBy="user", cascade = CascadeType.ALL)
+    @JsonBackReference
     private List<Cart> carts = new ArrayList<>();
 
     //(하은)
     @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
+    @JsonBackReference
     private List<Order> orders = new ArrayList<>();
 
     //(유성님 )
