@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import springstudy.spring.domain.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import springstudy.spring.repository.*;
@@ -20,7 +19,7 @@ public class ItemService {
     private final ItemOptionRepository itemOptionRepository;
     // Create
     @Transactional
-    public Long saveItem(String name, Long photoId, int quantity, Long categoryId, String from, String intro, int price,
+    public Long createItem(String name, Long photoId, int quantity, Long categoryId, String from, String intro, int price,
                          String description, Long optionId){
         List<ItemPhoto> itemPhotos = itemPhotoRepository.findAll(photoId);
         CategoryItem categoryItem = categoryItemRepository.findOne(categoryId);

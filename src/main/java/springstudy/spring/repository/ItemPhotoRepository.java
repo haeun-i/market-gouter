@@ -22,8 +22,8 @@ public class ItemPhotoRepository {
     }
 
     public List<ItemPhoto> findAll(Long id) {
-        return em.createQuery("select i from ItemPhoto i where i.item_photo_id = :item_photo_id", ItemPhoto.class)
-                .setParameter("item_photo_id",id)
+        return em.createQuery("select i from ItemPhoto i where i.item_id = :item_id", ItemPhoto.class)
+                .setParameter("item_id",id)
                 .getResultList();
     }
 
