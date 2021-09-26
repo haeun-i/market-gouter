@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import springstudy.spring.domain.Item;
 import springstudy.spring.domain.ItemQuestion;
-import springstudy.spring.dto.ItemDto;
 import springstudy.spring.service.ItemQuestionService;
 import springstudy.spring.service.ItemService;
 
