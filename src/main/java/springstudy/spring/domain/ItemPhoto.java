@@ -16,7 +16,7 @@ public class ItemPhoto {
     private Long id;
 
     // item과의 FK
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "item_id")
     private Item item;
 
@@ -38,10 +38,7 @@ public class ItemPhoto {
     // Item 정보 저장
     public void setItem(Item item) {
         this.item = item;
-
-
          //게시글에 현재 파일이 존재하지 않는다면
-
         if (!item.getPhotos().contains(this))
             // 파일 추가
             item.getPhotos().add(this);

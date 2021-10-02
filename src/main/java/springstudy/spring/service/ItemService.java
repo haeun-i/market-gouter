@@ -38,7 +38,7 @@ public class ItemService {
         Item findItem = itemRepository.findOne(itemId);
         findItem.setItemName(item.getItemName());
         findItem.setItemPrice(item.getItemPrice());
-        findItem.setItemCategory(item.getItemCategory());
+        findItem.setCategoryItem(item.getCategoryItem());
         findItem.setItemDescription(item.getItemDescription());
         findItem.setItemIntro(item.getItemIntro());
         findItem.setItemFrom(item.getItemFrom());

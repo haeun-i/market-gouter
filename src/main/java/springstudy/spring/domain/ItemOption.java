@@ -10,7 +10,7 @@ import javax.persistence.*;
 public class ItemOption {
     @Id
     @GeneratedValue
-    @Column(name = "id")
+    @Column(name = "option_id")
     private Long id;
 
     @Column(name = "item_option_name")
@@ -22,7 +22,7 @@ public class ItemOption {
     @JoinColumn(name = "item_id")
     private Item item;
 
-    public ItemOption createItemOption(Item item, String name, Long stock){
+    public static ItemOption createItemOption(Item item, String name, Long stock){
         ItemOption itemOption = new ItemOption();
         itemOption.setName(name);
         itemOption.setStock(stock);
