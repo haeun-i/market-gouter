@@ -50,7 +50,8 @@ public class ItemServiceTest {
         //then
         Item item = itemRepository.findOne(itemId);
         assertEquals( ItemStatus.ITEM,  item.getStatus());
-        System.out.println("Item의 카테고리는" + item.getItemCategory());
+        System.out.println("Item의 옵션은" + item.getItemOptions());
+        System.out.println("Item의 카테고리는" + item.getCategoryItem());
     }
 
     @Test
@@ -74,10 +75,11 @@ public class ItemServiceTest {
 
     @Test
     public void 아이템조회() {
-        Long itemId = 2L;
+        Long itemId = 1L;
         Item item = itemService.getItem(itemId);
         System.out.println("찾은 Item의 이름은" + item.getItemName());
         System.out.println("찾은 Item의 가격은" + item.getItemPrice());
+        System.out.println("찾은 Item의 옵션은" + item.getItemOptions());
     }
 
     @Test
