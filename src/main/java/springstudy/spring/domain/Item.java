@@ -20,8 +20,9 @@ public class Item {
 
     private String itemName;
 
-    @OneToMany(mappedBy = "item", cascade = {CascadeType.PERSIST, CascadeType.REMOVE},
-            orphanRemoval = true)
+//    @OneToMany(mappedBy = "item", cascade = {CascadeType.PERSIST, CascadeType.REMOVE},
+//            orphanRemoval = true)
+    @OneToMany(mappedBy = "item", cascade = CascadeType.ALL)
     private List<ItemPhoto> photos = new ArrayList<>();
 
     private int itemQuantity;
@@ -29,9 +30,11 @@ public class Item {
     @OneToMany(mappedBy = "item")
     private List<Cart> carts = new ArrayList<>();
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "category_id")
-    private CategoryItem itemCategory;
+    @OneToOne(mappedBy = "item")
+    private CategoryItem categoryItem;
+
+//    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+//    private CategoryItem itemCategory;
 
     private String itemFrom;
 
@@ -78,27 +81,13 @@ public class Item {
         itemOption.setItem(this);
     }
 
-    public void addItemCart(Cart cart){
-        carts.add(cart);
-        cart.setItem(this);
-    }
-
-    public void addOrderItem(OrderItem orderItem) {
-        orderItems.add(orderItem);
-        orderItem.setItem(this);
-    }
-
-    public void addItemQuestion(ItemQuestion itemQuestion){
-        itemQuestions.add(itemQuestion);
-        itemQuestion.setItem(this);
-    }
 
     public Item createItem(String name, List<ItemPhoto> photos, int quantity, CategoryItem category, String from, String intro, int price, String description,
                            List<ItemOption> options){
         Item item = new Item();
         item.setItemName(name);
         item.setItemQuantity(quantity);
-        item.setItemCategory(category);
+        item.setCategoryItem(category);
         item.setItemFrom(from);
         item.setItemIntro(intro);
         item.setItemPrice(price);
@@ -107,15 +96,10 @@ public class Item {
         for(ItemPhoto photo: photos){
             item.addItemPhoto(photo);
         }
-        for(Cart cart : carts){
-            item.addItemCart(cart);
-        }
         for (ItemOption option : options){
             item.addItemOption(option);
         }
-        for(ItemQuestion itemQuestion : itemQuestions){
-            item.addItemQuestion(itemQuestion);
-        }
+        this.setStatus(ItemStatus.ITEM);
         return item;
     }
 
