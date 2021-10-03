@@ -54,10 +54,10 @@ public class OrderController {
             @ApiImplicitParam(name = "X-AUTH-TOKEN", required = true, dataType = "String", paramType = "header")
     })
     public ResponseEntity<? extends BasicResponse> order(@RequestParam("cartIdList") Long[] cartIdList,
-                        @RequestParam("city") String city,
-                        @RequestParam("street") String street,
-                        @RequestParam("zipcode") String zipcode,
-                        @RequestParam("pay") Long payId) {
+                                                         @RequestParam("city") String city,
+                                                         @RequestParam("street") String street,
+                                                         @RequestParam("zipcode") String zipcode,
+                                                         @RequestParam("pay") Long payId) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String id = authentication.getName();
         User user = userService.findByUser(id);
@@ -108,7 +108,7 @@ public class OrderController {
         }
     }
 
-    @PostMapping(value = "/orders/{orderId}/delivery") // 배송한 상태로 수정
+    @PutMapping(value = "/orders/{orderId}/delivery") // 배송한 상태로 수정
     @ApiImplicitParams({
             @ApiImplicitParam(name = "X-AUTH-TOKEN", required = true, dataType = "String", paramType = "header")
     })
@@ -117,6 +117,9 @@ public class OrderController {
         String id = authentication.getName();
         User user = userService.findByUser(id);
         orderService.modifyDeliveryStatus(orderId);
-        return ResponseEntity.ok().body(new CommonResponse<String>("delivery started"));
+
+        Order order = orderService.findOrder(orderId);
+        System.out.println(order.getDeliveryStatus());
+        return ResponseEntity.ok().body(new CommonResponse<String>("ok"));
     }
 }

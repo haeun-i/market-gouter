@@ -70,6 +70,7 @@ public class UserService {
                 .roles(Collections.singletonList("ROLE_USER")) // 최초 가입시 USER 로 설정
                 .build();
 
+
         userRepository.save(user);
         return user;
 

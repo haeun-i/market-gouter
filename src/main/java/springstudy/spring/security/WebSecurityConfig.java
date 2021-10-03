@@ -39,9 +39,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS) // 토큰 기반 인증이므로 세션 역시 사용하지 않습니다.
                 .and()
                 .authorizeRequests() // 요청에 대한 사용권한 체크
-                //.antMatchers("/users/**").hasRole("ADMIN")
-                //.antMatchers("/orders/**").hasRole("USER")
-                .antMatchers("/users/member","/users/modify").hasRole("USER")
+                .antMatchers("/users/**").hasRole("ADMIN")
+                .antMatchers("/orders/**").hasRole("USER")
+                .antMatchers("/users/modify","/users/member").hasAnyRole("USER","ADMIN")
+                .antMatchers("/cart/**").hasRole("USER")
                 .antMatchers("/users/login","users/join").permitAll() // 그외 나머지 요청은 누구나 접근 가능
                 .anyRequest().permitAll()
                 .and()
