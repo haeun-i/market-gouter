@@ -24,7 +24,6 @@ public class ItemServiceTest {
     @Autowired ItemService itemService;
     @Autowired ItemPhotoService itemPhotoService;
     @Autowired CategoryItemService categoryItemService;
-    @Autowired ItemOptionService itemOptionService;
     @Autowired EntityManager em;
     @Autowired ItemRepository itemRepository;
 
@@ -50,7 +49,6 @@ public class ItemServiceTest {
         //then
         Item item = itemRepository.findOne(itemId);
         assertEquals( ItemStatus.ITEM,  item.getStatus());
-        System.out.println("Item의 옵션은" + item.getItemOptions());
         System.out.println("Item의 카테고리는" + item.getCategoryItem());
     }
 
@@ -73,13 +71,14 @@ public class ItemServiceTest {
         itemService.updateItem(itemId, findItem);
     }
 
+
+
     @Test
     public void 아이템조회() {
         Long itemId = 1L;
         Item item = itemService.getItem(itemId);
         System.out.println("찾은 Item의 이름은" + item.getItemName());
         System.out.println("찾은 Item의 가격은" + item.getItemPrice());
-        System.out.println("찾은 Item의 옵션은" + item.getItemOptions());
     }
 
     @Test
