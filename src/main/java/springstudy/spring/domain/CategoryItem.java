@@ -17,6 +17,7 @@ public class CategoryItem {
     private String categoryName;
 
     // category_item의 PK와 item 의 1 : 1 매핑
-    @OneToOne(mappedBy = "itemCategory")
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "item_id")
     private Item item;
 }

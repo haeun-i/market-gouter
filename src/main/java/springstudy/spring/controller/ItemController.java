@@ -4,10 +4,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.*;
 
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import springstudy.spring.domain.Item;
 import springstudy.spring.domain.ItemQuestion;
 import springstudy.spring.service.ItemQuestionService;
@@ -31,16 +29,16 @@ public class ItemController {
         return "items/list";
     } // 넘어가는 itemList들의 속성을 html에서 어떻게 사용하는지 가이드라인 작성 필요
 
-    /* Create */
-    @GetMapping("/item/post")
-    public String postItem(){
-        return "items/postItem";
-    } // item 작성 페이지로 이동하기
+//    /* Create */
+//    @GetMapping("/item/post")
+//    public String postItem(){
+//        return "items/postItem";
+//    } // item 작성 페이지로 이동하기
 
     // 작성 값 넘겨주기
-    @PostMapping("/item/write")
-    public String writeItem(String name, Long photoId, int quantity, Long categoryId, String from, String intro, int price,
-                            String description, Long optionId){
+    @RequestMapping(value = "/item/write", method = RequestMethod.POST)
+    public String writeItem(@RequestParam("name")String name, @RequestParam("photoId") Long photoId, @RequestParam("quantity") int quantity,@RequestParam("categoryId") Long categoryId, @RequestParam("from")String from, @RequestParam("intro")String intro, @RequestParam("price")int price,
+                            @RequestParam("description") String description, @RequestParam("optionId") Long optionId){
         itemService.createItem(name, photoId, quantity, categoryId, from, intro, price, description, optionId);
         return "redirect:/";
     }
