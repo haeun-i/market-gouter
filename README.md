@@ -8,5 +8,5 @@
 > Spring Boot 2.4.9 version  
 > Java 11  
 > Gradle Project  
-> Dependencies : MySQL, Lombok, Spring Web, Spring Data Jpa, Thymeleaf
+> Dependencies : MySQL, Lombok, Spring Web, Spring Data Jpa
 

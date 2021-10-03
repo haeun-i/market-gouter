@@ -9,6 +9,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
+import springfox.documentation.annotations.ApiIgnore;
 import springstudy.spring.domain.User;
 import springstudy.spring.dto.LoginDto;
 import springstudy.spring.dto.UserJoinDto;
@@ -16,9 +17,6 @@ import springstudy.spring.exception.BasicResponse;
 import springstudy.spring.exception.CommonResponse;
 import springstudy.spring.exception.ErrorResponse;
 import springstudy.spring.repository.UserRepository;
-import springstudy.spring.response.DefaultRes;
-import springstudy.spring.response.ResponseMessage;
-import springstudy.spring.response.StatusCode;
 import springstudy.spring.security.JwtTokenProvider;
 import springstudy.spring.service.UserService;
 
@@ -43,14 +41,11 @@ public class UserController {
     @PostMapping("/join")
     public ResponseEntity<? extends BasicResponse> join(@Valid @RequestBody UserJoinDto userJoinDto) {
 
-
-
         if(userService.duplictionId(userJoinDto.getUserId())){   //중복된 id
             return ResponseEntity.status(HttpStatus.CONFLICT).body(new ErrorResponse("중복된 id입니다."));
         }
         else {
-
-            User user=userService.signUp(userJoinDto);
+            userService.signUp(userJoinDto);
             return ResponseEntity.created(URI.create("/users/member")).build();
         }
 
@@ -72,7 +67,6 @@ public class UserController {
         } else {
             throw new IllegalArgumentException("가입되지 않은 ID 입니다.");
         }
-
         //정상적으로 토큰생성
         return jwtTokenProvider.createToken(member.getUsername(), member.getRoles());
     }
@@ -82,23 +76,25 @@ public class UserController {
 
 
 
-    //로그인 된 userId의 dto로 '회원정보 수정'
 
-    //유효한 jwt 토큰을 설정해야만 user 리소스를 사용할 수 있음 -> 헤더 설정
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "X-AUTH-TOKEN", value = "로그인 성공 후 access_token", required = true, dataType = "String", paramType = "header")
+            @ApiImplicitParam(name = "X-AUTH-TOKEN",
+                    value = "로그인 성공 후 access_token",
+                    required = true,
+                    dataType = "String",
+                    paramType = "header")
+
     })
-    @ApiOperation(value = "회원수정", notes = "userId 외의 회원정보 수정")
+    @ApiOperation(value = "회원수정", notes = "pw,name,phone 회원정보 수정")
     @PutMapping(value = "/modify")
-    public ResponseEntity<? extends BasicResponse> modifyUser(
-            @RequestBody UserJoinDto dto)
+    public ResponseEntity<? extends BasicResponse> modifyUser(@RequestBody UserJoinDto dto)
     {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String id = authentication.getName();
         User saveUser = userService.findByUser(id);
 
         if(saveUser == null){
-            System.out.println("유저 없음");
+            //System.out.println("유저 없음");
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body(new ErrorResponse("일치하는 회원이 아닙니다."));
         }
@@ -121,7 +117,7 @@ public class UserController {
     @ApiOperation(value = "회원 단건 조회", notes = "토큰에서 가져온 id로 회원을 조회한다")
     @GetMapping(value = "/member")
     public ResponseEntity<? extends BasicResponse> findUser() {
-        // SecurityContext에서 인증받은 회원의 정보를 얻어온다.
+
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String id = authentication.getName();   //userId

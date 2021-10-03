@@ -54,10 +54,10 @@ public class OrderController {
             @ApiImplicitParam(name = "X-AUTH-TOKEN", required = true, dataType = "String", paramType = "header")
     })
     public ResponseEntity<? extends BasicResponse> order(@RequestParam("cartIdList") Long[] cartIdList,
-                        @RequestParam("city") String city,
-                        @RequestParam("street") String street,
-                        @RequestParam("zipcode") String zipcode,
-                        @RequestParam("pay") Long payId) {
+                                                         @RequestParam("city") String city,
+                                                         @RequestParam("street") String street,
+                                                         @RequestParam("zipcode") String zipcode,
+                                                         @RequestParam("pay") Long payId) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String id = authentication.getName();
         User user = userService.findByUser(id);

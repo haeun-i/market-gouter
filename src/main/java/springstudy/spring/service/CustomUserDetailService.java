@@ -25,7 +25,7 @@ public class CustomUserDetailService implements UserDetailsService {
         if(user != null){
             return user;
         }
-        throw new UsernameNotFoundException("User '" + username );   //참조
+        throw new UsernameNotFoundException("User " + username );   //참조
     }
 
     public User findByNum(Long userNum) throws UsernameNotFoundException {

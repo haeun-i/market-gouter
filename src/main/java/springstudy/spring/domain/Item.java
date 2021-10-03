@@ -44,8 +44,6 @@ public class Item {
 
     private String itemDescription;
 
-    @OneToMany(mappedBy = "item", cascade = CascadeType.ALL)
-    private List<ItemOption> itemOptions = new ArrayList<>();
 
     @OneToMany(mappedBy = "item", fetch = FetchType.LAZY)
     private List<OrderItem> orderItems = new ArrayList<>();
@@ -76,14 +74,10 @@ public class Item {
         photos.add(itemPhoto);
         itemPhoto.setItem(this);
     }
-    public void addItemOption(ItemOption itemOption){
-        itemOptions.add(itemOption);
-        itemOption.setItem(this);
-    }
 
 
-    public Item createItem(String name, List<ItemPhoto> photos, int quantity, CategoryItem category, String from, String intro, int price, String description,
-                           List<ItemOption> options){
+    public Item createItem(String name, List<ItemPhoto> photos, int quantity, CategoryItem category, String from, String intro, int price, String description
+                           ){
         Item item = new Item();
         item.setItemName(name);
         item.setItemQuantity(quantity);
@@ -95,9 +89,6 @@ public class Item {
 
         for(ItemPhoto photo: photos){
             item.addItemPhoto(photo);
-        }
-        for (ItemOption option : options){
-            item.addItemOption(option);
         }
         this.setStatus(ItemStatus.ITEM);
         return item;
