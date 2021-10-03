@@ -21,7 +21,6 @@ public class OrderItemDto {
     OrderItemDto(OrderItem orderItem){
         orderItemId = orderItem.getId();
         itemName = orderItem.getItem().getItemName();
-        itemOption = orderItem.getOption();
         itemCount = orderItem.getCount();
         itemPrice = orderItem.getOrderItem_total_price();
     }

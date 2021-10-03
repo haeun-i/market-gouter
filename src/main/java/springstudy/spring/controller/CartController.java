@@ -68,31 +68,6 @@ public class CartController {
         }
     }
 
-    @PutMapping(value = "/cart/option") // 장바구니 옵션 수정
-    @ResponseBody
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "X-AUTH-TOKEN", required = true, dataType = "String", paramType = "header")
-    })
-    public ResponseEntity<? extends BasicResponse> ModifyCartOpt(@RequestParam("cartId") Long cartId,
-                                @RequestParam("option") String option) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String id = authentication.getName();
-        User user = userService.findByUser(id);
-        Cart cart_check = cartService.findCart(cartId);
-
-        Long itemId = cart_check.getItem().getId();
-//        List<ItemOption> itemOptions = itemOptionService.getItemOptions(item);
-        boolean optionCheck = false;
-//        for(ItemOption optionName : itemOptions){
-//            if(optionName.getName() == option)  optionCheck = true;
-//        }
->>>>>>> 53d8921749466ef55fa1e5a113b991c6e7ba8c61
-
-            CartDto response = new CartDto(cart);
-            return ResponseEntity.ok().body(new CommonResponse<CartDto>(response));
-        }
-    }
-
     @PutMapping(value = "/cart/count") // 장바구니 수량 수정
     @ResponseBody
     @ApiImplicitParams({
