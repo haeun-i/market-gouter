@@ -16,17 +16,15 @@ public class ItemService {
     private final ItemRepository itemRepository;
     private final ItemPhotoRepository itemPhotoRepository;
     private final CategoryItemRepository categoryItemRepository;
-    private final ItemOptionRepository itemOptionRepository;
     // Create
     @Transactional
     public Long createItem(String name, Long photoId, int quantity, Long categoryId, String from, String intro, int price,
                          String description, Long optionId){
         List<ItemPhoto> itemPhotos = itemPhotoRepository.findAll(photoId);
         CategoryItem categoryItem = categoryItemRepository.findOne(categoryId);
-        List<ItemOption> itemOptions = itemOptionRepository.findAll(optionId);
-
+//        List<ItemOption> itemOptions = itemOptionRepository.findAll();
         Item item = new Item();
-        item.createItem(name, itemPhotos, quantity, categoryItem, from, intro, price, description, itemOptions);
+        item.createItem(name, itemPhotos, quantity, categoryItem, from, intro, price, description);
         itemRepository.save(item);
 
         return item.getId();
@@ -47,7 +45,7 @@ public class ItemService {
     }
 
     // Read One
-    public Item getItem(Long itemId){  // builder 말고 set으로 수정
+    public Item getItem(Long itemId){
         return itemRepository.findOne(itemId);
     }
 

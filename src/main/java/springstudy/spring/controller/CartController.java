@@ -3,13 +3,11 @@ package springstudy.spring.controller;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 import springstudy.spring.domain.*;
@@ -18,12 +16,10 @@ import springstudy.spring.exception.BasicResponse;
 import springstudy.spring.exception.CommonResponse;
 import springstudy.spring.exception.ErrorResponse;
 import springstudy.spring.service.CartService;
-import springstudy.spring.service.ItemOptionService;
 import springstudy.spring.service.ItemService;
 import springstudy.spring.service.UserService;
 
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -62,7 +58,7 @@ public class CartController {
         String id = authentication.getName();
         User user = userService.findByUser(id);
         Item item = itemService.getItem(itemId);
-        List<ItemOption> itemOptions = itemOptionService.getItemOptions(itemId);
+        List<ItemOption> itemOptions = itemOptionService.getItemOptions(item);
         boolean optionCheck = false;
         for(ItemOption optionName : itemOptions){
             System.out.println(optionName.getName());
@@ -93,11 +89,11 @@ public class CartController {
         Cart cart_check = cartService.findCart(cartId);
 
         Long itemId = cart_check.getItem().getId();
-        List<ItemOption> itemOptions = itemOptionService.getItemOptions(itemId);
+//        List<ItemOption> itemOptions = itemOptionService.getItemOptions(item);
         boolean optionCheck = false;
-        for(ItemOption optionName : itemOptions){
-            if(optionName.getName() == option)  optionCheck = true;
-        }
+//        for(ItemOption optionName : itemOptions){
+//            if(optionName.getName() == option)  optionCheck = true;
+//        }
 
         if(cart_check.getUser() != user){
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
