@@ -35,10 +35,7 @@ public class Cart {
     @Column(name="cart_total_price")
     private int cartPrice;
 
-    @Column(name="cart_option")
-    private String cartOption;
-
-    public static Cart createCart(User user, Item item, String option, int count){
+    public static Cart createCart(User user, Item item, int count){
 
         Cart cart = new Cart();
         int price = item.getItemPrice() * count;
@@ -47,7 +44,6 @@ public class Cart {
         cart.setItem(item);
         cart.setCartCount(count);
         cart.setCartPrice(price);
-        cart.setCartOption(option);
 
         return cart;
     }

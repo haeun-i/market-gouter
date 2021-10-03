@@ -28,11 +28,11 @@ public class CartService {
     private final CartRepository cartRepository;
 
     @Transactional
-    public Cart addCart(Long userNum, Long itemId, String option, int count) {
+    public Cart addCart(Long userNum, Long itemId, int count) {
         User user = userRepository.findByUserNum(userNum);
         Item item = itemRepository.findOne(itemId);
 
-        Cart cart = Cart.createCart(user, item, option, count);
+        Cart cart = Cart.createCart(user, item, count);
 
         cartRepository.save(cart);
         return cart;
