@@ -20,9 +20,6 @@ public class OrderItem {
     @JoinColumn(name = "item_id")
     private Item item;
 
-    @Column(name = "item_option")
-    private String option;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "order_id")
     private Order order;
@@ -33,11 +30,10 @@ public class OrderItem {
     @Column(name="item_total_price")
     private int orderItem_total_price;
 
-    public static OrderItem createOrderItem(Item item, int count, String option){
+    public static OrderItem createOrderItem(Item item, int count){
         OrderItem orderItem = new OrderItem();
         orderItem.setItem(item);
         orderItem.setCount(count);
-        orderItem.setOption(option);
         orderItem.setOrderItem_total_price(item.getItemPrice() * count);
         item.removeStock(count);
 

@@ -28,11 +28,11 @@ public class CartService {
     private final CartRepository cartRepository;
 
     @Transactional
-    public Cart addCart(Long userNum, Long itemId, String option, int count) {
+    public Cart addCart(Long userNum, Long itemId, int count) {
         User user = userRepository.findByUserNum(userNum);
         Item item = itemRepository.findOne(itemId);
 
-        Cart cart = Cart.createCart(user, item, option, count);
+        Cart cart = Cart.createCart(user, item, count);
 
         cartRepository.save(cart);
         return cart;
@@ -44,15 +44,6 @@ public class CartService {
         cartRepository.save(cart);
         return cart;
     }
-
-    public Cart modifyCartOption(Long cartId, String option){
-        // 변경감지 적용되는지 테스트 필요 -> 트랜잭션 추가
-        Cart cart = findCart(cartId);
-        cart.setCartOption(option);
-        cartRepository.save(cart);
-        return cart;
-    }
-
 
     @Transactional
     public void deleteCart(Long cartId) { cartRepository.delete(cartId); }

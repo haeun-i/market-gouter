@@ -46,7 +46,7 @@ class CartServiceTest {
         int count = 3;
 
         //When
-        Cart cart = cartService.addCart(user.getUserNum(), item.getId(), option, count);
+        Cart cart = cartService.addCart(user.getUserNum(), item.getId(), count);
         Long cartId = cart.getCartId();
 
         //Then
@@ -54,7 +54,6 @@ class CartServiceTest {
         //System.out.println(getCart.getUser().getUsername());
         assertEquals(getCart.getUser().getUserId(), user.getUserId());
         assertEquals(getCart.getItem().getItemName(), item.getItemName());
-        assertEquals(getCart.getCartOption(), option);
         // option, 수량 확인 필요
         System.out.println("cart에 들어가있는 item의 수량은");
         System.out.println(getCart.getCartCount());

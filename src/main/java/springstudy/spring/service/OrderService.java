@@ -38,7 +38,7 @@ public class OrderService {
 
         for(Long cartId : cartIdList){
             Cart cart = cartRepository.findOne(cartId);
-            OrderItem orderItem = OrderItem.createOrderItem(cart.getItem(), cart.getCartCount(), cart.getCartOption());
+            OrderItem orderItem = OrderItem.createOrderItem(cart.getItem(), cart.getCartCount());
             orderItems.add(orderItem);
             price += cart.getCartPrice();
 

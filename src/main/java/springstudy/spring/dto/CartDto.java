@@ -23,6 +23,5 @@ public class CartDto {
 
         cartCount = cart.getCartCount();
         cartPrice = cart.getCartPrice();
-        cartOption = cart.getCartOption();
     }
 }

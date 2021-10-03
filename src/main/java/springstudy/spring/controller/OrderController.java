@@ -24,7 +24,7 @@ import springstudy.spring.service.UserService;
 
 
 import java.util.List;
-@Controller
+@RestController
 @RequiredArgsConstructor
 public class OrderController {
 
@@ -119,7 +119,7 @@ public class OrderController {
         orderService.modifyDeliveryStatus(orderId);
 
         Order order = orderService.findOrder(orderId);
-        System.out.println(order.getDeliveryStatus());
-        return ResponseEntity.ok().body(new CommonResponse<String>("ok"));
+        OrderDto orderdto = new OrderDto(order);
+        return ResponseEntity.ok().body(new CommonResponse<OrderDto>(orderdto));
     }
 }
