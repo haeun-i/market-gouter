@@ -11,6 +11,8 @@
 > Dependencies : MySQL, Lombok, Spring Web, Spring Data Jpa
 
 ### 담당 기능
+* 김하은[backend]
+:상품 주문, 장바구니 API 개발
 * 정다빈[backend]
 :로그인, 회원가입, 회원 수정, 회원탈퇴, 회원조회 API 개발
 
@@ -23,7 +25,6 @@
 <https://www.jetbrains.com/idea/>
 
 ![인텔리제이 첫 화면](https://user-images.githubusercontent.com/71184046/147047652-926bddd8-811e-4c14-9f6c-7f8d1f67520b.png)
-
 
 **2. 개발환경(Windows, macOS)에 맞춰 Community 버전 설치**
 
@@ -44,4 +45,11 @@
 **6. 설치 및 완료**
 
 <img src="https://user-images.githubusercontent.com/71184046/147051122-56d39fa0-36dd-4c2b-9a3a-c0d3f6518a79.png" width="450" height="350"/>
+
+<br/>
+
+### Intellij, jdk 연동
+<img width="556" alt="image" src="https://user-images.githubusercontent.com/76279010/147068817-39ee9d4c-14f3-4d98-9b4d-ddb763a0b4f1.png">
+File - Project Structure - 좌측 메뉴 중 project 접속 후 Project SDK에서 설치한 버전의 JDK를 선택하여 연동한다.<br/>
+만일 해당 옵션이 자동으로 생기지 않았을 경우 Project SDK의 선택창 아래에서 Add JDK 클릭 후 JDK 경로를 직접 선택/입력한다.
 
