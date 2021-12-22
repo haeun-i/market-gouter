@@ -48,6 +48,22 @@
 
 <br/>
 
+### Java 11 설치 방법
+
+**1. OS에 맞는 msi 파일 다운로드**
+https://aws.amazon.com/ko/corretto/
+
+**2. 환경변수 설정**
+> 제어판 - 시스템 및 보안 - 고급 시스템 설정 - 환경 변수 - 시스템 변수 - 새로 만들기
+![image](https://user-images.githubusercontent.com/67851124/147070110-13673c56-686f-46a0-ad98-0f40cb3af9f4.png)
+사진과 같이 시스템 변수 Path 값을 추가한다.
+
+**3. 정상 설치 확인**
+> java --version을 입력하여 Java가 정상적으로 설치 되었는지 확인한다. 
+ ![image](https://user-images.githubusercontent.com/67851124/147070693-021e5026-1680-49d1-b5d7-e7f5b38db78f.png)
+
+<br/>
+
 ### Intellij, jdk 연동
 <img width="556" alt="image" src="https://user-images.githubusercontent.com/76279010/147068817-39ee9d4c-14f3-4d98-9b4d-ddb763a0b4f1.png">
 File - Project Structure - 좌측 메뉴 중 project 접속 후 Project SDK에서 설치한 버전의 JDK를 선택하여 연동한다.<br/>
